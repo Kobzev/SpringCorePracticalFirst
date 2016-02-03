@@ -18,4 +18,10 @@ package ua.kobzev.theatre.service;
 
 public interface AuditoriumService {
 
+	void getAuditoriums();
+
+	int getSeatsNumber();
+
+	int getVipSeats();
+
 }

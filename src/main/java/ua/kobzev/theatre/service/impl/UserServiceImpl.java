@@ -2,8 +2,12 @@ package ua.kobzev.theatre.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.repository.UserRepository;
 import ua.kobzev.theatre.service.UserService;
 
 /**
@@ -12,36 +16,34 @@ import ua.kobzev.theatre.service.UserService;
  *
  */
 
+@Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
+	private UserRepository userRepository;
+
 	public boolean register(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		return userRepository.register(user);
 	}
 
 	public boolean remove(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		return userRepository.remove(user);
 	}
 
 	public User getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.getById(id);
 	}
 
 	public User getUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.getUserByEmail(email);
 	}
 
 	public List<User> getUsersByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.getUsersByName(name);
 	}
 
 	public List<Ticket> getBookedTickets(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.getBookedTickets(user);
 	}
 
 }

@@ -1,5 +1,11 @@
 package ua.kobzev.theatre.service;
 
+import java.util.Date;
+import java.util.List;
+
+import ua.kobzev.theatre.domain.Auditorium;
+import ua.kobzev.theatre.domain.Event;
+
 /**
  * 
  * @author kkobziev
@@ -20,5 +26,19 @@ package ua.kobzev.theatre.service;
  */
 
 public interface EventService {
+
+	boolean create(Event event);
+
+	boolean remove(Event event);
+
+	Event getByName(String name);
+
+	List<Event> getAll();
+
+	List<Event> getForDateRange(Date from, Date to);
+
+	List<Event> getNextEvents(Date to);
+
+	boolean assignAuditorium(Event event, Auditorium auditorium, Date date);
 
 }
