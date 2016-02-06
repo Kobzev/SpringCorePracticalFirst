@@ -1,5 +1,7 @@
 package ua.kobzev.theatre.domain;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,10 +15,12 @@ public class User {
 	private int id;
 	private String email;
 	private String name;
+	private Date birthDay;
 
-	public User(String email, String name) {
+	public User(String email, String name, Date birthDay) {
 		this.email = email;
 		this.name = name;
+		this.birthDay = birthDay;
 	}
 
 	public User() {
@@ -45,5 +49,13 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Date getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
 	}
 }

@@ -1,10 +1,12 @@
-package ua.kobzev.theatre.service.impl;
+package ua.kobzev.theatre.service;
 
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.UserRepository;
-import ua.kobzev.theatre.service.UserService;
+import ua.kobzev.theatre.service.impl.UserServiceImpl;
 
 /**
  * 
@@ -41,7 +43,7 @@ public class UserServiceTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		user = new User(EMAIL, NAME);
+		user = new User(EMAIL, NAME, new Date());
 		// when(userRepository.register(anyObject())).thenReturn(true);
 	}
 

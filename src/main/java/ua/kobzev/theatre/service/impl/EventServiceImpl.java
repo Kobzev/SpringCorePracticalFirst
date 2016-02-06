@@ -3,8 +3,11 @@ package ua.kobzev.theatre.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
+import ua.kobzev.theatre.repository.EventRepository;
 import ua.kobzev.theatre.service.EventService;
 
 /**
@@ -15,46 +18,42 @@ import ua.kobzev.theatre.service.EventService;
 
 public class EventServiceImpl implements EventService {
 
+	@Autowired
+	private EventRepository eventRepository;
+
 	@Override
 	public boolean create(Event event) {
-		// TODO Auto-generated method stub
-		return false;
+		return eventRepository.create(event);
 	}
 
 	@Override
 	public boolean remove(Event event) {
-		// TODO Auto-generated method stub
-		return false;
+		return eventRepository.remove(event);
 	}
 
 	@Override
 	public Event getByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return eventRepository.getByName(name);
 	}
 
 	@Override
 	public List<Event> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return eventRepository.getAll();
 	}
 
 	@Override
 	public List<Event> getForDateRange(Date from, Date to) {
-		// TODO Auto-generated method stub
-		return null;
+		return eventRepository.getForDateRange(from, to);
 	}
 
 	@Override
 	public List<Event> getNextEvents(Date to) {
-		// TODO Auto-generated method stub
-		return null;
+		return eventRepository.getNextEvents(to);
 	}
 
 	@Override
 	public boolean assignAuditorium(Event event, Auditorium auditorium, Date date) {
-		// TODO Auto-generated method stub
-		return false;
+		return eventRepository.assignAuditorium(event, auditorium, date);
 	}
 
 }

@@ -20,5 +20,10 @@ package ua.kobzev.theatre.service;
  */
 
 public interface DiscountService {
+	void getAuditoriums();
+
+	void getSeatsNumber();
+
+	void getVipSeats();
 
 }

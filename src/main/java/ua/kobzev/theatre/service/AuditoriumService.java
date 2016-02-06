@@ -1,5 +1,9 @@
 package ua.kobzev.theatre.service;
 
+import java.util.List;
+
+import ua.kobzev.theatre.domain.Auditorium;
+
 /**
  * 
  * @author kkobziev
@@ -18,7 +22,7 @@ package ua.kobzev.theatre.service;
 
 public interface AuditoriumService {
 
-	void getAuditoriums();
+	List<Auditorium> getAuditoriums();
 
 	int getSeatsNumber();
 

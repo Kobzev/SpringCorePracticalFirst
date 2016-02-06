@@ -8,11 +8,11 @@
 	<context:annotation-config/>
 	<context:component-scan base-package="ua.kobzev.theatre"/>
 	
-	<bean id="userRepository" class="ua.kobzev.theatre.repository.impl.inmemory.UserRepositoryImpl"/>
+	<bean id="userRepository" name = "userRepository" class="ua.kobzev.theatre.repository.impl.inmemory.UserRepositoryImpl"/>
 	<bean id="eventRepository" class="ua.kobzev.theatre.repository.impl.inmemory.EventRepositoryImpl"/>
 	
-	<import resource="classpath:discounts.xml"/>
-	<!--<import resource="auditorium.xml"/>-->	
+	<import resource="discountsTest.xml"/>
+	<import resource="auditoriumTest.xml"/>	
  		
 
 </beans>
