@@ -1,5 +1,12 @@
 package ua.kobzev.theatre.service;
 
+import java.util.Date;
+import java.util.List;
+
+import ua.kobzev.theatre.domain.Event;
+import ua.kobzev.theatre.domain.Ticket;
+import ua.kobzev.theatre.domain.User;
+
 /**
  * 
  * @author kkobziev
@@ -21,5 +28,11 @@ package ua.kobzev.theatre.service;
  */
 
 public interface BookingService {
+
+	double getTicketPrice(Event event, Date date, Date time, int seats, User user);
+
+	void bookTicket(User user, Ticket ticket);
+
+	List<Ticket> getTicketsForEvent(Event event, Date date);
 
 }

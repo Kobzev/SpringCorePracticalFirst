@@ -1,5 +1,7 @@
 package ua.kobzev.theatre.strategy.impl;
 
-public class PurchasedStrategy {
+import ua.kobzev.theatre.strategy.DiscountStrategy;
+
+public class PurchasedStrategy implements DiscountStrategy {
 
 }

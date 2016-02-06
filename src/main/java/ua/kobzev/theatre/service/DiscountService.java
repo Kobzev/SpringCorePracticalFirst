@@ -1,5 +1,10 @@
 package ua.kobzev.theatre.service;
 
+import java.util.Date;
+
+import ua.kobzev.theatre.domain.Event;
+import ua.kobzev.theatre.domain.User;
+
 /**
  * 
  * @author kkobziev
@@ -20,10 +25,6 @@ package ua.kobzev.theatre.service;
  */
 
 public interface DiscountService {
-	void getAuditoriums();
-
-	void getSeatsNumber();
-
-	void getVipSeats();
+	double getDiscount(User user, Event event, Date date);
 
 }

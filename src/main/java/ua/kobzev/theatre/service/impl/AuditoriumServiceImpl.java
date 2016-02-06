@@ -13,6 +13,7 @@ import ua.kobzev.theatre.service.AuditoriumService;
  */
 
 public class AuditoriumServiceImpl implements AuditoriumService {
+
 	private List<Auditorium> auditoriumList;
 
 	public void setAuditoriumList(List<Auditorium> auditoriumList) {
