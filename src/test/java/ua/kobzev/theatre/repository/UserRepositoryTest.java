@@ -3,7 +3,7 @@ package ua.kobzev.theatre.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,23 +36,12 @@ public class UserRepositoryTest {
 
 	@Before
 	public void setUp() {
-		user = new User(EMAIL, NAME, new Date());
+		user = new User(EMAIL, NAME, LocalDateTime.now());
 	}
 
 	@Test
 	public void shouldReturnTrueWhenRegisterUnexistingUser() {
 		assertEquals(true, userRepository.register(user));
-	}
-
-	@Test
-	public void shouldReturnFalseWhenRegisterExistingUser() {
-		userRepository.register(user);
-		assertEquals(false, userRepository.register(user));
-	}
-
-	@Test
-	public void shouldReturnFalseWhenRegisterNullUser() {
-		assertEquals(false, userRepository.register(null));
 	}
 
 	@Test

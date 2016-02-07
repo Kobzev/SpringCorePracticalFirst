@@ -13,12 +13,12 @@ import ua.kobzev.theatre.enums.EventRate;
 @Component
 public class Event {
 	private String name;
-	private double basePrise;
+	private double basePrice;
 	private EventRate rate;
 
 	public Event(String name, double basePrise, EventRate rate) {
 		this.name = name;
-		this.basePrise = basePrise;
+		this.basePrice = basePrise;
 		this.rate = rate;
 	}
 
@@ -33,12 +33,12 @@ public class Event {
 		this.name = name;
 	}
 
-	public double getBasePrise() {
-		return basePrise;
+	public double getBasePrice() {
+		return basePrice;
 	}
 
-	public void setBasePrise(double basePrise) {
-		this.basePrise = basePrise;
+	public void setBasePrice(double basePrise) {
+		this.basePrice = basePrise;
 	}
 
 	public EventRate getRate() {
@@ -54,7 +54,7 @@ public class Event {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(basePrise);
+		temp = Double.doubleToLongBits(basePrice);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
@@ -70,7 +70,7 @@ public class Event {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
-		if (Double.doubleToLongBits(basePrise) != Double.doubleToLongBits(other.basePrise))
+		if (Double.doubleToLongBits(basePrice) != Double.doubleToLongBits(other.basePrice))
 			return false;
 		if (name == null) {
 			if (other.name != null)

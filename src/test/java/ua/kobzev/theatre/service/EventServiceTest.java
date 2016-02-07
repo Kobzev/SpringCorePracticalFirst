@@ -1,11 +1,12 @@
 package ua.kobzev.theatre.service;
 
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +19,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.enums.EventRate;
+import ua.kobzev.theatre.repository.AssignedEventRepository;
 import ua.kobzev.theatre.repository.EventRepository;
-import ua.kobzev.theatre.service.EventService;
 import ua.kobzev.theatre.service.impl.EventServiceImpl;
 
 /**
@@ -36,6 +37,9 @@ public class EventServiceTest {
 
 	@Mock
 	private EventRepository eventRepository;
+
+	@Mock
+	private AssignedEventRepository assignedEventRepository;
 
 	private Event event;
 	private Auditorium auditorium;
@@ -68,25 +72,55 @@ public class EventServiceTest {
 	@Test
 	public void testGetAll() {
 		eventService.getAll();
-		verify(eventRepository, times(1)).getAll();
+		verify(assignedEventRepository, times(1)).getAll();
 	}
 
 	@Test
 	public void testGetForDateRange() {
-		eventService.getForDateRange(new Date(), new Date());
-		verify(eventRepository, times(1)).getForDateRange(anyObject(), anyObject());
+		eventService.getForDateRange(LocalDateTime.now(), LocalDateTime.now());
+		verify(assignedEventRepository, times(1)).getForDateRange(anyObject(), anyObject());
 	}
 
 	@Test
 	public void testGetNextEvents() {
-		eventService.getNextEvents(new Date());
-		verify(eventRepository, times(1)).getNextEvents(anyObject());
+		eventService.getNextEvents(LocalDateTime.now());
+		verify(assignedEventRepository, times(1)).getNextEvents(anyObject());
 	}
 
 	@Test
 	public void testAssignAuditorium() {
-		eventService.assignAuditorium(event, auditorium, new Date());
-		verify(eventRepository, times(1)).assignAuditorium(anyObject(), anyObject(), anyObject());
+		eventService.assignAuditorium(event, auditorium, LocalDateTime.now());
+		verify(assignedEventRepository, times(1)).assignAuditorium(anyObject(), anyObject(), anyObject());
 	}
 
+	@Test
+	public void shouldReturnFalseWhenAssignedNullDate() {
+		assertFalse(eventService.assignAuditorium(event, auditorium, null));
+	}
+
+	@Test
+	public void shouldReturnFalseWhenAssignedNullEvent() {
+		assertFalse(eventService.assignAuditorium(null, auditorium, LocalDateTime.now()));
+	}
+
+	@Test
+	public void shouldReturnFalseWhenAssignedNullAuditorium() {
+		assertFalse(eventService.assignAuditorium(event, null, LocalDateTime.now()));
+	}
+
+	@Test
+	public void shouldReturnFalseWhenCreateExistingEvent() {
+		eventService.create(event);
+		assertFalse(eventService.create(event));
+	}
+
+	@Test
+	public void shouldReturnFalseWhenRemoveNullEvent() {
+		assertFalse(eventService.remove(null));
+	}
+
+	@Test
+	public void shouldReturnFalseWhenCreateNullEvent() {
+		assertFalse(eventService.create(null));
+	}
 }

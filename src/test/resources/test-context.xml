@@ -10,6 +10,8 @@
 	
 	<bean id="userRepository" name = "userRepository" class="ua.kobzev.theatre.repository.impl.inmemory.UserRepositoryImpl"/>
 	<bean id="eventRepository" class="ua.kobzev.theatre.repository.impl.inmemory.EventRepositoryImpl"/>
+	<bean id="assignedEventRepository" class="ua.kobzev.theatre.repository.impl.inmemory.AssignedEventRepositoryImpl"/>
+	<bean id="ticketRepository" class="ua.kobzev.theatre.repository.impl.inmemory.TicketRepositoryImpl"/>
 	
 	<import resource="discountsTest.xml"/>
 	<import resource="auditoriumTest.xml"/>	

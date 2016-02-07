@@ -1,12 +1,13 @@
 package ua.kobzev.theatre.service;
 
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.repository.TicketRepository;
 import ua.kobzev.theatre.repository.UserRepository;
 import ua.kobzev.theatre.service.impl.UserServiceImpl;
 
@@ -38,12 +40,15 @@ public class UserServiceTest {
 	@Mock
 	private UserRepository userRepository;
 
+	@Mock
+	private TicketRepository ticketRepository;
+
 	private User user;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		user = new User(EMAIL, NAME, new Date());
+		user = new User(EMAIL, NAME, LocalDateTime.now());
 		// when(userRepository.register(anyObject())).thenReturn(true);
 	}
 
@@ -80,7 +85,18 @@ public class UserServiceTest {
 	@Test
 	public void testGetBookedTickets() {
 		userService.getBookedTickets(user);
-		verify(userRepository, times(1)).getBookedTickets(anyObject());
+		verify(ticketRepository, times(1)).findAllByUser(anyObject());
+	}
+
+	@Test
+	public void shouldReturnFalseWhenRegisterNullUser() {
+		assertFalse(userService.register(null));
+	}
+
+	@Test
+	public void shouldReturnFalseWhenRegisterExistingUser() {
+		userService.register(user);
+		assertFalse(userService.register(user));
 	}
 
 }

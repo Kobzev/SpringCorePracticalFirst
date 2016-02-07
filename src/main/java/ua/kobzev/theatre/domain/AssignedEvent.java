@@ -1,13 +1,13 @@
 package ua.kobzev.theatre.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class AssignedEvent {
 	private Event event;
 	private Auditorium auditorium;
-	private Date date;
+	private LocalDateTime date;
 
-	public AssignedEvent(Event event, Auditorium auditorium, Date date) {
+	public AssignedEvent(Event event, Auditorium auditorium, LocalDateTime date) {
 		this.event = event;
 		this.auditorium = auditorium;
 		this.date = date;
@@ -32,11 +32,11 @@ public class AssignedEvent {
 		this.auditorium = auditorium;
 	}
 
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

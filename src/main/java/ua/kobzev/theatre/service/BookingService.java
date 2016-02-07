@@ -1,6 +1,6 @@
 package ua.kobzev.theatre.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import ua.kobzev.theatre.domain.Event;
@@ -29,10 +29,10 @@ import ua.kobzev.theatre.domain.User;
 
 public interface BookingService {
 
-	double getTicketPrice(Event event, Date date, Date time, int seats, User user);
+	double getTicketPrice(Event event, LocalDateTime date, List<Integer> seats, User user);
 
-	void bookTicket(User user, Ticket ticket);
+	boolean bookTicket(User user, Ticket ticket);
 
-	List<Ticket> getTicketsForEvent(Event event, Date date);
+	List<Ticket> getTicketsForEvent(Event event, LocalDateTime date);
 
 }

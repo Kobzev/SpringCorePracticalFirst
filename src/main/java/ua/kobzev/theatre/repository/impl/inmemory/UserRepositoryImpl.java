@@ -1,11 +1,10 @@
 package ua.kobzev.theatre.repository.impl.inmemory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.UserRepository;
 
@@ -19,27 +18,16 @@ import ua.kobzev.theatre.repository.UserRepository;
 public class UserRepositoryImpl implements UserRepository {
 
 	private List<User> usersList;
-	private List<Ticket> bookedTicket;
 
 	{
 		usersList = new ArrayList<>();
-		User user = new User("admin@test.com", "admin", new Date());
+		User user = new User("admin@test.com", "admin", LocalDateTime.now());
 		user.setId(usersList.size() + 1);
 		usersList.add(user);
-
-		bookedTicket = new ArrayList<>();
-		Ticket ticket = new Ticket();
-		bookedTicket.add(ticket);
 	}
 
 	@Override
 	public boolean register(User user) {
-		if (user == null)
-			return false;
-
-		if (getUserByEmail(user.getEmail()) != null)
-			return false;
-
 		user.setId(usersList.size() + 1);
 		usersList.add(user);
 
@@ -53,40 +41,19 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public User getById(int id) {
-		Optional<User> optionalUser = usersList.stream().filter(user -> ((Integer) user.getId()).equals(id))
-				.findFirst();
-
-		if (!optionalUser.isPresent())
-			return null;
-
-		return optionalUser.get();
+		return usersList.stream().filter(user -> ((Integer) user.getId()).equals(id)).findFirst().orElse(null);
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
 
-		Optional<User> optionalUser = usersList.stream().filter(user -> user.getEmail().equals(email)).findFirst();
-
-		if (!optionalUser.isPresent())
-			return null;
-
-		return optionalUser.get();
+		return usersList.stream().filter(user -> user.getEmail().equals(email)).findFirst().orElse(null);
 
 	}
 
 	@Override
 	public List<User> getUsersByName(String name) {
-		List<User> result = new ArrayList<>();
-
-		usersList.stream().filter(user -> user.getName().equals(name)).forEach(user -> result.add(user));
-
-		return result;
-	}
-
-	@Override
-	public List<Ticket> getBookedTickets(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		return usersList.stream().filter(user -> user.getName().equals(name)).collect(Collectors.toList());
 	}
 
 }

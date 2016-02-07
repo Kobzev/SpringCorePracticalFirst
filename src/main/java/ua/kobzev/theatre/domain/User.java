@@ -1,6 +1,6 @@
 package ua.kobzev.theatre.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,9 @@ public class User {
 	private int id;
 	private String email;
 	private String name;
-	private Date birthDay;
+	private LocalDateTime birthDay;
 
-	public User(String email, String name, Date birthDay) {
+	public User(String email, String name, LocalDateTime birthDay) {
 		this.email = email;
 		this.name = name;
 		this.birthDay = birthDay;
@@ -51,11 +51,11 @@ public class User {
 		this.name = name;
 	}
 
-	public Date getBirthDay() {
+	public LocalDateTime getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDateTime birthDay) {
 		this.birthDay = birthDay;
 	}
 }

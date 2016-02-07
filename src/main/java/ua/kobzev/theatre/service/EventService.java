@@ -1,8 +1,9 @@
 package ua.kobzev.theatre.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
 
@@ -33,12 +34,16 @@ public interface EventService {
 
 	Event getByName(String name);
 
-	List<Event> getAll();
+	List<AssignedEvent> getAll();
 
-	List<Event> getForDateRange(Date from, Date to);
+	List<AssignedEvent> getForDateRange(LocalDateTime from, LocalDateTime to);
 
-	List<Event> getNextEvents(Date to);
+	List<AssignedEvent> getNextEvents(LocalDateTime to);
 
-	boolean assignAuditorium(Event event, Auditorium auditorium, Date date);
+	boolean assignAuditorium(Event event, Auditorium auditorium, LocalDateTime date);
+
+	Auditorium getAuditorium(Event event, LocalDateTime dateTime);
+
+	AssignedEvent getAssignedEvent(Event event, LocalDateTime dateTime);
 
 }
