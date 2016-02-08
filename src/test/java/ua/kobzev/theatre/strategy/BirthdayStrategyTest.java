@@ -43,6 +43,26 @@ public class BirthdayStrategyTest {
 	}
 
 	@Test
+	public void shouldReturnDiscountWhenUserHaveBirthDayTodayAndHaveBookTwoTickets() {
+		// birthDay percent = 10; discount should be 30.0
+		User user = new User();
+		user.setBirthDay(LocalDateTime.now());
+
+		List<Ticket> tickets = new ArrayList<>();
+
+		Ticket ticket = new Ticket();
+		ticket.setPrice(100.00);
+
+		Ticket ticketTwo = new Ticket();
+		ticketTwo.setPrice(200.00);
+
+		tickets.add(ticket);
+		tickets.add(ticketTwo);
+
+		assertEquals(30.0, discountStrategy.getDiscount(user, tickets), .001);
+	}
+
+	@Test
 	public void shouldReturnZeroDiscountWhenUserDontHaveBirthDayToday() {
 		// birthDay percent = 10; discount should be 0.0
 		User user = new User();
