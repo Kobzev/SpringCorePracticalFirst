@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 	
 	<bean id="discountService" class="ua.kobzev.theatre.service.impl.DiscountServiceImpl">
@@ -11,7 +12,7 @@
 		</property>
 	</bean>		
 	
-	<bean id="birthdayStrategy" class="ua.kobzev.theatre.strategy.impl.BirthdayStrategy"/>
-	<bean id="purchasedStrategy" class="ua.kobzev.theatre.strategy.impl.PurchasedStrategy"/>	
+	<bean id="birthdayStrategy" class="ua.kobzev.theatre.strategy.impl.BirthdayStrategy" p:percent="10.0"/>
+	<bean id="purchasedStrategy" class="ua.kobzev.theatre.strategy.impl.PurchasedStrategy" p:percent="70.0" p:discountForEveryTicket="7"/>	
 
 </beans>

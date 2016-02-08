@@ -1,10 +1,12 @@
 package ua.kobzev.theatre.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ua.kobzev.theatre.domain.Auditorium;
+import ua.kobzev.theatre.repository.AuditoriumRepository;
 import ua.kobzev.theatre.service.AuditoriumService;
 
 /**
@@ -13,48 +15,30 @@ import ua.kobzev.theatre.service.AuditoriumService;
  *
  */
 
+@Service
 public class AuditoriumServiceImpl implements AuditoriumService {
 
-	private List<Auditorium> auditoriumList;
-
-	public void setAuditoriumList(List<Auditorium> auditoriumList) {
-		this.auditoriumList = auditoriumList;
-	}
+	@Autowired
+	private AuditoriumRepository auditoriumRepository;
 
 	@Override
 	public List<Auditorium> getAuditoriums() {
-		return new ArrayList<Auditorium>(auditoriumList);
+		return auditoriumRepository.getAuditoriums();
 	}
 
 	@Override
 	public Auditorium findAuditoriumByName(String auditoriumName) {
-		Optional<Auditorium> audit = auditoriumList.stream().filter(p -> auditoriumName.equals(p.getName()))
-				.findFirst();
-
-		if (audit.isPresent())
-			return audit.get();
-
-		return null;
+		return auditoriumRepository.findAuditoriumByName(auditoriumName);
 	}
 
 	@Override
 	public int getSeatsNumber(String auditoriumName) {
-		Auditorium auditorium = findAuditoriumByName(auditoriumName);
-
-		if (auditorium == null)
-			return 0;
-
-		return auditorium.getNumberOfSeats();
+		return auditoriumRepository.getSeatsNumber(auditoriumName);
 	}
 
 	@Override
 	public List<Integer> getVipSeats(String auditoriumName) {
-		Auditorium auditorium = findAuditoriumByName(auditoriumName);
-
-		if (auditorium == null)
-			return null;
-
-		return auditorium.getVipSeats();
+		return auditoriumRepository.getVipSeats(auditoriumName);
 	}
 
 }

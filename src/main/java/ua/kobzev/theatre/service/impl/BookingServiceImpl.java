@@ -1,18 +1,20 @@
 package ua.kobzev.theatre.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ua.kobzev.theatre.domain.Auditorium;
+import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.TicketRepository;
 import ua.kobzev.theatre.service.BookingService;
+import ua.kobzev.theatre.service.DiscountService;
 import ua.kobzev.theatre.service.EventService;
 
 @Service
@@ -24,9 +26,11 @@ public class BookingServiceImpl implements BookingService {
 	@Autowired
 	private TicketRepository ticketRepository;
 
+	@Autowired
+	private DiscountService discountService;
+
 	@Override
-	public double getTicketPrice(Event event, LocalDateTime date, List<Integer> seats, User user) {
-		Auditorium auditorium = eventService.getAuditorium(event, date);
+	public double getTotalPrice(final Event event, LocalDateTime date, List<Integer> seats, final User user) {
 		double baseTicketPrice = event.getBasePrice();
 
 		EventRate eventRate = event.getRate();
@@ -34,13 +38,34 @@ public class BookingServiceImpl implements BookingService {
 			baseTicketPrice *= 1.2;
 		}
 
-		double vipTicketPrice = 2 * baseTicketPrice;
+		final double vipTicketPrice = 2 * baseTicketPrice;
+		final double basePrice = baseTicketPrice;
 
-		long vipSeatsCount = seats.stream().filter(auditorium.getVipSeats()::contains).count();
+		List<Ticket> ticketsList = new ArrayList<>();
 
-		long regularSeatsCount = seats.size() - vipSeatsCount;
+		seats.forEach(seat -> ticketsList.add(createTicket(user, event, date, basePrice, vipTicketPrice, seat)));
 
-		return regularSeatsCount * baseTicketPrice + vipSeatsCount * vipTicketPrice;
+		double price = ticketsList.stream().map(x -> x.getPrice()).reduce((x, y) -> x + y).get();
+
+		double discount = discountService.getDiscount(user, ticketsList);
+
+		return price - discount;
+	}
+
+	private Ticket createTicket(User user, Event event, LocalDateTime dateTime, Double basePrice, Double vipPrice,
+			Integer seat) {
+		AssignedEvent assignedEvent = eventService.getAssignedEvent(event, dateTime);
+
+		Ticket ticket = new Ticket(user, assignedEvent, seat);
+
+		if (assignedEvent.getAuditorium().getVipSeats().contains(seat)) {
+			ticket.setPrice(vipPrice);
+		} else {
+			ticket.setPrice(basePrice);
+		}
+
+		return ticket;
+
 	}
 
 	@Override

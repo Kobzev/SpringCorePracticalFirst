@@ -11,6 +11,7 @@ public class Ticket {
 	private User user;
 	private AssignedEvent assignedEvent;
 	private int seat;
+	private double price;
 
 	public Ticket(AssignedEvent assignedEvent, int seat) {
 		this.assignedEvent = assignedEvent;
@@ -21,6 +22,9 @@ public class Ticket {
 		this.user = user;
 		this.assignedEvent = assignedEvent;
 		this.seat = seat;
+	}
+
+	public Ticket() {
 	}
 
 	public User getUser() {
@@ -45,6 +49,14 @@ public class Ticket {
 
 	public void setSeat(int seat) {
 		this.seat = seat;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 }

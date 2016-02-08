@@ -29,7 +29,7 @@ import ua.kobzev.theatre.domain.User;
 
 public interface BookingService {
 
-	double getTicketPrice(Event event, LocalDateTime date, List<Integer> seats, User user);
+	double getTotalPrice(Event event, LocalDateTime date, List<Integer> seats, User user);
 
 	boolean bookTicket(User user, Ticket ticket);
 

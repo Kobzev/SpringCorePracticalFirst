@@ -23,7 +23,7 @@
 			p:name="${paris.name}" p:numberOfSeats="${paris.numberofseats}" p:vipSeats="${paris.vipseats}">
 	</bean>
 	
-	<bean id="auditoriumService" class="ua.kobzev.theatre.service.impl.AuditoriumServiceImpl">
+	<bean id="auditoriumRepository" class="ua.kobzev.theatre.repository.impl.inmemory.AuditoriumRepositoryImpl">
 		<property name="auditoriumList">
 			<list>
  				<ref bean="london"/>

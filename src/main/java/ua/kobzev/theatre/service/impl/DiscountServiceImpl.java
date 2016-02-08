@@ -1,9 +1,9 @@
 package ua.kobzev.theatre.service.impl;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
-import ua.kobzev.theatre.domain.Event;
+import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.service.DiscountService;
 import ua.kobzev.theatre.strategy.DiscountStrategy;
@@ -21,9 +21,12 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	@Override
-	public double getDiscount(User user, Event event, Date date) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getDiscount(User user, List<Ticket> ticketsList) {
+		List<Double> discountsList = new ArrayList<>();
+
+		discountStrategy.forEach(strategy -> discountsList.add(strategy.getDiscount(user, ticketsList)));
+
+		return discountsList.stream().max(Double::compareTo).orElse(0.0);
 	}
 
 }
