@@ -46,6 +46,12 @@ public class AssignedEvenRepositoryTest {
 	}
 
 	@Test
+	public void shouldReturnFalseWhenAssignNewEventToSameAuditoriumADate() {
+		assertTrue(assignedEventRepository.assignAuditorium(event, auditorium, testDate));
+		assertFalse(assignedEventRepository.assignAuditorium(new Event(), auditorium, testDate));
+	}
+
+	@Test
 	public void shouldReturnFalseWhenAssignedSecondTimeSameEvent() {
 		assignedEventRepository.assignAuditorium(event, auditorium, testDate);
 		assertFalse(assignedEventRepository.assignAuditorium(event, auditorium, testDate));

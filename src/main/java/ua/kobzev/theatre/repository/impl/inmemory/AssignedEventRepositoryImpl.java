@@ -30,6 +30,10 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository {
 		if (assignedEventList.stream().anyMatch(assignedEvent::equals))
 			return false;
 
+		if (assignedEventList.stream().filter(p -> (auditorium.equals(p.getAuditorium()) && date.equals(p.getDate())))
+				.count() > 0L)
+			return false;
+
 		assignedEventList.add(assignedEvent);
 		return true;
 	}
