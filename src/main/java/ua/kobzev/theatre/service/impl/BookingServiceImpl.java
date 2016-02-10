@@ -84,4 +84,9 @@ public class BookingServiceImpl implements BookingService {
 		return ticketRepository.findAllByEvent(event, date);
 	}
 
+	@Override
+	public Ticket createTicket(AssignedEvent assignedEvent, int seat) {
+		return new Ticket(assignedEvent, seat);
+	}
+
 }

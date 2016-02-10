@@ -6,6 +6,7 @@ import java.util.List;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.repository.AuditoriumRepository;
 
+//@Repository
 public class AuditoriumRepositoryImpl implements AuditoriumRepository {
 
 	private List<Auditorium> auditoriumList;

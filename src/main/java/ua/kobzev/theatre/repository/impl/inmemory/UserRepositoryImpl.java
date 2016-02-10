@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Repository;
+
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.UserRepository;
 
@@ -14,7 +16,7 @@ import ua.kobzev.theatre.repository.UserRepository;
  *
  */
 
-// @Repository
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
 	private List<User> usersList;

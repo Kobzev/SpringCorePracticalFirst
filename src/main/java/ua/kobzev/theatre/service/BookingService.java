@@ -3,6 +3,7 @@ package ua.kobzev.theatre.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
@@ -34,5 +35,7 @@ public interface BookingService {
 	boolean bookTicket(User user, Ticket ticket);
 
 	List<Ticket> getTicketsForEvent(Event event, LocalDateTime date);
+
+	Ticket createTicket(AssignedEvent assignedEvent, int seat);
 
 }

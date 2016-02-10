@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Repository;
+
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.TicketRepository;
 
+@Repository
 public class TicketRepositoryImpl implements TicketRepository {
 
 	private List<Ticket> tickets;
