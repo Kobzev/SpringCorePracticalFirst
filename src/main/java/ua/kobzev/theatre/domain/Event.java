@@ -10,7 +10,6 @@ import ua.kobzev.theatre.enums.EventRate;
  *
  */
 
-@Component
 public class Event {
 	private String name;
 	private double basePrice;
@@ -82,4 +81,12 @@ public class Event {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Event{" +
+				"name='" + name + '\'' +
+				", basePrice=" + basePrice +
+				", rate=" + rate +
+				'}';
+	}
 }

@@ -1,5 +1,9 @@
 package ua.kobzev.theatre.aspects;
 
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+
 /**
  * 
  * @author kkobziev
@@ -8,6 +12,12 @@ package ua.kobzev.theatre.aspects;
  *         user
  */
 
+@Aspect
+@Component
 public class DiscountAspect {
+
+    private void totalDiscount() {}
+
+    private void discountForUser() {}
 
 }

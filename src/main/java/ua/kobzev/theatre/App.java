@@ -19,10 +19,7 @@ import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.enums.EventRate;
-import ua.kobzev.theatre.service.AuditoriumService;
-import ua.kobzev.theatre.service.BookingService;
-import ua.kobzev.theatre.service.EventService;
-import ua.kobzev.theatre.service.UserService;
+import ua.kobzev.theatre.service.*;
 
 /**
  * 
@@ -45,6 +42,9 @@ public class App {
 	@Autowired
 	private BookingService bookingService;
 
+	@Autowired
+	private AspectService aspectService;
+
 	public static void main(String... args) {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 
@@ -53,6 +53,9 @@ public class App {
 
 		App application = (App) ctx.getBean("app");
 		application.testApp();
+		application.testAspects();
+
+		application.printStatistic();
 
 		ctx.close();
 	}
@@ -96,6 +99,11 @@ public class App {
 				"Purchased tickets for " + movieSecond + bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
 	}
 
+	private void testAspects() {
+		Event eventFirst = eventService.getByName("Movie: Pirates of Caribbean sea");
+		Event movieSecond = eventService.getByName("Movie: Titanik");
+	}
+
 	private Event createEvent(String name, int basePrice, EventRate rate) {
 		Event movieLoTR = new Event(name, basePrice, rate);
 		eventService.create(movieLoTR);
@@ -118,7 +126,7 @@ public class App {
 	}
 
 	public void printStatistic() {
-
+		aspectService.printStatistic();
 	}
 
 	public void consoleRun() {

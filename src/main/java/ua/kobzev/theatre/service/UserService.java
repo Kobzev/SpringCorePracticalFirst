@@ -2,6 +2,7 @@ package ua.kobzev.theatre.service;
 
 import java.util.List;
 
+import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 

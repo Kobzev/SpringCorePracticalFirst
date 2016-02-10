@@ -1,5 +1,8 @@
 package ua.kobzev.theatre.aspects;
 
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
+
 /**
  * 
  * @author kkobziev
@@ -12,6 +15,8 @@ package ua.kobzev.theatre.aspects;
  *         OPTIONAL
  */
 
+@Aspect
+@Component
 public class LuckyWinnerAspect {
 
 }

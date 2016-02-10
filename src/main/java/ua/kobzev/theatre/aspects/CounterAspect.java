@@ -1,9 +1,15 @@
 package ua.kobzev.theatre.aspects;
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ua.kobzev.theatre.domain.Event;
+import ua.kobzev.theatre.domain.Ticket;
+import ua.kobzev.theatre.service.AspectService;
 
 /**
  * 
@@ -19,16 +25,39 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class CounterAspect {
 
-	public static int staticVar = 0;
+	@Autowired
+	private AspectService aspectService;
 
-	@Pointcut("execution(* ua.kobzev.theatre..UserService.getById(..))")
+	@Pointcut("execution(* ua.kobzev.theatre..EventService.getByName(..))")
 	private void accessedByName() {
 	}
 
-	@Before("accessedByName()")
-	public void testMethod() {
-		staticVar++;
-		System.out.println("Aspect");
+	@Pointcut("execution(* *.getBasePrice(..))")
+	private void priceQueried() {}
+
+	@Pointcut("execution(* ua.kobzev.theatre..BookingService.bookTicket(..))")
+	private void bookedTicket() {}
+
+	@AfterReturning(value = "accessedByName()", returning = "retVal")
+	public void saveInformationAboutAccessedByName(Object retVal) {
+		if (retVal == null) return;
+
+		aspectService.saveAccessByName((Event) retVal);
+	}
+
+	@Before("priceQueried()")
+	public void saveInformationAboutPriceQueried() {
+
+		System.out.println("Aspect2");
+	}
+
+	@AfterReturning(value = "bookedTicket()", returning = "retVal")
+	public void saveInformationAboutBookedTicket(JoinPoint joinPoint, Object retVal) {
+		if (retVal == null) return;
+		if (!(boolean) retVal) return;
+
+		Ticket ticket = (Ticket) joinPoint.getArgs()[1];
+		aspectService.saveBookedTicket(ticket.getAssignedEvent().getEvent());
 	}
 
 }
