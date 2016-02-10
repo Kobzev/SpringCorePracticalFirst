@@ -61,13 +61,13 @@ public class App {
 		User user = registerUser();
 		Auditorium auditoriumLondon = getAuditorium();
 
-		Event movieLoTR = createEvent(eventService, "Movie: Lord Of The Rings", 100, EventRate.MID);
-		Event movieHobbit = createEvent(eventService, "Movie: The Hobbit", 10, EventRate.HIGH);
+		Event movieFirst = createEvent("Movie: Pirates of Caribbean sea", 100, EventRate.MID);
+		Event movieSecond = createEvent("Movie: Titanik", 10, EventRate.HIGH);
 
-		LocalDateTime dateTimeLoTR = LocalDateTime.of(2016, Month.FEBRUARY, 8, 13, 00);
-		eventService.assignAuditorium(movieLoTR, auditoriumLondon, dateTimeLoTR);
-		LocalDateTime dateTimeHobbit = LocalDateTime.of(2016, Month.FEBRUARY, 8, 15, 00);
-		eventService.assignAuditorium(movieHobbit, auditoriumLondon, dateTimeHobbit);
+		LocalDateTime dateTimeFirst = LocalDateTime.of(2016, Month.FEBRUARY, 8, 13, 00);
+		eventService.assignAuditorium(movieFirst, auditoriumLondon, dateTimeFirst);
+		LocalDateTime dateTimeSecond = LocalDateTime.of(2016, Month.FEBRUARY, 8, 15, 00);
+		eventService.assignAuditorium(movieSecond, auditoriumLondon, dateTimeSecond);
 
 		List<Integer> seats = new ArrayList<>();
 		seats.add(1);
@@ -75,29 +75,29 @@ public class App {
 		seats.add(10);
 		seats.add(11);
 
-		double ticketPrice = bookingService.getTotalPrice(movieHobbit, dateTimeHobbit, seats, user);
-		System.out.println("Hobbit tickets price = " + ticketPrice);
+		double ticketPrice = bookingService.getTotalPrice(movieSecond, dateTimeSecond, seats, user);
+		System.out.println(movieSecond + " tickets price = " + ticketPrice);
 
-		ticketPrice = bookingService.getTotalPrice(movieLoTR, dateTimeLoTR, seats, user);
-		System.out.println("LoTR  tickets price = " + ticketPrice);
+		ticketPrice = bookingService.getTotalPrice(movieFirst, dateTimeFirst, seats, user);
+		System.out.println(movieFirst + " tickets price = " + ticketPrice);
 
 		System.out.println(
-				"Purchased tickets for Hobbit: " + bookingService.getTicketsForEvent(movieHobbit, dateTimeHobbit));
+				"Purchased tickets for " + movieSecond + bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
 
-		AssignedEvent assignedEvent = eventService.getAssignedEvent(movieHobbit, dateTimeHobbit);
+		AssignedEvent assignedEvent = eventService.getAssignedEvent(movieSecond, dateTimeSecond);
 
 		Ticket ticket1 = bookingService.createTicket(assignedEvent, 1);
 		bookingService.bookTicket(user, ticket1);
 
-		Ticket ticket2 = bookingService.createTicket(assignedEvent, 2);
+		Ticket ticket2 = bookingService.createTicket(assignedEvent, 5);
 		bookingService.bookTicket(user, ticket2);
 
 		System.out.println(
-				"Purchased tickets for Hobbit: " + bookingService.getTicketsForEvent(movieHobbit, dateTimeHobbit));
+				"Purchased tickets for " + movieSecond + bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
 	}
 
-	private Event createEvent(EventService eventService, String name, int basePrice, EventRate mid) {
-		Event movieLoTR = new Event(name, basePrice, mid);
+	private Event createEvent(String name, int basePrice, EventRate rate) {
+		Event movieLoTR = new Event(name, basePrice, rate);
 		eventService.create(movieLoTR);
 
 		return movieLoTR;
@@ -110,7 +110,7 @@ public class App {
 	}
 
 	private User registerUser() {
-		User user = new User("Tester", "test@mail.com", LocalDateTime.now());
+		User user = new User("test@mail.com", "Tester", LocalDateTime.now());
 		userService.register(user);
 		System.out.println(userService.getUserByEmail("test@mail.com"));
 

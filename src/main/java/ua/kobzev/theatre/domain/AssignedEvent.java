@@ -77,4 +77,12 @@ public class AssignedEvent {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "AssignedEvent{" +
+				"event=" + event.getName() +
+				", auditorium=" + auditorium.getName() +
+				", date=" + date +
+				'}';
+	}
 }

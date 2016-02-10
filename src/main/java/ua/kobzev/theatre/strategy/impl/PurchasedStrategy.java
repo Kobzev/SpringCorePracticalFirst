@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.stereotype.Component;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.service.UserService;
 import ua.kobzev.theatre.strategy.DiscountStrategy;
 
+@Component
 public class PurchasedStrategy implements DiscountStrategy {
 
 	private int discountForEveryTicket = 10;

@@ -1,6 +1,7 @@
 package ua.kobzev.theatre.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,9 +42,18 @@ public class Auditorium {
 		String[] seats = vipSeats.split(",");
 		this.vipSeats = new ArrayList<>();
 
+
 		for (int i = 0; i < seats.length; i++) {
 			this.vipSeats.add(Integer.parseInt(seats[i]));
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Auditorium{" +
+				"name='" + name + '\'' +
+				", numberOfSeats=" + numberOfSeats +
+				", vipSeats=" + vipSeats +
+				'}';
+	}
 }

@@ -86,7 +86,22 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public Ticket createTicket(AssignedEvent assignedEvent, int seat) {
-		return new Ticket(assignedEvent, seat);
+		Ticket ticket = new Ticket(null, assignedEvent, seat);
+
+		double baseTicketPrice = assignedEvent.getEvent().getBasePrice();
+
+		EventRate eventRate = assignedEvent.getEvent().getRate();
+		if (EventRate.HIGH == eventRate) {
+			baseTicketPrice *= 1.2;
+		}
+
+		if (assignedEvent.getAuditorium().getVipSeats().contains(seat)) {
+			ticket.setPrice(2 * baseTicketPrice);
+		} else {
+			ticket.setPrice(baseTicketPrice);
+		}
+
+		return ticket;
 	}
 
 }

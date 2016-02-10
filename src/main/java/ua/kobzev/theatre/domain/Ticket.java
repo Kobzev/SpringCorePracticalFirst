@@ -59,4 +59,13 @@ public class Ticket {
 		this.price = price;
 	}
 
+	@Override
+	public String toString() {
+		return "Ticket{" +
+				"user=" + user.getName() +
+				", seat=" + seat +
+				", assignedEvent=" + assignedEvent +
+				", price=" + price +
+				'}';
+	}
 }

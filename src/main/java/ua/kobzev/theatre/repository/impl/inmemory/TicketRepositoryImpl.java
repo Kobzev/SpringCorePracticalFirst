@@ -16,11 +16,7 @@ import ua.kobzev.theatre.repository.TicketRepository;
 @Repository
 public class TicketRepositoryImpl implements TicketRepository {
 
-	private List<Ticket> tickets;
-
-	{
-		tickets = new ArrayList<>();
-	}
+	private List<Ticket> tickets = new ArrayList<>();
 
 	@Override
 	public void save(Ticket ticket) {

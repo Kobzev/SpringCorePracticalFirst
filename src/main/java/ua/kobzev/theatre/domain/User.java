@@ -58,4 +58,13 @@ public class User {
 	public void setBirthDay(LocalDateTime birthDay) {
 		this.birthDay = birthDay;
 	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"email='" + email + '\'' +
+				", name='" + name + '\'' +
+				", birthDay=" + birthDay +
+				'}';
+	}
 }
