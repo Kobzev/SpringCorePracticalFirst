@@ -2,6 +2,7 @@ package ua.kobzev.theatre.repository;
 
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.strategy.DiscountStrategy;
 
 import java.util.Map;
 
@@ -19,8 +20,8 @@ public interface AspectRepository {
     Map<Event, Integer> getBookedTicket();
     void saveBookedTicket(Event event);
 
-    Map<String, Integer> getTotalDiscounts();
-    void saveTotalDiscount(String strategy);
+    Map<DiscountStrategy, Integer> getTotalDiscounts();
+    void saveTotalDiscount(DiscountStrategy strategy);
 
     Map<User, Integer> getInfoAboutTotalDiscountForUser();
     void saveInfoAboutTotalDiscountForUser(User user);

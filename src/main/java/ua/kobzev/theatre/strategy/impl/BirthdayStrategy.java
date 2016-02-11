@@ -44,4 +44,8 @@ public class BirthdayStrategy implements DiscountStrategy {
 		this.percent = percent;
 	}
 
+	@Override
+	public String toString() {
+		return "Birthday discount";
+	}
 }

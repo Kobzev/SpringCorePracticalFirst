@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.service.AspectService;
+import ua.kobzev.theatre.strategy.DiscountStrategy;
 
 /**
  * 
@@ -36,7 +37,7 @@ public class DiscountAspect {
         if (retVal == null) return;
         if (new Double(0.0).compareTo((Double)retVal) == 0) return;
 
-        aspectService.saveTotalDiscount(joinPoint.getTarget().getClass().getSimpleName());
+        aspectService.saveTotalDiscount((DiscountStrategy)joinPoint.getThis());
     }
 
     @AfterReturning(value = "discountForUser()", returning = "retVal")

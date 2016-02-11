@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.AspectRepository;
+import ua.kobzev.theatre.strategy.DiscountStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class AspectRepositoryImpl implements AspectRepository{
     private Map<Event, Integer> accessByName = new HashMap<>();
     private Map<Event, Integer> priceQueried = new HashMap<>();
     private Map<Event, Integer> bookedTicket = new HashMap<>();
-    private Map<String, Integer> totalDiscount = new HashMap<>();
+    private Map<DiscountStrategy, Integer> totalDiscount = new HashMap<>();
     private Map<User, Integer> usersDiscount = new HashMap<>();
 
 
@@ -55,12 +56,12 @@ public class AspectRepositoryImpl implements AspectRepository{
     }
 
     @Override
-    public Map<String, Integer> getTotalDiscounts() {
+    public Map<DiscountStrategy, Integer> getTotalDiscounts() {
         return new HashMap<>(totalDiscount);
     }
 
     @Override
-    public void saveTotalDiscount(String strategy) {
+    public void saveTotalDiscount(DiscountStrategy strategy) {
         Integer times = totalDiscount.get(strategy);
         totalDiscount.put(strategy, times==null? 1 : ++times);
     }

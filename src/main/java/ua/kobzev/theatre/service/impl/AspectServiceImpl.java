@@ -6,6 +6,7 @@ import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.AspectRepository;
 import ua.kobzev.theatre.service.AspectService;
+import ua.kobzev.theatre.strategy.DiscountStrategy;
 
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class AspectServiceImpl implements AspectService {
         bookedTicket.forEach((event, integer) -> System.out.println(event + " " + integer + " times"));
 
         System.out.println("4. totalDiscount");
-        Map<String, Integer> totalDiscount = aspectRepository.getTotalDiscounts();
+        Map<DiscountStrategy, Integer> totalDiscount = aspectRepository.getTotalDiscounts();
         totalDiscount.forEach((strategy, integer) -> System.out.println(strategy + " " + integer + " times"));
 
 
@@ -62,7 +63,7 @@ public class AspectServiceImpl implements AspectService {
     }
 
     @Override
-    public void saveTotalDiscount(String strategy) {
+    public void saveTotalDiscount(DiscountStrategy strategy) {
         aspectRepository.saveTotalDiscount(strategy);
     }
 

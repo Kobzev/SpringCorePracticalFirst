@@ -46,4 +46,8 @@ public class PurchasedStrategy implements DiscountStrategy {
 		this.percent = percent;
 	}
 
+	@Override
+	public String toString() {
+		return "Purchased discount";
+	}
 }
