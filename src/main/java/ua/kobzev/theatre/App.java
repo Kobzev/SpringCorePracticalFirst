@@ -20,7 +20,11 @@ import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.enums.EventRate;
-import ua.kobzev.theatre.service.*;
+import ua.kobzev.theatre.service.AspectService;
+import ua.kobzev.theatre.service.AuditoriumService;
+import ua.kobzev.theatre.service.BookingService;
+import ua.kobzev.theatre.service.EventService;
+import ua.kobzev.theatre.service.UserService;
 
 /**
  * 
@@ -85,8 +89,8 @@ public class App {
 		ticketPrice = bookingService.getTotalPrice(movieFirst, dateTimeFirst, seats, user);
 		System.out.println(movieFirst + " tickets price = " + ticketPrice);
 
-		System.out.println(
-				"Purchased tickets for " + movieSecond + bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
+		System.out.println("Purchased tickets for " + movieSecond
+				+ bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
 
 		AssignedEvent assignedEvent = eventService.getAssignedEvent(movieSecond, dateTimeSecond);
 
@@ -96,13 +100,14 @@ public class App {
 		Ticket ticket2 = bookingService.createTicket(assignedEvent, 5);
 		bookingService.bookTicket(user, ticket2);
 
-		System.out.println(
-				"Purchased tickets for " + movieSecond + bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
+		System.out.println("Purchased tickets for " + movieSecond
+				+ bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
 	}
 
+	@SuppressWarnings("unused")
 	private void testAspects() {
 		Event eventFirst = eventService.getByName("Movie: Pirates of Caribbean sea");
-		Event movieSecond = eventService.getByName("Movie: Titanik");
+		eventFirst = eventService.getByName("Movie: Titanik");
 	}
 
 	private Event createEvent(ApplicationContext context, String name, int basePrice, EventRate rate) {
