@@ -16,6 +16,8 @@ import ua.kobzev.theatre.repository.TicketRepository;
 import ua.kobzev.theatre.service.BookingService;
 import ua.kobzev.theatre.service.DiscountService;
 import ua.kobzev.theatre.service.EventService;
+import ua.kobzev.theatre.util.DomainUtils;
+import ua.kobzev.theatre.util.MainUtils;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -31,19 +33,9 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public double getTotalPrice(final Event event, LocalDateTime date, List<Integer> seats, final User user) {
-		double baseTicketPrice = event.getBasePrice();
-
-		EventRate eventRate = event.getRate();
-		if (EventRate.HIGH == eventRate) {
-			baseTicketPrice *= 1.2;
-		}
-
-		final double vipTicketPrice = 2 * baseTicketPrice;
-		final double basePrice = baseTicketPrice;
-
 		List<Ticket> ticketsList = new ArrayList<>();
 
-		seats.forEach(seat -> ticketsList.add(createTicket(user, event, date, basePrice, vipTicketPrice, seat)));
+		seats.forEach(seat -> ticketsList.add(createTicket(user, event, date, seat)));
 
 		double price = ticketsList.stream().map(x -> x.getPrice()).reduce((x, y) -> x + y).get();
 
@@ -52,20 +44,30 @@ public class BookingServiceImpl implements BookingService {
 		return price - discount;
 	}
 
-	private Ticket createTicket(User user, Event event, LocalDateTime dateTime, Double basePrice, Double vipPrice,
-			Integer seat) {
+	private Ticket createTicket(User user, Event event, LocalDateTime dateTime, Integer seat) {
 		AssignedEvent assignedEvent = eventService.getAssignedEvent(event, dateTime);
+		return createTicket(user, assignedEvent, seat);
 
-		Ticket ticket = new Ticket(user, assignedEvent, seat);
+	}
+
+	private Ticket createTicket(User user, AssignedEvent assignedEvent, int seat) {
+		DomainUtils util = MainUtils.getUtils();
+		Ticket ticket = util.createNewTicket(user, assignedEvent, seat);
+
+		double baseTicketPrice = assignedEvent.getEvent().getBasePrice();
+
+		EventRate eventRate = assignedEvent.getEvent().getRate();
+		if (EventRate.HIGH == eventRate) {
+			baseTicketPrice *= 1.2;
+		}
 
 		if (assignedEvent.getAuditorium().getVipSeats().contains(seat)) {
-			ticket.setPrice(vipPrice);
+			ticket.setPrice(2 * baseTicketPrice);
 		} else {
-			ticket.setPrice(basePrice);
+			ticket.setPrice(baseTicketPrice);
 		}
 
 		return ticket;
-
 	}
 
 	@Override
@@ -86,22 +88,7 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public Ticket createTicket(AssignedEvent assignedEvent, int seat) {
-		Ticket ticket = new Ticket(null, assignedEvent, seat);
-
-		double baseTicketPrice = assignedEvent.getEvent().getBasePrice();
-
-		EventRate eventRate = assignedEvent.getEvent().getRate();
-		if (EventRate.HIGH == eventRate) {
-			baseTicketPrice *= 1.2;
-		}
-
-		if (assignedEvent.getAuditorium().getVipSeats().contains(seat)) {
-			ticket.setPrice(2 * baseTicketPrice);
-		} else {
-			ticket.setPrice(baseTicketPrice);
-		}
-
-		return ticket;
+		return createTicket(null, assignedEvent, seat);
 	}
 
 }

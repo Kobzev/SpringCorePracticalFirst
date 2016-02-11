@@ -1,5 +1,8 @@
 package ua.kobzev.theatre.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +13,8 @@ import java.util.List;
  *
  */
 
+@Component
+@Scope(value = "prototype")
 public class Auditorium {
 	private String name;
 	private int numberOfSeats;

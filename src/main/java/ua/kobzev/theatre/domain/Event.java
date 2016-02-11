@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.domain;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ua.kobzev.theatre.enums.EventRate;
@@ -10,6 +11,8 @@ import ua.kobzev.theatre.enums.EventRate;
  *
  */
 
+@Component
+@Scope(value = "prototype")
 public class Event {
 	private String name;
 	private double basePrice;

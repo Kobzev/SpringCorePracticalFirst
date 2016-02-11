@@ -46,9 +46,9 @@ public class CounterAspect {
 	}
 
 	@Before("priceQueried()")
-	public void saveInformationAboutPriceQueried() {
+	public void saveInformationAboutPriceQueried(JoinPoint joinPoint) {
 
-		System.out.println("Aspect2");
+		aspectService.savePriceQueried((Event) joinPoint.getThis());
 	}
 
 	@AfterReturning(value = "bookedTicket()", returning = "retVal")

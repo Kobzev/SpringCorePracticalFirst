@@ -1,11 +1,16 @@
 package ua.kobzev.theatre.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  * 
  * @author kkobziev
  *
  */
 
+@Component
+@Scope(value = "prototype")
 public class Ticket {
 
 	private User user;

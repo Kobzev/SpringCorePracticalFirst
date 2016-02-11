@@ -16,7 +16,7 @@ import ua.kobzev.theatre.strategy.impl.PurchasedStrategy;
 @Configuration
 public class DiscountConfiguration {
 
-	@Bean
+	/*@Bean
 	public DiscountService discountService(ApplicationContext context) {
 		DiscountServiceImpl discountService = new DiscountServiceImpl();
 
@@ -27,5 +27,5 @@ public class DiscountConfiguration {
 		discountService.setDiscountStrategy(discountsStrategy);
 
 		return discountService;
-	}
+	}*/
 }

@@ -3,13 +3,17 @@ package ua.kobzev.theatre.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.service.DiscountService;
 import ua.kobzev.theatre.strategy.DiscountStrategy;
 
+@Service
 public class DiscountServiceImpl implements DiscountService {
 
+	@Autowired
 	private List<DiscountStrategy> discountStrategy;
 
 	public List<DiscountStrategy> getDiscountStrategy() {

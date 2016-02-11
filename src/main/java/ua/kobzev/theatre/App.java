@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -52,7 +53,7 @@ public class App {
 		ctx.refresh();
 
 		App application = (App) ctx.getBean("app");
-		application.testApp();
+		application.testApp(ctx);
 		application.testAspects();
 
 		application.printStatistic();
@@ -60,12 +61,12 @@ public class App {
 		ctx.close();
 	}
 
-	private void testApp() {
-		User user = registerUser();
-		Auditorium auditoriumLondon = getAuditorium();
+	private void testApp(ApplicationContext context) {
+		User user = registerUser(context);
+		Auditorium auditoriumLondon = getAuditorium("London");
 
-		Event movieFirst = createEvent("Movie: Pirates of Caribbean sea", 100, EventRate.MID);
-		Event movieSecond = createEvent("Movie: Titanik", 10, EventRate.HIGH);
+		Event movieFirst = createEvent(context, "Movie: Pirates of Caribbean sea", 100, EventRate.MID);
+		Event movieSecond = createEvent(context, "Movie: Titanik", 10, EventRate.HIGH);
 
 		LocalDateTime dateTimeFirst = LocalDateTime.of(2016, Month.FEBRUARY, 8, 13, 00);
 		eventService.assignAuditorium(movieFirst, auditoriumLondon, dateTimeFirst);
@@ -104,21 +105,31 @@ public class App {
 		Event movieSecond = eventService.getByName("Movie: Titanik");
 	}
 
-	private Event createEvent(String name, int basePrice, EventRate rate) {
-		Event movieLoTR = new Event(name, basePrice, rate);
-		eventService.create(movieLoTR);
+	private Event createEvent(ApplicationContext context, String name, int basePrice, EventRate rate) {
+		Event movie = (Event) context.getBean("event");
 
-		return movieLoTR;
+		movie.setName(name);
+		movie.setBasePrice(basePrice);
+		movie.setRate(rate);
+
+		eventService.create(movie);
+
+		return movie;
 	}
 
-	private Auditorium getAuditorium() {
-		Auditorium auditoriumMercury = auditoriumService.findAuditoriumByName("London");
-		System.out.println(auditoriumMercury);
-		return auditoriumMercury;
+	private Auditorium getAuditorium(String name) {
+		Auditorium auditorium = auditoriumService.findAuditoriumByName(name);
+		System.out.println(auditorium);
+		return auditorium;
 	}
 
-	private User registerUser() {
-		User user = new User("test@mail.com", "Tester", LocalDateTime.now());
+	private User registerUser(ApplicationContext context) {
+		User user = (User) context.getBean("user");
+
+		user.setName("Tester");
+		user.setBirthDay(LocalDateTime.now());
+		user.setEmail("test@mail.com");
+
 		userService.register(user);
 		System.out.println(userService.getUserByEmail("test@mail.com"));
 

@@ -2,6 +2,7 @@ package ua.kobzev.theatre.domain;
 
 import java.time.LocalDateTime;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
+@Scope(value = "prototype")
 public class User {
 	private int id;
 	private String email;

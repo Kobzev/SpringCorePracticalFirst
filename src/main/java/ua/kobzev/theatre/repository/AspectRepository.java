@@ -1,6 +1,7 @@
 package ua.kobzev.theatre.repository;
 
 import ua.kobzev.theatre.domain.Event;
+import ua.kobzev.theatre.domain.User;
 
 import java.util.Map;
 
@@ -12,6 +13,15 @@ public interface AspectRepository {
     Map<Event, Integer> getAccessByName();
     void saveAccessByName(Event event);
 
+    Map<Event, Integer> getPriceQueried();
+    void savePriceQueried(Event event);
+
     Map<Event, Integer> getBookedTicket();
     void saveBookedTicket(Event event);
+
+    Map<String, Integer> getTotalDiscounts();
+    void saveTotalDiscount(String strategy);
+
+    Map<User, Integer> getInfoAboutTotalDiscountForUser();
+    void saveInfoAboutTotalDiscountForUser(User user);
 }

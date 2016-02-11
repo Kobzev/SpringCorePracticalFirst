@@ -1,7 +1,12 @@
 package ua.kobzev.theatre.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
+@Component
+@Scope(value = "prototype")
 public class AssignedEvent {
 	private Event event;
 	private Auditorium auditorium;
