@@ -66,7 +66,9 @@ public class App {
 	}
 
 	private void testApp(ApplicationContext context) {
-		User user = registerUser(context);
+		firstStart();
+
+		User user = userService.getUserByEmail("test@mail.com");
 		Auditorium auditoriumLondon = getAuditorium("London");
 
 		Event movieFirst = createEvent(context, "Movie: Pirates of Caribbean sea", 100, EventRate.MID);
@@ -76,6 +78,8 @@ public class App {
 		eventService.assignAuditorium(movieFirst, auditoriumLondon, dateTimeFirst);
 		LocalDateTime dateTimeSecond = LocalDateTime.of(2016, Month.FEBRUARY, 8, 15, 00);
 		eventService.assignAuditorium(movieSecond, auditoriumLondon, dateTimeSecond);
+
+		System.out.println("Users with name Tester :" + userService.getUsersByName("Tester").size());
 
 		List<Integer> seats = new ArrayList<>();
 		seats.add(1);
@@ -111,6 +115,20 @@ public class App {
 
 		System.out.println("Purchased tickets for " + movieSecond
 				+ bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
+
+
+		System.out.println("Delete user :" + userService.remove(user));
+	}
+
+	private void firstStart(){
+		User user = new User();
+
+		user.setName("Tester");
+		user.setBirthDay(LocalDateTime.now());
+		user.setEmail("test@mail.com");
+
+		userService.register(user);
+		System.out.println(userService.getUserByEmail("test@mail.com"));
 	}
 
 	@SuppressWarnings("unused")
@@ -137,18 +155,7 @@ public class App {
 		return auditorium;
 	}
 
-	private User registerUser(ApplicationContext context) {
-		User user = (User) context.getBean("user");
 
-		user.setName("Tester");
-		user.setBirthDay(LocalDateTime.now());
-		user.setEmail("test@mail.com");
-
-		userService.register(user);
-		System.out.println(userService.getUserByEmail("test@mail.com"));
-
-		return user;
-	}
 
 	public void printStatistic() {
 		aspectService.printStatistic();

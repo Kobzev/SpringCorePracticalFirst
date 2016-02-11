@@ -20,7 +20,7 @@ import ua.kobzev.theatre.repository.impl.inmemory.AuditoriumRepositoryImpl;
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan("ua.kobzev.theatre")
-@Import(DiscountConfiguration.class)
+@Import({DiscountConfiguration.class, Jdbc.class})
 public class MainConfiguration {
 
 	@Autowired

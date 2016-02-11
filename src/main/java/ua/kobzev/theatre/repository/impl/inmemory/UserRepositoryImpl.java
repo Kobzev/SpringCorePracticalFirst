@@ -16,7 +16,7 @@ import ua.kobzev.theatre.repository.UserRepository;
  *
  */
 
-@Repository
+//@Repository
 public class UserRepositoryImpl implements UserRepository {
 
 	private List<User> usersList;
