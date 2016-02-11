@@ -100,6 +100,15 @@ public class App {
 		Ticket ticket2 = bookingService.createTicket(assignedEvent, 5);
 		bookingService.bookTicket(user, ticket2);
 
+		Ticket ticket3 = bookingService.createTicket(assignedEvent, 15);
+		bookingService.bookTicket(user, ticket3);
+
+		Ticket ticket4 = bookingService.createTicket(assignedEvent, 25);
+		bookingService.bookTicket(user, ticket4);
+
+		Ticket ticket5 = bookingService.createTicket(assignedEvent, 35);
+		bookingService.bookTicket(user, ticket5);
+
 		System.out.println("Purchased tickets for " + movieSecond
 				+ bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
 	}
