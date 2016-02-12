@@ -36,39 +36,27 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public User getById(int id) {
-        return jdbcOperations.queryForObject("select * from users where id = ?",
-                new Object[]{id},
-                (ResultSet resultSet, int rowNum) -> {
-                    User user = new User();
-                    user.setId(resultSet.getInt("id"));
-                    user.setName(resultSet.getString("name"));
-                    user.setEmail(resultSet.getString("email"));
-                    user.setBirthDay(LocalDateTime.of(resultSet.getDate("birthDay").toLocalDate(), LocalTime.NOON));
-
-                    return user;
-                });
+    public User getById(Integer id) {
+        List<User> userList = getUsersByParameter("id", id);
+        if (userList.size()==0) return null;
+        return userList.get(0);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return jdbcOperations.query("select * from users where email = ?",
-                new Object[]{email},
-                (ResultSet resultSet) -> {
-                    User user = new User();
-                    user.setId(resultSet.getInt("id"));
-                    user.setName(resultSet.getString("name"));
-                    user.setEmail(resultSet.getString("email"));
-                    user.setBirthDay(LocalDateTime.of(resultSet.getDate("birthDay").toLocalDate(), LocalTime.NOON));
-
-                    return user;
-        });
+        List<User> userList = getUsersByParameter("email", email);
+        if (userList.size()==0) return null;
+        return userList.get(0);
     }
 
     @Override
     public List<User> getUsersByName(String name) {
-        return jdbcOperations.query("select * from users where name = ?",
-                new Object[]{name},
+        return getUsersByParameter("name", name);
+    }
+
+    private List<User> getUsersByParameter(String param, Object val){
+        return jdbcOperations.query("select * from users where "+param+" = ?",
+                new Object[]{val},
                 (ResultSet resultSet, int rowNum) -> {
                     User user = new User();
                     user.setId(resultSet.getInt("id"));

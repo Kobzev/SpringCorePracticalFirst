@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Scope(value = "prototype")
 public class Auditorium {
 	private String name;
-	private int numberOfSeats;
+	private Integer numberOfSeats;
 	private List<Integer> vipSeats;
 
 	public Auditorium() {
@@ -30,7 +30,7 @@ public class Auditorium {
 		this.name = name;
 	}
 
-	public int getNumberOfSeats() {
+	public Integer getNumberOfSeats() {
 		return numberOfSeats;
 	}
 

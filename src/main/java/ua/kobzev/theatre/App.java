@@ -3,6 +3,7 @@ package ua.kobzev.theatre;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -58,7 +59,6 @@ public class App {
 
 		App application = (App) ctx.getBean("app");
 		application.testApp(ctx);
-		application.testAspects();
 
 		application.printStatistic();
 
@@ -71,15 +71,22 @@ public class App {
 		User user = userService.getUserByEmail("test@mail.com");
 		Auditorium auditoriumLondon = getAuditorium("London");
 
-		Event movieFirst = createEvent(context, "Movie: Pirates of Caribbean sea", 100, EventRate.MID);
-		Event movieSecond = createEvent(context, "Movie: Titanik", 10, EventRate.HIGH);
+		Event movieFirst = eventService.getByName("Movie: Pirates of Caribbean sea");
+		Event movieSecond = eventService.getByName("Movie: Titanik");
 
-		LocalDateTime dateTimeFirst = LocalDateTime.of(2016, Month.FEBRUARY, 8, 13, 00);
+		LocalDateTime now = LocalDateTime.now();
+
+		LocalDateTime dateTimeFirst = LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 13, 00);
 		eventService.assignAuditorium(movieFirst, auditoriumLondon, dateTimeFirst);
-		LocalDateTime dateTimeSecond = LocalDateTime.of(2016, Month.FEBRUARY, 8, 15, 00);
+		LocalDateTime dateTimeSecond = LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 15, 00);
 		eventService.assignAuditorium(movieSecond, auditoriumLondon, dateTimeSecond);
 
 		System.out.println("Users with name Tester :" + userService.getUsersByName("Tester").size());
+		System.out.println("Assigned events :" + eventService.getAll().size());
+		System.out.println("Assigned events :" + eventService.getNextEvents(LocalDateTime.now().plusDays(5)).size());
+		System.out.println("Assigned events :" + eventService.getForDateRange(LocalDateTime.now().minusDays(5), LocalDateTime.now().plusDays(5)).size());
+		System.out.println("for "+movieFirst+" auditorium : " + eventService.getAuditorium(movieFirst, dateTimeFirst));
+		System.out.println("for "+movieSecond+" assigned event : " + eventService.getAssignedEvent(movieSecond, dateTimeSecond));
 
 		List<Integer> seats = new ArrayList<>();
 		seats.add(1);
@@ -116,8 +123,6 @@ public class App {
 		System.out.println("Purchased tickets for " + movieSecond
 				+ bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
 
-
-		System.out.println("Delete user :" + userService.remove(user));
 	}
 
 	private void firstStart(){
@@ -128,25 +133,32 @@ public class App {
 		user.setEmail("test@mail.com");
 
 		userService.register(user);
-		System.out.println(userService.getUserByEmail("test@mail.com"));
+
+		User testUser = userService.getUserByEmail("test@mail.com");
+		System.out.println(testUser);
+		System.out.println(userService.getById(testUser.getId()));
+
+		createEvent("Movie: Pirates of Caribbean sea", 100.0, EventRate.MID);
+		createEvent("Movie: Titanik", 10.0, EventRate.HIGH);
+
+		User badTester = new User();
+
+		user.setName("Tester");
+		user.setBirthDay(LocalDateTime.now());
+		user.setEmail("test@mail.com");
+
+		userService.register(user);
+		System.out.println("Delete user :" + userService.remove(user));
 	}
 
-	@SuppressWarnings("unused")
-	private void testAspects() {
-		Event eventFirst = eventService.getByName("Movie: Pirates of Caribbean sea");
-		eventFirst = eventService.getByName("Movie: Titanik");
-	}
-
-	private Event createEvent(ApplicationContext context, String name, int basePrice, EventRate rate) {
-		Event movie = (Event) context.getBean("event");
+	private void createEvent(String name, Double basePrice, EventRate rate) {
+		Event movie = new Event();
 
 		movie.setName(name);
 		movie.setBasePrice(basePrice);
 		movie.setRate(rate);
 
 		eventService.create(movie);
-
-		return movie;
 	}
 
 	private Auditorium getAuditorium(String name) {
@@ -154,8 +166,6 @@ public class App {
 		System.out.println(auditorium);
 		return auditorium;
 	}
-
-
 
 	public void printStatistic() {
 		aspectService.printStatistic();

@@ -26,7 +26,7 @@ public class MainConfiguration {
 	@Autowired
 	private Environment environment;
 
-	@Bean
+	//@Bean
 	public AuditoriumRepository auditoriumRepository() {
 		AuditoriumRepositoryImpl auditoriumRepository = new AuditoriumRepositoryImpl();
 		auditoriumRepository.setAuditoriumList(readAuditoriumsFromProperties());

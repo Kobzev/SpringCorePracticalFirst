@@ -10,11 +10,11 @@ import ua.kobzev.theatre.domain.User;
 
 public interface TicketRepository {
 
-	void save(Ticket ticket);
+	boolean save(Ticket ticket);
 
 	List<Ticket> findAllByEvent(Event event, LocalDateTime dateTime);
 
-	boolean isPurchased(AssignedEvent assignedEvent, int seat);
+	boolean isPurchased(AssignedEvent assignedEvent, Integer seat);
 
 	List<Ticket> findAllByUser(User user);
 

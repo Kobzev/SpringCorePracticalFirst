@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.remove(user);
 	}
 
-	public User getById(int id) {
+	public User getById(Integer id) {
 		return userRepository.getById(id);
 	}
 

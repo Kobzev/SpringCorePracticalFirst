@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.repository.EventRepository;
 
-@Repository
+//@Repository
 public class EventRepositoryImpl implements EventRepository {
 
 	private List<Event> eventsList;

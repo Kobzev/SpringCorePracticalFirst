@@ -13,14 +13,16 @@ import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.TicketRepository;
 
-@Repository
+//@Repository
 public class TicketRepositoryImpl implements TicketRepository {
 
 	private List<Ticket> tickets = new ArrayList<>();
 
 	@Override
-	public void save(Ticket ticket) {
+	public boolean save(Ticket ticket) {
+		if (isPurchased(ticket.getAssignedEvent(), ticket.getSeat())) return false;
 		tickets.add(ticket);
+		return true;
 	}
 
 	@Override
@@ -31,7 +33,7 @@ public class TicketRepositoryImpl implements TicketRepository {
 	}
 
 	@Override
-	public boolean isPurchased(AssignedEvent assignedEvent, int seat) {
+	public boolean isPurchased(AssignedEvent assignedEvent, Integer seat) {
 		return tickets.stream().anyMatch(t -> assignedEvent.equals(t.getAssignedEvent()) && seat == t.getSeat());
 	}
 

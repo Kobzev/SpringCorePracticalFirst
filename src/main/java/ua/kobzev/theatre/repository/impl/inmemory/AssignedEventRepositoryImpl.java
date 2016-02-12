@@ -12,7 +12,7 @@ import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.repository.AssignedEventRepository;
 
-@Repository
+//@Repository
 public class AssignedEventRepositoryImpl implements AssignedEventRepository {
 
 	private List<AssignedEvent> assignedEventList;

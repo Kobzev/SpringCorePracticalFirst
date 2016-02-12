@@ -16,7 +16,7 @@ public interface UserRepository {
 
 	boolean remove(User user);
 
-	User getById(int id);
+	User getById(Integer id);
 
 	User getUserByEmail(String email);
 
