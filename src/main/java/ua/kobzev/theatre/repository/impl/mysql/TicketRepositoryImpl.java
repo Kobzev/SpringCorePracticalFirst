@@ -10,7 +10,6 @@ import ua.kobzev.theatre.repository.TicketRepository;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

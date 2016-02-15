@@ -20,7 +20,7 @@ public interface AspectRepository {
     Map<Event, Integer> getBookedTicket();
     void saveBookedTicket(Event event);
 
-    Map<DiscountStrategy, Integer> getTotalDiscounts();
+    Map<String, Integer> getTotalDiscounts();
     void saveTotalDiscount(DiscountStrategy strategy);
 
     Map<User, Integer> getInfoAboutTotalDiscountForUser();

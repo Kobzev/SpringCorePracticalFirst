@@ -37,7 +37,7 @@ public class AspectServiceImpl implements AspectService {
         bookedTicket.forEach((event, integer) -> System.out.println(event + " " + integer + " times"));
 
         System.out.println("4. totalDiscount");
-        Map<DiscountStrategy, Integer> totalDiscount = aspectRepository.getTotalDiscounts();
+        Map<String, Integer> totalDiscount = aspectRepository.getTotalDiscounts();
         totalDiscount.forEach((strategy, integer) -> System.out.println(strategy + " " + integer + " times"));
 
 

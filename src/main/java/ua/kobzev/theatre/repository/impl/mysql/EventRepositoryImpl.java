@@ -1,16 +1,14 @@
 package ua.kobzev.theatre.repository.impl.mysql;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.Event;
-import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.EventRepository;
 
 import java.sql.ResultSet;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -22,6 +20,9 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Autowired
     private JdbcOperations jdbcOperations;
+
+    @Autowired
+    private ApplicationContext context;
 
     @Override
     public boolean create(Event event) {
@@ -40,7 +41,7 @@ public class EventRepositoryImpl implements EventRepository {
         List<Event> eventList = jdbcOperations.query("select * from events WHERE name =?",
                 new Object[]{name},
                 (ResultSet resultSet, int rowNum) -> {
-                    Event event = new Event();
+                    Event event = (Event) context.getBean("event");//new Event();
                     event.setBasePrice(resultSet.getDouble("basePrice"));
                     event.setName(resultSet.getString("name"));
                     event.setRate(EventRate.valueOf(resultSet.getString("rate")));

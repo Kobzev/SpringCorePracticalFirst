@@ -1,31 +1,20 @@
 package ua.kobzev.theatre;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-
 import ua.kobzev.theatre.configuration.MainConfiguration;
-import ua.kobzev.theatre.domain.AssignedEvent;
-import ua.kobzev.theatre.domain.Auditorium;
-import ua.kobzev.theatre.domain.Event;
-import ua.kobzev.theatre.domain.Ticket;
-import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.domain.*;
 import ua.kobzev.theatre.enums.EventRate;
-import ua.kobzev.theatre.service.AspectService;
-import ua.kobzev.theatre.service.AuditoriumService;
-import ua.kobzev.theatre.service.BookingService;
-import ua.kobzev.theatre.service.EventService;
-import ua.kobzev.theatre.service.UserService;
+import ua.kobzev.theatre.service.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -73,6 +62,8 @@ public class App {
 
 		Event movieFirst = eventService.getByName("Movie: Pirates of Caribbean sea");
 		Event movieSecond = eventService.getByName("Movie: Titanik");
+		System.out.println(movieFirst.getClass());
+		System.out.println(movieSecond.getClass());
 
 		LocalDateTime now = LocalDateTime.now();
 
