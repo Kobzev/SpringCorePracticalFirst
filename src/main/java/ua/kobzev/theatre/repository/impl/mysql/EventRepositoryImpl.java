@@ -27,13 +27,13 @@ public class EventRepositoryImpl implements EventRepository {
     @Override
     public boolean create(Event event) {
         int result = jdbcOperations.update("INSERT into events(name,basePrice,rate) VALUES (?,?,?)",event.getName(),event.getBasePrice(),event.getRate().name());
-        return result==0 ? false : true;
+        return result!=0;
     }
 
     @Override
     public boolean remove(Event event) {
         int result = jdbcOperations.update("DELETE FROM events WHERE name =?", event.getName());
-        return result==0 ? false : true;
+        return result!=0;
     }
 
     @Override

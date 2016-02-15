@@ -1,6 +1,7 @@
 package ua.kobzev.theatre.repository.impl.mysql;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.AssignedEvent;
@@ -22,6 +23,9 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
 
     @Autowired
     private JdbcOperations jdbcOperations;
+
+    @Autowired
+    private ApplicationContext context;
 
     private static final String SQLGETALL = "SELECT \n" +
             "events.name eName, \n" +
@@ -48,7 +52,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
                     auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
                     auditorium.setVipSeats(resultSet.getString("vipSeats"));
 
-                    Event event = new Event();
+                    Event event = (Event) context.getBean("event");
                     event.setBasePrice(resultSet.getDouble("basePrice"));
                     event.setName(resultSet.getString("eName"));
                     event.setRate(EventRate.valueOf(resultSet.getString("rate")));
@@ -89,7 +93,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
                     auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
                     auditorium.setVipSeats(resultSet.getString("vipSeats"));
 
-                    Event event = new Event();
+                    Event event = (Event) context.getBean("event");
                     event.setBasePrice(resultSet.getDouble("basePrice"));
                     event.setName(resultSet.getString("eName"));
                     event.setRate(EventRate.valueOf(resultSet.getString("rate")));
@@ -113,7 +117,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
         if (isEventAssigned(event, auditorium, date)) return false;
 
         int result = jdbcOperations.update("INSERT into assignedevent(eventname,auditoriumname,date) VALUES (?,?,?)",event.getName(),auditorium.getName(),date);
-        return result==0 ? false : true;
+        return result!=0;
     }
 
     private static final String SQLISEVENTASSIGNED = "SELECT count(*) FROM assignedevent " +
@@ -180,7 +184,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
                     auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
                     auditorium.setVipSeats(resultSet.getString("vipSeats"));
 
-                    Event ev = new Event();
+                    Event ev = (Event) context.getBean("event");
                     ev.setBasePrice(resultSet.getDouble("basePrice"));
                     ev.setName(resultSet.getString("eName"));
                     ev.setRate(EventRate.valueOf(resultSet.getString("rate")));

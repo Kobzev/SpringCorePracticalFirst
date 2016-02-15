@@ -26,13 +26,13 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public boolean register(User user) {
         int result = jdbcOperations.update("INSERT into users(name,email,birthDay) VALUES (?,?,?)",user.getName(),user.getEmail(),user.getBirthDay());
-        return result==0 ? false : true;
+        return result!=0;
     }
 
     @Override
     public boolean remove(User user) {
         int result = jdbcOperations.update("DELETE FROM users WHERE id =?", user.getId());
-        return result==0 ? false : true;
+        return result!=0;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ua.kobzev.theatre.repository.impl.mysql;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.*;
@@ -22,6 +23,9 @@ public class TicketRepositoryImpl implements TicketRepository{
     @Autowired
     private JdbcOperations jdbcOperations;
 
+    @Autowired
+    private ApplicationContext context;
+
     private static final String SQLSAVE = "INSERT into tickets(userid,assignedeventid,seat,price)" +
                                           "VALUES (?,?,?,?)";
 
@@ -31,7 +35,7 @@ public class TicketRepositoryImpl implements TicketRepository{
 
         int result = jdbcOperations.update(SQLSAVE,
                 ticket.getUser().getId(), ticket.getAssignedEvent().getId(), ticket.getSeat(), ticket.getPrice());
-        return result==0 ? false : true;
+        return result!=0;
     }
 
     private static final String SQLFINDALLBYEVENT =
@@ -127,7 +131,7 @@ public class TicketRepositoryImpl implements TicketRepository{
                     auditorium.setNumberOfSeats(resultSet.getInt("seats"));
                     auditorium.setVipSeats(resultSet.getString("vipseat"));
 
-                    Event event = new Event();
+                    Event event = (Event) context.getBean("event");
                     event.setBasePrice(resultSet.getDouble("basePrice"));
                     event.setName(resultSet.getString("ename"));
                     event.setRate(EventRate.valueOf(resultSet.getString("rate")));

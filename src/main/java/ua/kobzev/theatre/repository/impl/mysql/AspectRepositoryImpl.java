@@ -118,7 +118,7 @@ public class AspectRepositoryImpl implements AspectRepository{
         List<Entry> entryList = jdbcOperations.query(SQLGETPRICEQUERIED,
                 (ResultSet resultSet, int rowNum) -> {
                     Event event = new Event();
-                    event.setBasePrice(resultSet.getDouble("basePrise"));
+                    event.setBasePrice(resultSet.getDouble("basePrice"));
                     event.setName(resultSet.getString("name"));
                     event.setRate(EventRate.valueOf(resultSet.getString("rate")));
 
