@@ -15,10 +15,10 @@ import ua.kobzev.theatre.enums.EventRate;
 @Scope(value = "prototype")
 public class Event {
 	private String name;
-	private double basePrice;
+	private Double basePrice;
 	private EventRate rate;
 
-	public Event(String name, double basePrise, EventRate rate) {
+	public Event(String name, Double basePrise, EventRate rate) {
 		this.name = name;
 		this.basePrice = basePrise;
 		this.rate = rate;
@@ -35,11 +35,11 @@ public class Event {
 		this.name = name;
 	}
 
-	public double getBasePrice() {
+	public Double getBasePrice() {
 		return basePrice;
 	}
 
-	public void setBasePrice(double basePrise) {
+	public void setBasePrice(Double basePrise) {
 		this.basePrice = basePrise;
 	}
 

@@ -1,12 +1,7 @@
 package ua.kobzev.theatre.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
@@ -18,6 +13,10 @@ import ua.kobzev.theatre.service.DiscountService;
 import ua.kobzev.theatre.service.EventService;
 import ua.kobzev.theatre.util.DomainUtils;
 import ua.kobzev.theatre.util.MainUtils;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BookingServiceImpl implements BookingService {

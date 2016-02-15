@@ -1,6 +1,5 @@
 package ua.kobzev.theatre.repository.impl.inmemory;
 
-import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.AspectRepository;
@@ -12,13 +11,13 @@ import java.util.Map;
 /**
  * Created by kkobziev on 2/10/16.
  */
-@Repository
+//@Repository
 public class AspectRepositoryImpl implements AspectRepository{
 
     private Map<Event, Integer> accessByName = new HashMap<>();
     private Map<Event, Integer> priceQueried = new HashMap<>();
     private Map<Event, Integer> bookedTicket = new HashMap<>();
-    private Map<DiscountStrategy, Integer> totalDiscount = new HashMap<>();
+    private Map<String, Integer> totalDiscount = new HashMap<>();
     private Map<User, Integer> usersDiscount = new HashMap<>();
 
 
@@ -56,14 +55,14 @@ public class AspectRepositoryImpl implements AspectRepository{
     }
 
     @Override
-    public Map<DiscountStrategy, Integer> getTotalDiscounts() {
+    public Map<String, Integer> getTotalDiscounts() {
         return new HashMap<>(totalDiscount);
     }
 
     @Override
     public void saveTotalDiscount(DiscountStrategy strategy) {
-        Integer times = totalDiscount.get(strategy);
-        totalDiscount.put(strategy, times==null? 1 : ++times);
+        Integer times = totalDiscount.get(strategy.toString());
+        totalDiscount.put(strategy.toString(), times==null? 1 : ++times);
     }
 
     @Override

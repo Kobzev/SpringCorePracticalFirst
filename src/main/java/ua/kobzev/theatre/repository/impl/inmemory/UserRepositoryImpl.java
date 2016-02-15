@@ -16,7 +16,7 @@ import ua.kobzev.theatre.repository.UserRepository;
  *
  */
 
-@Repository
+//@Repository
 public class UserRepositoryImpl implements UserRepository {
 
 	private List<User> usersList;
@@ -42,8 +42,8 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User getById(int id) {
-		return usersList.stream().filter(user -> ((Integer) user.getId()).equals(id)).findFirst().orElse(null);
+	public User getById(Integer id) {
+		return usersList.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
 	}
 
 	@Override

@@ -11,6 +11,7 @@ public class AssignedEvent {
 	private Event event;
 	private Auditorium auditorium;
 	private LocalDateTime date;
+	private Integer id;
 
 	public AssignedEvent(Event event, Auditorium auditorium, LocalDateTime date) {
 		this.event = event;
@@ -85,9 +86,18 @@ public class AssignedEvent {
 	@Override
 	public String toString() {
 		return "AssignedEvent{" +
-				"event=" + event.getName() +
+				"id=" + id +
+				", event=" + event.getName() +
 				", auditorium=" + auditorium.getName() +
 				", date=" + date +
 				'}';
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
