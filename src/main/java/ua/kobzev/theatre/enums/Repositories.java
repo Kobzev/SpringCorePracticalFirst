@@ -7,5 +7,5 @@ public enum Repositories {
     INMEMORY,
     JDBCTEMPLATE,
     HIBERNATE,
-    MYBATIS;
+    MYBATIS
 }

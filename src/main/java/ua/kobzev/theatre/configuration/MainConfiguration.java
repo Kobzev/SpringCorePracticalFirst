@@ -133,8 +133,7 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.UserRepositoryImpl();
 			case MYBATIS:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.hibernate.UserRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.mybatis.UserRepositoryImpl();
 			case HIBERNATE:
 				return new ua.kobzev.theatre.repository.impl.hibernate.UserRepositoryImpl();
 			case JDBCTEMPLATE:

@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.repository.impl.mybatis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.UserRepository;
 
@@ -10,33 +11,32 @@ import java.util.List;
  */
 
 public class UserRepositoryImpl implements UserRepository {
+
+    @Autowired
+    private Mapper mapper;
+
     @Override
     public boolean register(User user) {
-        // TODO
-        return false;
+        return mapper.createUser(user)>0;
     }
 
     @Override
     public boolean remove(User user) {
-        // TODO
-        return false;
+        return mapper.removeUser(user.getId())>0;
     }
 
     @Override
     public User getById(Integer id) {
-        // TODO
-        return null;
+        return mapper.getUserById(id);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        // TODO
-        return null;
+        return mapper.getUserByEmail(email);
     }
 
     @Override
     public List<User> getUsersByName(String name) {
-        // TODO
-        return null;
+        return mapper.getUsersByName(name);
     }
 }

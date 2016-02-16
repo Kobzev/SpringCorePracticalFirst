@@ -1,5 +1,7 @@
 package ua.kobzev.theatre.configuration;
 
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
@@ -11,6 +13,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.repository.impl.mybatis.Mapper;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -59,5 +62,25 @@ public class Jdbc {
         sessionFactoryBean.setHibernateProperties(hibernateProperties);
 
         return sessionFactoryBean;
+    }
+
+    @Bean
+    @Autowired
+    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        sqlSessionFactoryBean.setTypeHandlersPackage("ua.kobzev.theatre.repository.impl.mybatis.handlers");
+
+        return sqlSessionFactoryBean;
+    }
+
+    @Bean
+    @Autowired
+    public MapperFactoryBean mapperFactoryBean(SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
+        MapperFactoryBean mapperFactoryBean = new MapperFactoryBean();
+        mapperFactoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
+        mapperFactoryBean.setMapperInterface(Mapper.class);
+
+        return mapperFactoryBean;
     }
 }
