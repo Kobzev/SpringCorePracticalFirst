@@ -3,8 +3,9 @@ package ua.kobzev.theatre.domain;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import ua.kobzev.theatre.enums.EventRate;
+
+import javax.persistence.*;
 
 /**
  * 
@@ -17,16 +18,17 @@ import ua.kobzev.theatre.enums.EventRate;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Entity
+@Table(name = "events")
 public class Event {
+
+	@Id
 	private String name;
 	private Double basePrice;
-	private EventRate rate;
 
-	public Event(String name, Double basePrise, EventRate rate) {
-		this.name = name;
-		this.basePrice = basePrise;
-		this.rate = rate;
-	}
+	@Enumerated(EnumType.STRING)
+	private EventRate rate;
 }
