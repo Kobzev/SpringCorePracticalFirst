@@ -32,7 +32,9 @@ public class MainConfiguration {
 
 				return auditoriumRepository;
 			case MYBATIS:
+				// TODO
 			case HIBERNATE:
+				// TODO
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.AuditoriumRepositoryImpl();
 			default:
@@ -50,7 +52,9 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.AspectRepositoryImpl();
 			case MYBATIS:
+				// TODO
 			case HIBERNATE:
+				// TODO
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.AspectRepositoryImpl();
 			default:
@@ -67,7 +71,9 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.AssignedEventRepositoryImpl();
 			case MYBATIS:
+				// TODO
 			case HIBERNATE:
+				// TODO
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.AssignedEventRepositoryImpl();
 			default:
@@ -83,7 +89,9 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.EventRepositoryImpl();
 			case MYBATIS:
+				// TODO
 			case HIBERNATE:
+				// TODO
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.EventRepositoryImpl();
 			default:
@@ -99,7 +107,9 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.TicketRepositoryImpl();
 			case MYBATIS:
+				// TODO
 			case HIBERNATE:
+				// TODO
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.TicketRepositoryImpl();
 			default:
@@ -115,7 +125,10 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.UserRepositoryImpl();
 			case MYBATIS:
+				// TODO
+				//return new ua.kobzev.theatre.repository.impl.hibernate.UserRepositoryImpl();
 			case HIBERNATE:
+				return new ua.kobzev.theatre.repository.impl.hibernate.UserRepositoryImpl();
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.UserRepositoryImpl();
 			default:

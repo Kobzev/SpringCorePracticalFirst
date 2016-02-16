@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -17,8 +18,14 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
+@Table(name = "users")
 public class User {
+
+	@Id
+	@GeneratedValue
 	private Integer id;
+
 	private String email;
 	private String name;
 	private LocalDateTime birthDay;
