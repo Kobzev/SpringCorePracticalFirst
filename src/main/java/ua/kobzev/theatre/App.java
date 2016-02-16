@@ -62,6 +62,7 @@ public class App {
 
 		User user = userService.getUserByEmail("test@mail.com");
 		Auditorium auditoriumLondon = getAuditorium("London");
+		System.out.println(auditoriumLondon);
 
 		Event movieFirst = eventService.getByName("Movie: Pirates of Caribbean sea");
 		Event movieSecond = eventService.getByName("Movie: Titanik");

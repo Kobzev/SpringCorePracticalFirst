@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +19,17 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
+@Table(name = "auditoriums")
 public class Auditorium {
+
+	@Id
 	private String name;
 	private Integer numberOfSeats;
+	@Column(name = "vipSeats")
+	private String strVipSeats;
+
+	@Transient
 	private List<Integer> vipSeats;
 
 	public void setVipSeats(String vipSeats) {
@@ -31,4 +40,10 @@ public class Auditorium {
 			this.vipSeats.add(Integer.parseInt(seats[i]));
 		}
 	}
+
+	public List<Integer> getVipSeats(){
+		if (vipSeats == null && strVipSeats != null) setVipSeats(strVipSeats);
+		return vipSeats;
+	}
+
 }

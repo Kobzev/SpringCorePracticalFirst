@@ -35,8 +35,7 @@ public class MainConfiguration {
 				// TODO
 				//return new ua.kobzev.theatre.repository.impl.mybatis.AuditoriumRepositoryImpl();
 			case HIBERNATE:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.hibernate.AuditoriumRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.hibernate.AuditoriumRepositoryImpl();
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.AuditoriumRepositoryImpl();
 			default:

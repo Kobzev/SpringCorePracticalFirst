@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
 
@@ -48,21 +49,12 @@ public class Jdbc {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource){
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
-        sessionFactoryBean.setAnnotatedClasses(User.class, Event.class);
+        sessionFactoryBean.setAnnotatedClasses(User.class, Event.class, Auditorium.class);
 
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty(org.hibernate.cfg.Environment.DIALECT, environment.getProperty("hibernate.dialect"));
         hibernateProperties.setProperty(org.hibernate.cfg.Environment.SHOW_SQL, environment.getProperty("hibernate.show_sql"));
         hibernateProperties.setProperty(org.hibernate.cfg.Environment.USE_NEW_ID_GENERATOR_MAPPINGS, "false");
-            /*
-            hibernateProperties.setProperty(Environment.HBM2DDL_AUTO,
-                    "create-drop");
-             */
-
-            /*
-
-            hibernateProperties.setProperty(Environment.FORMAT_SQL,"true");
-             */
 
         sessionFactoryBean.setHibernateProperties(hibernateProperties);
 
