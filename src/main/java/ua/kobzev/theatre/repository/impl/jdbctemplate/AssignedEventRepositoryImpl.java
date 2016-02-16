@@ -1,9 +1,8 @@
-package ua.kobzev.theatre.repository.impl.mysql;
+package ua.kobzev.theatre.repository.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
@@ -18,7 +17,6 @@ import java.util.List;
  * Created by kkobziev on 2/11/16.
  */
 
-@Repository
 public class AssignedEventRepositoryImpl implements AssignedEventRepository{
 
     @Autowired

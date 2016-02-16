@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by kkobziev on 2/10/16.
  */
-//@Repository
+
 public class AspectRepositoryImpl implements AspectRepository{
 
     private Map<Event, Integer> accessByName = new HashMap<>();

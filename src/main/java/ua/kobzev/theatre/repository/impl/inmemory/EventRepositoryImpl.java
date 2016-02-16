@@ -1,14 +1,11 @@
 package ua.kobzev.theatre.repository.impl.inmemory;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.repository.EventRepository;
 
-//@Repository
+import java.util.ArrayList;
+import java.util.List;
+
 public class EventRepositoryImpl implements EventRepository {
 
 	private List<Event> eventsList;

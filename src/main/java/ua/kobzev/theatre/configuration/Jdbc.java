@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  * Created by kkobziev on 2/11/16.
  */
 
-@PropertySource("file:src/main/resources/jdbc.properties")
+@PropertySource("classpath:jdbc.properties")
 public class Jdbc {
 
     @Autowired
