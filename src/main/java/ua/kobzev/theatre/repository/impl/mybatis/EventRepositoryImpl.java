@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.repository.impl.mybatis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.repository.EventRepository;
 
@@ -8,21 +9,22 @@ import ua.kobzev.theatre.repository.EventRepository;
  */
 
 public class EventRepositoryImpl implements EventRepository{
+
+    @Autowired
+    private Mapper mapper;
+
     @Override
     public boolean create(Event event) {
-        // TODO
-        return false;
+        return mapper.createEvent(event)>0;
     }
 
     @Override
     public boolean remove(Event event) {
-        // TODO
-        return false;
+        return mapper.removeEvent(event.getName())>0;
     }
 
     @Override
     public Event getByName(String name) {
-        // TODO
-        return null;
+        return mapper.getEventByName(name);
     }
 }

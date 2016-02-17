@@ -32,8 +32,7 @@ public class MainConfiguration {
 
 				return auditoriumRepository;
 			case MYBATIS:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.mybatis.AuditoriumRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.mybatis.AuditoriumRepositoryImpl();
 			case HIBERNATE:
 				return new ua.kobzev.theatre.repository.impl.hibernate.AuditoriumRepositoryImpl();
 			case JDBCTEMPLATE:
@@ -41,8 +40,6 @@ public class MainConfiguration {
 			default:
 				return null;
 		}
-
-
 	}
 
 	@Bean
@@ -94,8 +91,7 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.EventRepositoryImpl();
 			case MYBATIS:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.mybatis.EventRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.mybatis.EventRepositoryImpl();
 			case HIBERNATE:
 				return new ua.kobzev.theatre.repository.impl.hibernate.EventRepositoryImpl();
 			case JDBCTEMPLATE:

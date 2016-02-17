@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.repository.impl.mybatis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.repository.AuditoriumRepository;
 
@@ -11,16 +12,18 @@ import java.util.List;
  */
 
 public class AuditoriumRepositoryImpl implements AuditoriumRepository {
+
+    @Autowired
+    private Mapper mapper;
+
     @Override
     public List<Auditorium> getAuditoriums() {
-        // TODO
-        return null;
+        return mapper.getAllAuditoriums();
     }
 
     @Override
     public Auditorium findAuditoriumByName(String auditoriumName) {
-        // TODO
-        return null;
+        return mapper.getAuditoriumByName(auditoriumName);
     }
 
     @Override
