@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.repository.impl.mybatis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
@@ -14,27 +15,29 @@ import java.util.List;
  */
 
 public class TicketRepositoryImpl implements TicketRepository {
+
+    @Autowired
+    private Mapper mapper;
+
     @Override
     public boolean save(Ticket ticket) {
-        // TODO
-        return false;
+        if (isPurchased(ticket.getAssignedEvent(), ticket.getSeat())) return false;
+
+        return mapper.saveTicket(ticket)>0;
     }
 
     @Override
     public List<Ticket> findAllByEvent(Event event, LocalDateTime dateTime) {
-        // TODO
-        return null;
+        return mapper.getAllTicketsByEvenAndDate(event.getName(), dateTime);
     }
 
     @Override
     public boolean isPurchased(AssignedEvent assignedEvent, Integer seat) {
-        // TODO
-        return false;
+        return mapper.isPurchased(assignedEvent.getId(), seat) > 0;
     }
 
     @Override
     public List<Ticket> findAllByUser(User user) {
-        // TODO
-        return null;
+        return mapper.getAllTicketsForUser(user.getId());
     }
 }

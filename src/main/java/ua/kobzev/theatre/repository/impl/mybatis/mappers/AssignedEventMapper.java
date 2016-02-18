@@ -60,33 +60,12 @@ public interface AssignedEventMapper {
             })
     AssignedEvent findAssignedEventByEventAndDate(@Param("eventname")String eventName, @Param("date") LocalDateTime date);
 
-    /*
-
-    private static final String SQLGETFORDATERANGE = "SELECT \n" +
-            "events.name eName, \n" +
-            "events.basePrice basePrice,\n" +
-            "events.rate rate,\n" +
-            "auditoriums.name aName,\n" +
-            "auditoriums.numberOfSeats numberOfSeats,\n" +
-            "auditoriums.vipSeats vipSeats,\n" +
-            "assignedevent.id id,\n" +
-            "assignedevent.date date\n" +
-            "FROM assignedevent, auditoriums, events\n" +
-            "where assignedevent.auditoriumname = auditoriums.name\n" +
-            "and assignedevent.eventname = events.name\n" +
-            "and assignedevent.date >= ? and assignedevent.date <= ?";
-
-    private static final String SQLFINDBYEVENTANDDATE = "SELECT \n" +
-            "events.name eName, \n" +
-            "events.basePrice basePrice,\n" +
-            "events.rate rate,\n" +
-            "auditoriums.name aName,\n" +
-            "auditoriums.numberOfSeats numberOfSeats,\n" +
-            "auditoriums.vipSeats vipSeats,\n" +
-            "assignedevent.id id,\n" +
-            "assignedevent.date date\n" +
-            "FROM assignedevent, auditoriums, events\n" +
-            "where assignedevent.auditoriumname = auditoriums.name\n" +
-            "and assignedevent.eventname = events.name\n" +
-            "and assignedevent.date = ? and assignedevent.eventname = ?";*/
+    @Select("SELECT * FROM assignedevent WHERE assignedevent.id = #{id}")
+    @Results(value = {
+            @Result(property="id", column="id"),
+            @Result(property = "date", column = "date"),
+            @Result(property="event",  column="eventname",  javaType=Event.class, one=@One(select="ua.kobzev.theatre.repository.impl.mybatis.Mapper.getEventByName")),
+            @Result(property="auditorium", column="auditoriumname", javaType=Auditorium.class, one=@One(select="ua.kobzev.theatre.repository.impl.mybatis.Mapper.getAuditoriumByName"))
+    })
+    AssignedEvent findAssignedEventById(@Param("id")Integer id);
 }
