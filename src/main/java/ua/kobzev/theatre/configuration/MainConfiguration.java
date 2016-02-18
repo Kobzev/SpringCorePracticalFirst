@@ -71,8 +71,7 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.AssignedEventRepositoryImpl();
 			case MYBATIS:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.mybatis.AssignedEventRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.mybatis.AssignedEventRepositoryImpl();
 			case HIBERNATE:
 				// TODO
 				//return new ua.kobzev.theatre.repository.impl.hibernate.AssignedEventRepositoryImpl();

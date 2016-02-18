@@ -77,7 +77,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
             "FROM assignedevent, auditoriums, events\n" +
             "where assignedevent.auditoriumname = auditoriums.name\n" +
             "and assignedevent.eventname = events.name\n" +
-            "and assignedevent.date >= ? and assignedevent.date <= ?";
+            "and assignedevent.date BETWEEN ? AND ?";
 
     @Override
     public List<AssignedEvent> getForDateRange(LocalDateTime from, LocalDateTime to) {

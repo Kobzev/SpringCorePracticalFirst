@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.repository.impl.mybatis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
@@ -13,16 +14,18 @@ import java.util.List;
  */
 
 public class AssignedEventRepositoryImpl implements AssignedEventRepository{
+
+    @Autowired
+    private Mapper mapper;
+
     @Override
     public List<AssignedEvent> getAll() {
-        // TODO
-        return null;
+        return mapper.getAllAssignedEvent();
     }
 
     @Override
     public List<AssignedEvent> getForDateRange(LocalDateTime from, LocalDateTime to) {
-        // TODO
-        return null;
+        return mapper.getForDateRange(from, to);
     }
 
     @Override
@@ -32,19 +35,17 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
 
     @Override
     public boolean assignAuditorium(Event event, Auditorium auditorium, LocalDateTime date) {
-        // TODO
-        return false;
+        if (mapper.countAssignedEvents(event.getName(), auditorium.getName(), date)!=0) return false;
+        return mapper.assignAuditorium(event.getName(), auditorium.getName(), date)>0;
     }
 
     @Override
     public Auditorium findEventAuditorium(Event event, LocalDateTime dateTime) {
-        // TODO
-        return null;
+        return mapper.findEventAuditorium(event.getName(), dateTime);
     }
 
     @Override
     public AssignedEvent findByEventAndDate(Event event, LocalDateTime dateTime) {
-        // TODO
-        return null;
+        return mapper.findAssignedEventByEventAndDate(event.getName(), dateTime);
     }
 }

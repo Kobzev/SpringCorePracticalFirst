@@ -14,7 +14,7 @@ public interface EventMapper {
     @Select("SELECT * FROM events WHERE name = #{name}")
     Event getEventByName(@Param("name")String name);
 
-    @Insert("INSERT INTO events (name,email,birthDay) VALUES (#{name},#{email},#{birthDay})")
+    @Insert("INSERT INTO events (name,basePrice,rate) VALUES (#{name},#{basePrice},#{rate})")
     int createEvent(Event event);
 
     @Delete("DELETE FROM events WHERE name = #{name}")
