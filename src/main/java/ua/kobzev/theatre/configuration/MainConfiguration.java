@@ -50,8 +50,7 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.AspectRepositoryImpl();
 			case MYBATIS:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.mybatis.AspectRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.mybatis.AspectRepositoryImpl();
 			case HIBERNATE:
 				// TODO
 				//return new ua.kobzev.theatre.repository.impl.hibernate.AspectRepositoryImpl();
@@ -108,8 +107,7 @@ public class MainConfiguration {
 			case INMEMORY:
 				return new ua.kobzev.theatre.repository.impl.inmemory.TicketRepositoryImpl();
 			case MYBATIS:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.mybatis.TicketRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.mybatis.TicketRepositoryImpl();
 			case HIBERNATE:
 				// TODO
 				//return new ua.kobzev.theatre.repository.impl.hibernate.TicketRepositoryImpl();

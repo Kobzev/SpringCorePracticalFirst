@@ -12,7 +12,6 @@ import java.util.List;
  * Created by kkobziev on 2/17/16.
  */
 public interface TicketsMapper {
-    // TODO
 
     @Insert("INSERT INTO tickets(userid,assignedeventid,seat,price) VALUES (#{user.id},#{assignedEvent.id},#{seat},#{price})")
     int saveTicket(Ticket ticket);

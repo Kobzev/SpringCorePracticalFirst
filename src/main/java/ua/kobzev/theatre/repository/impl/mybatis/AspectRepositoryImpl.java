@@ -1,10 +1,12 @@
 package ua.kobzev.theatre.repository.impl.mybatis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.AspectRepository;
 import ua.kobzev.theatre.strategy.DiscountStrategy;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,10 +14,14 @@ import java.util.Map;
  */
 
 public class AspectRepositoryImpl implements AspectRepository {
+
+    @Autowired
+    private Mapper mapper;
+
     @Override
     public Map<Event, Integer> getAccessByName() {
         // TODO
-        return null;
+        return new HashMap<>();
     }
 
     @Override
@@ -26,7 +32,7 @@ public class AspectRepositoryImpl implements AspectRepository {
     @Override
     public Map<Event, Integer> getPriceQueried() {
         // TODO
-        return null;
+        return new HashMap<>();
     }
 
     @Override
@@ -37,7 +43,7 @@ public class AspectRepositoryImpl implements AspectRepository {
     @Override
     public Map<Event, Integer> getBookedTicket() {
         // TODO
-        return null;
+        return new HashMap<>();
     }
 
     @Override
@@ -48,7 +54,7 @@ public class AspectRepositoryImpl implements AspectRepository {
     @Override
     public Map<String, Integer> getTotalDiscounts() {
         // TODO
-        return null;
+        return new HashMap<>();
     }
 
     @Override
@@ -59,7 +65,7 @@ public class AspectRepositoryImpl implements AspectRepository {
     @Override
     public Map<User, Integer> getInfoAboutTotalDiscountForUser() {
         // TODO
-        return null;
+        return new HashMap<>();
     }
 
     @Override
