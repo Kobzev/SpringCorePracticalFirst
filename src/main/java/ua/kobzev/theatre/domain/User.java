@@ -1,9 +1,6 @@
 package ua.kobzev.theatre.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,6 +17,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "users")
+@EqualsAndHashCode
 public class User {
 
 	@Id

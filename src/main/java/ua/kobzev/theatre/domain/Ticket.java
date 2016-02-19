@@ -7,6 +7,9 @@ import lombok.ToString;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * 
  * @author kkobziev
@@ -21,11 +24,14 @@ import org.springframework.stereotype.Component;
 @ToString
 public class Ticket {
 
+	@Id
+	@GeneratedValue
+	private Integer id;
+
 	private User user;
 	private AssignedEvent assignedEvent;
 	private Integer seat;
 	private Double price;
-	private Integer id;
 
 	public Ticket(AssignedEvent assignedEvent, Integer seat) {
 		this.assignedEvent = assignedEvent;
