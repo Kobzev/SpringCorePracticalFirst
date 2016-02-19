@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.repository.impl.hibernate;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,7 +13,6 @@ import ua.kobzev.theatre.repository.TicketRepository;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,19 +37,30 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public List<Ticket> findAllByEvent(Event event, LocalDateTime dateTime) {
-        // TODO
-        return new ArrayList<>();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Ticket where assignedEvent.event = :event and assignedEvent.date = :date");
+        query.setParameter("event", event);
+        query.setParameter("date", dateTime);
+
+        return query.list();
     }
 
     @Override
     public boolean isPurchased(AssignedEvent assignedEvent, Integer seat) {
-        // TODO
-        return true;
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Ticket where assignedEvent = :assignedEvent and seat = :seat");
+        query.setParameter("assignedEvent", assignedEvent);
+        query.setParameter("seat", seat);
+
+        return query.list().size()>0;
     }
 
     @Override
     public List<Ticket> findAllByUser(User user) {
-        // TODO
-        return new ArrayList<>();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Ticket where user = :user");
+        query.setParameter("user", user);
+
+        return query.list();
     }
 }
