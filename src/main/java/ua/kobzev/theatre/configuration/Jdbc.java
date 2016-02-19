@@ -10,9 +10,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import ua.kobzev.theatre.domain.Auditorium;
-import ua.kobzev.theatre.domain.Event;
-import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.domain.*;
 import ua.kobzev.theatre.repository.impl.mybatis.Mapper;
 
 import javax.sql.DataSource;
@@ -52,7 +50,7 @@ public class Jdbc {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource){
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
-        sessionFactoryBean.setAnnotatedClasses(User.class, Event.class, Auditorium.class);
+        sessionFactoryBean.setAnnotatedClasses(User.class, Event.class, Auditorium.class, AssignedEvent.class, Ticket.class);
 
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty(org.hibernate.cfg.Environment.DIALECT, environment.getProperty("hibernate.dialect"));

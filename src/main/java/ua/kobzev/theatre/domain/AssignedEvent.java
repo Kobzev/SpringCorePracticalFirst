@@ -2,8 +2,7 @@ package ua.kobzev.theatre.domain;
 
 import lombok.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,14 +10,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "assignedevent")
 public class AssignedEvent {
 
 	@Id
 	@GeneratedValue
 	private Integer id;
 
+	@ManyToOne
+	@JoinColumn(name = "eventname")
 	private Event event;
+
+	@ManyToOne
+	@JoinColumn(name = "auditoriumname")
 	private Auditorium auditorium;
+
 	private LocalDateTime date;
 
 	public AssignedEvent(Event event, Auditorium auditorium, LocalDateTime date) {

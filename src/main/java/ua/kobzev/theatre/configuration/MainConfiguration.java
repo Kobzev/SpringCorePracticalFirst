@@ -52,8 +52,7 @@ public class MainConfiguration {
 			case MYBATIS:
 				return new ua.kobzev.theatre.repository.impl.mybatis.AspectRepositoryImpl();
 			case HIBERNATE:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.hibernate.AspectRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.hibernate.AspectRepositoryImpl();
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.AspectRepositoryImpl();
 			default:
@@ -72,8 +71,7 @@ public class MainConfiguration {
 			case MYBATIS:
 				return new ua.kobzev.theatre.repository.impl.mybatis.AssignedEventRepositoryImpl();
 			case HIBERNATE:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.hibernate.AssignedEventRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.hibernate.AssignedEventRepositoryImpl();
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.AssignedEventRepositoryImpl();
 			default:
@@ -109,8 +107,7 @@ public class MainConfiguration {
 			case MYBATIS:
 				return new ua.kobzev.theatre.repository.impl.mybatis.TicketRepositoryImpl();
 			case HIBERNATE:
-				// TODO
-				//return new ua.kobzev.theatre.repository.impl.hibernate.TicketRepositoryImpl();
+				return new ua.kobzev.theatre.repository.impl.hibernate.TicketRepositoryImpl();
 			case JDBCTEMPLATE:
 				return new ua.kobzev.theatre.repository.impl.jdbctemplate.TicketRepositoryImpl();
 			default:

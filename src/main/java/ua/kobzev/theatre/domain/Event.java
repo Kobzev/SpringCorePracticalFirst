@@ -27,6 +27,7 @@ public class Event {
 
 	@Id
 	private String name;
+
 	private Double basePrice;
 
 	@Enumerated(EnumType.STRING)

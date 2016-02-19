@@ -52,8 +52,8 @@ public class UserRepositoryImpl implements UserRepository{
 
     public User getUserByEmail(String email) {
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery("select * from users where email = :email").addEntity(User.class);
-        query.setString("email", email);
+        Query query = session.createQuery("from users where email = :email");
+        query.setParameter("email", email);
         List<User> userList = query.list();
 
         session.close();
@@ -64,8 +64,8 @@ public class UserRepositoryImpl implements UserRepository{
 
     public List<User> getUsersByName(String name) {
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery("select * from users where name like :name").addEntity(User.class);
-        query.setString("name", name);
+        Query query = session.createQuery("from users where name like :name");
+        query.setParameter("name", name);
         List<User> userList = query.list();
 
         session.close();

@@ -25,7 +25,9 @@ public class Auditorium {
 
 	@Id
 	private String name;
+
 	private Integer numberOfSeats;
+
 	@Column(name = "vipSeats")
 	private String strVipSeats;
 

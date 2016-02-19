@@ -7,8 +7,7 @@ import lombok.ToString;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 
@@ -22,13 +21,20 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
+@Table(name = "tickets")
 public class Ticket {
 
 	@Id
 	@GeneratedValue
 	private Integer id;
 
+	@ManyToOne
+	@JoinColumn(name = "userid")
 	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "assignedeventid")
 	private AssignedEvent assignedEvent;
 	private Integer seat;
 	private Double price;
