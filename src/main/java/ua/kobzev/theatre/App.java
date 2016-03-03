@@ -62,6 +62,7 @@ public class App {
 
 		User user = userService.getUserByEmail("test@mail.com");
 		Auditorium auditoriumLondon = getAuditorium("London");
+		System.out.println(auditoriumLondon);
 
 		Event movieFirst = eventService.getByName("Movie: Pirates of Caribbean sea");
 		Event movieSecond = eventService.getByName("Movie: Titanik");
@@ -186,9 +187,10 @@ public class App {
 							"`id` int(11) NOT NULL AUTO_INCREMENT, " +
 							"`name` varchar(45) DEFAULT NULL, " +
 							"`email` varchar(45) DEFAULT NULL, " +
-							"`birthDay` datetime DEFAULT NULL, " +
+							"`birthDay` TIMESTAMP, " +
 							"PRIMARY KEY (`id`), " +
-							"UNIQUE KEY `id_UNIQUE` (`id`) " +
+							"UNIQUE KEY `id_UNIQUE` (`id`), " +
+							"UNIQUE KEY `email_UNIQUE` (`email`)" +
 							") ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8");
 
 		try{
@@ -216,11 +218,12 @@ public class App {
 
 		User badTester = new User();
 
-		badTester.setName("badTester");
+		badTester.setName("Tester");
 		badTester.setBirthDay(LocalDateTime.now());
 		badTester.setEmail("badtest@mail.com");
 
 		userService.register(badTester);
+		System.out.println("Users with name Tester :" + userService.getUsersByName("Tester").size());
 		System.out.println("Delete user :" + userService.remove(userService.getUserByEmail("badtest@mail.com")));
 	}
 

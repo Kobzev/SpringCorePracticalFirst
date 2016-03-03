@@ -1,10 +1,13 @@
 package ua.kobzev.theatre.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -12,35 +15,24 @@ import org.springframework.stereotype.Component;
  *
  */
 
-@Component
-@Scope(value = "prototype")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@Entity
+@Table(name = "auditoriums")
 public class Auditorium {
+
+	@Id
 	private String name;
+
 	private Integer numberOfSeats;
+
+	@Column(name = "vipSeats")
+	private String strVipSeats;
+
+	@Transient
 	private List<Integer> vipSeats;
-
-	public Auditorium() {
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Integer getNumberOfSeats() {
-		return numberOfSeats;
-	}
-
-	public void setNumberOfSeats(int numberOfSeats) {
-		this.numberOfSeats = numberOfSeats;
-	}
-
-	public List<Integer> getVipSeats() {
-		return vipSeats;
-	}
 
 	public void setVipSeats(String vipSeats) {
 		String[] seats = vipSeats.split(",");
@@ -51,9 +43,9 @@ public class Auditorium {
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "Auditorium{" + "name='" + name + '\'' + ", numberOfSeats=" + numberOfSeats + ", vipSeats=" + vipSeats
-				+ '}';
+	public List<Integer> getVipSeats(){
+		if (vipSeats == null && strVipSeats != null) setVipSeats(strVipSeats);
+		return vipSeats;
 	}
+
 }

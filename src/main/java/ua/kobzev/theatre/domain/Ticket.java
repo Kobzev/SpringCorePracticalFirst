@@ -1,7 +1,13 @@
 package ua.kobzev.theatre.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 
 /**
  * 
@@ -11,13 +17,27 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value = "prototype")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@Entity
+@Table(name = "tickets")
 public class Ticket {
 
+	@Id
+	@GeneratedValue
+	private Integer id;
+
+	@ManyToOne
+	@JoinColumn(name = "userid")
 	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "assignedeventid")
 	private AssignedEvent assignedEvent;
 	private Integer seat;
 	private Double price;
-	private Integer id;
 
 	public Ticket(AssignedEvent assignedEvent, Integer seat) {
 		this.assignedEvent = assignedEvent;
@@ -28,58 +48,5 @@ public class Ticket {
 		this.user = user;
 		this.assignedEvent = assignedEvent;
 		this.seat = seat;
-	}
-
-	public Ticket() {
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public AssignedEvent getAssignedEvent() {
-		return assignedEvent;
-	}
-
-	public void setAssignedEvent(AssignedEvent assignedEvent) {
-		this.assignedEvent = assignedEvent;
-	}
-
-	public Integer getSeat() {
-		return seat;
-	}
-
-	public void setSeat(Integer seat) {
-		this.seat = seat;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	@Override
-	public String toString() {
-		return "Ticket{" +
-				"user=" + user.getName() +
-				", seat=" + seat +
-				", assignedEvent=" + assignedEvent +
-				", price=" + price +
-				'}';
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 }

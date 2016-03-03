@@ -1,9 +1,8 @@
-package ua.kobzev.theatre.repository.impl.mysql;
+package ua.kobzev.theatre.repository.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.EventRepository;
@@ -15,7 +14,6 @@ import java.util.List;
  * Created by kkobziev on 2/11/16.
  */
 
-@Repository
 public class EventRepositoryImpl implements EventRepository {
 
     @Autowired

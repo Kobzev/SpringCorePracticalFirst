@@ -1,14 +1,12 @@
 package ua.kobzev.theatre.repository.impl.inmemory;
 
+import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.repository.UserRepository;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Repository;
-
-import ua.kobzev.theatre.domain.User;
-import ua.kobzev.theatre.repository.UserRepository;
 
 /**
  * 
@@ -16,7 +14,6 @@ import ua.kobzev.theatre.repository.UserRepository;
  *
  */
 
-//@Repository
 public class UserRepositoryImpl implements UserRepository {
 
 	private List<User> usersList;

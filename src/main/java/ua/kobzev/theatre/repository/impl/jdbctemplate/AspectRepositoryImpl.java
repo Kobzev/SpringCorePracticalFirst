@@ -1,9 +1,8 @@
-package ua.kobzev.theatre.repository.impl.mysql;
+package ua.kobzev.theatre.repository.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.stereotype.Repository;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.enums.EventRate;
@@ -13,15 +12,14 @@ import ua.kobzev.theatre.strategy.DiscountStrategy;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by kkobziev on 2/11/16.
  */
 
-@Repository
 public class AspectRepositoryImpl implements AspectRepository{
 
     @Autowired
@@ -75,11 +73,8 @@ public class AspectRepositoryImpl implements AspectRepository{
                     return entry;
                 });
 
-        Map<Event, Integer> result = new HashMap<>();
-
-        entryList.forEach(entry -> result.put((Event) entry.getKey(), entry.getValue()));
-
-        return result;
+        return entryList.stream()
+                .collect(Collectors.toMap(entry -> (Event) entry.getKey(), entry -> entry.getValue()));
     }
 
     @Override
@@ -129,11 +124,8 @@ public class AspectRepositoryImpl implements AspectRepository{
                     return entry;
                 });
 
-        Map<Event, Integer> result = new HashMap<>();
-
-        entryList.forEach(entry -> result.put((Event) entry.getKey(), entry.getValue()));
-
-        return result;
+        return entryList.stream()
+                .collect(Collectors.toMap(entry -> (Event) entry.getKey(), entry -> entry.getValue()));
     }
 
     @Override
@@ -163,11 +155,8 @@ public class AspectRepositoryImpl implements AspectRepository{
                     return entry;
                 });
 
-        Map<Event, Integer> result = new HashMap<>();
-
-        entryList.forEach(entry -> result.put((Event) entry.getKey(), entry.getValue()));
-
-        return result;
+        return entryList.stream()
+                .collect(Collectors.toMap(entry -> (Event) entry.getKey(), entry -> entry.getValue()));
     }
 
     @Override
@@ -189,11 +178,8 @@ public class AspectRepositoryImpl implements AspectRepository{
                     return entry;
                 });
 
-        Map<String, Integer> result = new HashMap<>();
-
-        entryList.forEach(entry -> result.put((String) entry.getKey(), entry.getValue()));
-
-        return result;
+        return entryList.stream()
+                .collect(Collectors.toMap(entry -> (String) entry.getKey(), entry -> entry.getValue()));
     }
 
     private Integer getTotalDiscountTimes(DiscountStrategy strategy) {
@@ -246,11 +232,8 @@ public class AspectRepositoryImpl implements AspectRepository{
                     return entry;
                 });
 
-        Map<User, Integer> result = new HashMap<>();
-
-        entryList.forEach(entry -> result.put((User) entry.getKey(), entry.getValue()));
-
-        return result;
+        return entryList.stream()
+                .collect(Collectors.toMap(entry -> (User) entry.getKey(), entry -> entry.getValue()));
     }
 
     private Integer previousInfoAboutTotalDiscountForUser(User user){

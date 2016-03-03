@@ -1,9 +1,9 @@
 package ua.kobzev.theatre.domain;
 
-import java.time.LocalDateTime;
+import lombok.*;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * 
@@ -11,10 +11,19 @@ import org.springframework.stereotype.Component;
  *
  */
 
-@Component
-@Scope(value = "prototype")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@Entity
+@Table(name = "users")
+@EqualsAndHashCode
 public class User {
+
+	@Id
+	@GeneratedValue
 	private Integer id;
+
 	private String email;
 	private String name;
 	private LocalDateTime birthDay;
@@ -23,50 +32,5 @@ public class User {
 		this.email = email;
 		this.name = name;
 		this.birthDay = birthDay;
-	}
-
-	public User() {
-
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public LocalDateTime getBirthDay() {
-		return birthDay;
-	}
-
-	public void setBirthDay(LocalDateTime birthDay) {
-		this.birthDay = birthDay;
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"email='" + email + '\'' +
-				", name='" + name + '\'' +
-				", birthDay=" + birthDay +
-				'}';
 	}
 }

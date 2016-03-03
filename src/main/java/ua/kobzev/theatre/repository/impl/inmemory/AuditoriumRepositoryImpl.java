@@ -1,12 +1,11 @@
 package ua.kobzev.theatre.repository.impl.inmemory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.repository.AuditoriumRepository;
 
-//@Repository
+import java.util.ArrayList;
+import java.util.List;
+
 public class AuditoriumRepositoryImpl implements AuditoriumRepository {
 
 	private List<Auditorium> auditoriumList;

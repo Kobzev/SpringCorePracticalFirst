@@ -1,18 +1,15 @@
 package ua.kobzev.theatre.repository.impl.inmemory;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Repository;
-
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.repository.AssignedEventRepository;
 
-//@Repository
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AssignedEventRepositoryImpl implements AssignedEventRepository {
 
 	private List<AssignedEvent> assignedEventList;
