@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 /**
  * Created by kkobziev on 2/16/16.
  */
@@ -51,13 +53,20 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
     @Override
     public boolean assignAuditorium(Event event, Auditorium auditorium, LocalDateTime date) {
         Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from AssignedEvent where eventname = :eventname AND date = :date and auditoriumname = :auditorium");
+        query.setParameter("eventname", event.getName());
+        query.setParameter("date", date);
+        query.setParameter("auditorium", auditorium.getName());
+        if (query.list().size() != 0) { return false; }
+
+
         Transaction tx = session.beginTransaction();
         AssignedEvent assignedEvent = new AssignedEvent(event, auditorium, date);
         session.saveOrUpdate(assignedEvent);
         tx.commit();
         Serializable id = session.getIdentifier(assignedEvent);
         session.close();
-        return ((Integer) id) > 0;
+        return !isNull(id);
     }
 
     @Override

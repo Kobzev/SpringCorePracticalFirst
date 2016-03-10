@@ -30,9 +30,9 @@ public class BirthdayStrategy implements DiscountStrategy {
 
 		if (checkBirthDay(user.getBirthDay())) {
 			double price = ticketsList.stream()
-									.map(x -> x.getPrice())
-									.reduce((x, y) -> x + y)
-									.get();
+									.map(Ticket::getPrice)
+									.reduce(Double::sum)
+									.orElse(new Double(0.0));
 
 			return price * percent / 100;
 		}

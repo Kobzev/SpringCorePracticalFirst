@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.configuration;
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +81,15 @@ public class Jdbc {
         mapperFactoryBean.setMapperInterface(Mapper.class);
 
         return mapperFactoryBean;
+    }
+
+    @Bean
+    @Autowired
+    public SpringLiquibase liquibase(DataSource dataSource){
+        SpringLiquibase springLiquibase = new SpringLiquibase();
+        springLiquibase.setDataSource(dataSource);
+        springLiquibase.setChangeLog("classpath:db/changelog.xml");
+
+        return springLiquibase;
     }
 }

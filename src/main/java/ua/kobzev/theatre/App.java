@@ -3,8 +3,6 @@ package ua.kobzev.theatre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Component;
 import ua.kobzev.theatre.configuration.MainConfiguration;
 import ua.kobzev.theatre.domain.*;
@@ -57,7 +55,6 @@ public class App {
 	}
 
 	private void testApp(ApplicationContext context) {
-		initBD(context);
 		firstStart();
 
 		User user = userService.getUserByEmail("test@mail.com");
@@ -116,88 +113,6 @@ public class App {
 		System.out.println("Purchased tickets for " + movieSecond
 				+ bookingService.getTicketsForEvent(movieSecond, dateTimeSecond));
 
-	}
-
-	private void initBD(ApplicationContext context){
-		JdbcOperations jdbcOperations = (JdbcOperations) context.getBean("jdbcTemplate");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `accessbyname` (" +
-							"`eventname` varchar(100) NOT NULL, " +
-							"`count` int(11) DEFAULT NULL, " +
-							"PRIMARY KEY (`eventname`) " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8");
-
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `assignedevent` (" +
-							"`eventname` varchar(100) NOT NULL, " +
-							"`auditoriumname` varchar(50) NOT NULL, " +
-							"`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, " +
-							"`id` int(11) NOT NULL AUTO_INCREMENT, " +
-							"		PRIMARY KEY (`id`) " +
-							") ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `auditoriums` (" +
-							"`name` varchar(50) NOT NULL, " +
-							"`numberOfSeats` int(11) DEFAULT NULL, " +
-							"`vipSeats` varchar(200) DEFAULT NULL, " +
-							"PRIMARY KEY (`name`) " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `bookedtickets` (" +
-							"`eventname` varchar(100) NOT NULL, " +
-							"`count` int(11) DEFAULT NULL, " +
-							"PRIMARY KEY (`eventname`) " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `events` (" +
-							"`name` varchar(100) NOT NULL, " +
-							"`basePrice` double DEFAULT NULL, " +
-							"`rate` varchar(45) DEFAULT NULL, " +
-							"PRIMARY KEY (`name`), " +
-							"UNIQUE KEY `name_UNIQUE` (`name`) " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `pricequeried` (" +
-							"`eventname` varchar(100) NOT NULL, " +
-							"`count` int(11) DEFAULT NULL, " +
-							"PRIMARY KEY (`eventname`) " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `tickets` (" +
-							"`id` int(11) NOT NULL AUTO_INCREMENT, " +
-							"`userid` int(11) DEFAULT NULL, " +
-							"`assignedeventid` int(11) DEFAULT NULL, " +
-							"`seat` int(11) DEFAULT NULL, " +
-							"`price` double DEFAULT NULL, " +
-							"PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `totaldiscounts` (" +
-							"`discountstrategy` varchar(100) NOT NULL, " +
-							"`count` int(11) DEFAULT NULL, " +
-							"PRIMARY KEY (`discountstrategy`) " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `totaldiscountsforuser` (" +
-							"`userid` int(11) NOT NULL, " +
-							"`count` int(11) DEFAULT NULL, " +
-							"PRIMARY KEY (`userid`) " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8");
-
-		jdbcOperations.update("CREATE TABLE IF NOT EXISTS `users` (" +
-							"`id` int(11) NOT NULL AUTO_INCREMENT, " +
-							"`name` varchar(45) DEFAULT NULL, " +
-							"`email` varchar(45) DEFAULT NULL, " +
-							"`birthDay` TIMESTAMP, " +
-							"PRIMARY KEY (`id`), " +
-							"UNIQUE KEY `id_UNIQUE` (`id`), " +
-							"UNIQUE KEY `email_UNIQUE` (`email`)" +
-							") ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8");
-
-		try{
-			jdbcOperations.update("INSERT INTO `auditoriums` VALUES ('London',150,'5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95'),('Paris',200,'10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190')");
-		}catch (DuplicateKeyException e) {
-			// TODO this is not first start
-		}
 	}
 
 	private void firstStart(){

@@ -77,6 +77,12 @@
 			<version>1.2.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>3.5.0_EPAMFIX_3</version>
+		</dependency>
+
 		<!--
 		<dependency>
 			<groupId>org.hibernate</groupId>

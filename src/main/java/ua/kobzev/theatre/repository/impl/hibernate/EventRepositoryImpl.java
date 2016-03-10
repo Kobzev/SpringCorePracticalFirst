@@ -9,6 +9,8 @@ import ua.kobzev.theatre.repository.EventRepository;
 
 import java.io.Serializable;
 
+import static java.util.Objects.isNull;
+
 /**
  * Created by kkobziev on 2/16/16.
  */
@@ -26,7 +28,7 @@ public class EventRepositoryImpl implements EventRepository {
         tx.commit();
         Serializable id = session.getIdentifier(event);
         session.close();
-        return ((Integer) id)>0;
+        return !isNull(id);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class EventRepositoryImpl implements EventRepository {
         tx.commit();
         Serializable ids = session.getIdentifier(eventLoad);
         session.close();
-        return ((Integer) ids)>0;
+        return !isNull(ids);
     }
 
     @Override

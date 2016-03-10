@@ -36,7 +36,10 @@ public class BookingServiceImpl implements BookingService {
 
 		seats.forEach(seat -> ticketsList.add(createTicket(user, event, date, seat)));
 
-		double price = ticketsList.stream().map(x -> x.getPrice()).reduce((x, y) -> x + y).get();
+		double price = ticketsList.stream()
+				.map(Ticket::getPrice)
+				.reduce(Double::sum)
+				.orElse(0.0d);
 
 		double discount = discountService.getDiscount(user, ticketsList);
 
