@@ -17,6 +17,7 @@
 		<hibernate.validator.version>5.2.3.Final</hibernate.validator.version>
 		<lombok.version>1.16.6</lombok.version>
 		<mybatis.version>3.3.1</mybatis.version>
+		<mybatis-spring.version>1.2.0</mybatis-spring.version>
 	</properties>
 
 	<dependencies>
@@ -74,7 +75,7 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
-			<version>1.2.0</version>
+			<version>${mybatis-spring.version}</version>
 		</dependency>
 
 		<dependency>

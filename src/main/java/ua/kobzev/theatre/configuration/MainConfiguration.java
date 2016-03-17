@@ -43,25 +43,6 @@ public class MainConfiguration {
 	}
 
 	@Bean
-	public AspectRepository aspectRepository(){
-		Repositories repositories = Repositories.valueOf(environment.getProperty("version.repositories"));
-
-		switch (repositories) {
-			case INMEMORY:
-				return new ua.kobzev.theatre.repository.impl.inmemory.AspectRepositoryImpl();
-			case MYBATIS:
-				return new ua.kobzev.theatre.repository.impl.mybatis.AspectRepositoryImpl();
-			case HIBERNATE:
-				return new ua.kobzev.theatre.repository.impl.hibernate.AspectRepositoryImpl();
-			case JDBCTEMPLATE:
-				return new ua.kobzev.theatre.repository.impl.jdbctemplate.AspectRepositoryImpl();
-			default:
-				return null;
-		}
-
-	}
-
-	@Bean
 	public AssignedEventRepository assignedEventRepository(){
 		Repositories repositories = Repositories.valueOf(environment.getProperty("version.repositories"));
 

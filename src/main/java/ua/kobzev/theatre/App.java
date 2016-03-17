@@ -37,9 +37,6 @@ public class App {
 	@Autowired
 	private BookingService bookingService;
 
-	@Autowired
-	private AspectService aspectService;
-
 	public static void main(String... args) {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 
@@ -48,8 +45,6 @@ public class App {
 
 		App application = (App) ctx.getBean("app");
 		application.testApp(ctx);
-
-		application.printStatistic();
 
 		ctx.close();
 	}
@@ -156,61 +151,6 @@ public class App {
 		Auditorium auditorium = auditoriumService.findAuditoriumByName(name);
 		System.out.println(auditorium);
 		return auditorium;
-	}
-
-	public void printStatistic() {
-		aspectService.printStatistic();
-	}
-
-	public void consoleRun() {
-		String answer = "";
-
-		while (!"0".equals(answer)) {
-			answer = firstPage();
-
-			switch (answer) {
-			case "1":
-				answer = logIn();
-				break;
-			case "2":
-				printStatistic();
-				answer = "0";
-			default:
-				break;
-			}
-		}
-
-		userService.getById(1);
-	}
-
-	private String logIn() {
-		String answer = "";
-
-		System.out.println("please enter your email");
-
-		answer = "0";
-
-		return answer;
-
-	}
-
-	private String firstPage() {
-		String answer = "";
-
-		System.out.println("what you wanna do?");
-		System.out.println("0. Exit");
-		System.out.println("1. Log in");
-		System.out.println("2. Print statistic");
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-		try {
-			answer = br.readLine();
-		} catch (IOException e) {
-			answer = "0";
-		}
-
-		return answer;
 	}
 
 }
