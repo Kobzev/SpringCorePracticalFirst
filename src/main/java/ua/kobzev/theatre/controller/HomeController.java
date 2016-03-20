@@ -15,8 +15,8 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String sayHello(ModelMap model) {
         model.addAttribute("welcome", "Welcome to EPAM spring advanced!!!!");
-        throw new NullPointerException();
-        //return "welcome";
+        //throw new NullPointerException();
+        return "index";
     }
 
 }

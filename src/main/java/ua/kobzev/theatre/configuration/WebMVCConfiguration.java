@@ -2,10 +2,12 @@ package ua.kobzev.theatre.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -38,6 +40,7 @@ public class WebMvcConfiguration {
     public SpringTemplateEngine getTemplateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(getTemplateResolver());
+        templateEngine.addDialect(new Java8TimeDialect());
         return templateEngine;
     }
     @Bean(name="viewResolver")
@@ -46,6 +49,13 @@ public class WebMvcConfiguration {
         viewResolver.setTemplateEngine(getTemplateEngine());
         viewResolver.setOrder(1);
         return viewResolver;
+    }
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver resolver() {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setMaxUploadSizePerFile(2000000);
+        return resolver;
     }
 
     @Bean(name = "pdfReport")
