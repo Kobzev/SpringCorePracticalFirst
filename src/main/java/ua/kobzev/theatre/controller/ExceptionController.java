@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler
+    @ExceptionHandler(Exception.class)
     public String catchException(Model model){
         model.addAttribute("textError", "Ups! Something happen. Please try again");
 

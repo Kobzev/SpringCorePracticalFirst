@@ -14,9 +14,9 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String sayHello(ModelMap model) {
-        model.addAttribute("welcome", "Hello World from Spring 4 MVC");
-        //throw new NullPointerException();
-        return "welcome";
+        model.addAttribute("welcome", "Welcome to EPAM spring advanced!!!!");
+        throw new NullPointerException();
+        //return "welcome";
     }
 
 }
