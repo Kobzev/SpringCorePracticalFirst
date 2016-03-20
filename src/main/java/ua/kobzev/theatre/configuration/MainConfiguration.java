@@ -3,14 +3,18 @@ package ua.kobzev.theatre.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import ua.kobzev.theatre.enums.Repositories;
 import ua.kobzev.theatre.repository.*;
 
 
 @Configuration
-@EnableAspectJAutoProxy
-@ComponentScan("ua.kobzev.theatre")
-@PropertySource("classpath:jdbc.properties")
+@EnableWebMvc
+@ComponentScan(basePackages = "ua.kobzev.theatre")
+@PropertySource("WEB-INF/jdbc.properties")
 @Import({DiscountConfiguration.class, Jdbc.class})
 public class MainConfiguration {
 
@@ -19,6 +23,38 @@ public class MainConfiguration {
 
 	@Autowired
 	private Environment environment;
+
+//	@Bean(name="HelloWorld")
+//	public ViewResolver viewResolver() {
+//		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//		viewResolver.setViewClass(JstlView.class);
+//		viewResolver.setPrefix("/WEB-INF/views/");
+//		viewResolver.setSuffix(".html");
+//
+//		return viewResolver;
+//	}
+
+	//start Thymeleaf specific configuration
+	@Bean(name ="templateResolver")
+	public ServletContextTemplateResolver getTemplateResolver() {
+		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+		templateResolver.setPrefix("/WEB-INF/views/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("XHTML");
+		return templateResolver;
+	}
+	@Bean(name ="templateEngine")
+	public SpringTemplateEngine getTemplateEngine() {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(getTemplateResolver());
+		return templateEngine;
+	}
+	@Bean(name="viewResolver")
+	public ThymeleafViewResolver getViewResolver(){
+		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+		viewResolver.setTemplateEngine(getTemplateEngine());
+		return viewResolver;
+	}
 
 	@Bean
 	public AuditoriumRepository auditoriumRepository() {
