@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.repository.EventRepository;
 
+import java.util.List;
+
 /**
  * Created by kkobziev on 2/16/16.
  */
@@ -26,5 +28,10 @@ public class EventRepositoryImpl implements EventRepository{
     @Override
     public Event getByName(String name) {
         return mapper.getEventByName(name);
+    }
+
+    @Override
+    public List<Event> findAll() {
+        return mapper.findAllEvents();
     }
 }

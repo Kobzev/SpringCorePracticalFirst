@@ -26,7 +26,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String testUser(Model model){
-        model.addAttribute("users", new ArrayList<>());
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
 

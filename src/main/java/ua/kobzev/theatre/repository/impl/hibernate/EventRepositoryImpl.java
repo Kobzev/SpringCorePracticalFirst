@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.repository.impl.hibernate;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -8,6 +9,7 @@ import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.repository.EventRepository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import static java.util.Objects.isNull;
 
@@ -49,5 +51,15 @@ public class EventRepositoryImpl implements EventRepository {
         Event event = session.get(Event.class, name);
         session.close();
         return event;
+    }
+
+    @Override
+    public List<Event> findAll() {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Event");
+        List<Event> eventList = query.list();
+
+        session.close();
+        return eventList;
     }
 }

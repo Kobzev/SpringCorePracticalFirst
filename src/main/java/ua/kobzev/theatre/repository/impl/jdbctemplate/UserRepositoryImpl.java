@@ -6,6 +6,7 @@ import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.UserRepository;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -52,17 +53,31 @@ public class UserRepositoryImpl implements UserRepository{
         return getUsersByParameter("name", name);
     }
 
+    @Override
+    public List<User> findAll() {
+        return jdbcOperations.query("select * from users",
+                (ResultSet resultSet, int rowNum) -> {
+                    return mapUserFromResultSet(resultSet);
+                });
+    }
+
     private List<User> getUsersByParameter(String param, Object val){
         return jdbcOperations.query("select * from users where "+param+" = ?",
                 new Object[]{val},
                 (ResultSet resultSet, int rowNum) -> {
-                    User user = new User();
-                    user.setId(resultSet.getInt("id"));
-                    user.setName(resultSet.getString("name"));
-                    user.setEmail(resultSet.getString("email"));
-                    user.setBirthDay(LocalDateTime.of(resultSet.getDate("birthDay").toLocalDate(), LocalTime.NOON));
-
-                    return user;
+                    return mapUserFromResultSet(resultSet);
                 });
     }
+
+    private User mapUserFromResultSet(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getInt("id"));
+        user.setName(resultSet.getString("name"));
+        user.setEmail(resultSet.getString("email"));
+        user.setBirthDay(LocalDateTime.of(resultSet.getDate("birthDay").toLocalDate(), LocalTime.NOON));
+
+        return user;
+    }
+
+
 }

@@ -25,7 +25,8 @@ public class EventController {
     private EventService eventService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getHome(){
+    public String getHome(Model model){
+        model.addAttribute("events", eventService.findAllEvents());
         return "events";
     }
 

@@ -39,4 +39,11 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> getUsersByName(String name) {
         return mapper.getUsersByName(name);
     }
+
+    @Override
+    public List<User> findAll() {
+        return mapper.findAllUsers();
+    }
+
+
 }

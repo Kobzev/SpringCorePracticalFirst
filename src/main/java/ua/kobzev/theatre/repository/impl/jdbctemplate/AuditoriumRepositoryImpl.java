@@ -6,6 +6,7 @@ import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.repository.AuditoriumRepository;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,16 +19,21 @@ public class AuditoriumRepositoryImpl implements AuditoriumRepository{
     @Autowired
     private JdbcOperations jdbcOperations;
 
+
     @Override
     public List<Auditorium> getAuditoriums() {
         return jdbcOperations.query("select * from auditoriums",
                 (ResultSet resultSet, int rowNum) -> {
-                    Auditorium auditorium = new Auditorium();
-                    auditorium.setName(resultSet.getString("name"));
-                    auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
-                    auditorium.setVipSeats(resultSet.getString("vipSeats"));
-                    return auditorium;
+                    return mapAuditoriumFromResultSet(resultSet);
                 });
+    }
+
+    private Auditorium mapAuditoriumFromResultSet(ResultSet resultSet) throws SQLException {
+        Auditorium auditorium = new Auditorium();
+        auditorium.setName(resultSet.getString("name"));
+        auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
+        auditorium.setVipSeats(resultSet.getString("vipSeats"));
+        return auditorium;
     }
 
     @Override
@@ -35,11 +41,7 @@ public class AuditoriumRepositoryImpl implements AuditoriumRepository{
         List<Auditorium> auditoriumList = jdbcOperations.query("select * from auditoriums WHERE name =?",
                 new Object[]{auditoriumName},
                 (ResultSet resultSet, int rowNum) -> {
-                    Auditorium auditorium = new Auditorium();
-                    auditorium.setName(resultSet.getString("name"));
-                    auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
-                    auditorium.setVipSeats(resultSet.getString("vipSeats"));
-                    return auditorium;
+                    return mapAuditoriumFromResultSet(resultSet);
                 });
 
         if (auditoriumList.size()==0) return null;

@@ -1,15 +1,14 @@
 package ua.kobzev.theatre.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.TicketRepository;
 import ua.kobzev.theatre.repository.UserRepository;
 import ua.kobzev.theatre.service.UserService;
+
+import java.util.List;
 
 /**
  * 
@@ -50,6 +49,11 @@ public class UserServiceImpl implements UserService {
 
 	public List<User> getUsersByName(String name) {
 		return userRepository.getUsersByName(name);
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
 	}
 
 	public List<Ticket> getBookedTickets(User user) {
