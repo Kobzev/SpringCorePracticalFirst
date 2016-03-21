@@ -1,8 +1,8 @@
 package ua.kobzev.theatre.repository;
 
-import java.util.List;
-
 import ua.kobzev.theatre.domain.User;
+
+import java.util.List;
 
 /**
  * 
@@ -21,5 +21,7 @@ public interface UserRepository {
 	User getUserByEmail(String email);
 
 	List<User> getUsersByName(String name);
+
+	List<User> findAll();
 
 }

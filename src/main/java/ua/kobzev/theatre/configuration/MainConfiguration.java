@@ -8,10 +8,9 @@ import ua.kobzev.theatre.repository.*;
 
 
 @Configuration
-@EnableAspectJAutoProxy
-@ComponentScan("ua.kobzev.theatre")
-@PropertySource("classpath:jdbc.properties")
-@Import({DiscountConfiguration.class, Jdbc.class})
+@ComponentScan(basePackages = "ua.kobzev.theatre")
+@PropertySource("WEB-INF/jdbc.properties")
+@Import({DiscountConfiguration.class, Jdbc.class, WebMvcConfiguration.class})
 public class MainConfiguration {
 
 	@Autowired
@@ -40,25 +39,6 @@ public class MainConfiguration {
 			default:
 				return null;
 		}
-	}
-
-	@Bean
-	public AspectRepository aspectRepository(){
-		Repositories repositories = Repositories.valueOf(environment.getProperty("version.repositories"));
-
-		switch (repositories) {
-			case INMEMORY:
-				return new ua.kobzev.theatre.repository.impl.inmemory.AspectRepositoryImpl();
-			case MYBATIS:
-				return new ua.kobzev.theatre.repository.impl.mybatis.AspectRepositoryImpl();
-			case HIBERNATE:
-				return new ua.kobzev.theatre.repository.impl.hibernate.AspectRepositoryImpl();
-			case JDBCTEMPLATE:
-				return new ua.kobzev.theatre.repository.impl.jdbctemplate.AspectRepositoryImpl();
-			default:
-				return null;
-		}
-
 	}
 
 	@Bean

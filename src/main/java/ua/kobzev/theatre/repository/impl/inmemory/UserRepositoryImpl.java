@@ -55,4 +55,9 @@ public class UserRepositoryImpl implements UserRepository {
 		return usersList.stream().filter(user -> user.getName().equals(name)).collect(Collectors.toList());
 	}
 
+	@Override
+	public List<User> findAll() {
+		return usersList;
+	}
+
 }

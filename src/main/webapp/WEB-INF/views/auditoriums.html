@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div>
+    <table class="box-table-a">
+        <caption >Users table</caption>
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Number of seats</th>
+            <th scope="col">Vip seats</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="auditorium : ${auditoriums}">
+            <td th:text="${auditorium.name}">1</td>
+            <td th:text="${auditorium.numberOfSeats}">aa@aa.com</td>
+            <td th:text="${auditorium.strVipSeats}">Triple Butter</td>
+        </tr>
+        <tr data-th-remove="all">
+            <td>2</td>
+            <td>Iron Condor</td>
+            <td>High Prob Hedged</td>
+            <td><a href="#">delete</a> | <a href="#">edit</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<form action="#" data-th-action="@{/auditoriums/choosename}" data-th-object="${model}" method="get">
+    <button type="submit">Find by name</button>
+</form>
+</body>
+</body>
+</html>

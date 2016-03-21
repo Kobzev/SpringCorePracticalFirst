@@ -21,7 +21,7 @@ import java.util.Properties;
  * Created by kkobziev on 2/11/16.
  */
 
-@PropertySource("file:src/main/resources/jdbc.properties")
+@PropertySource("WEB-INF/jdbc.properties")
 public class Jdbc {
 
     @Autowired

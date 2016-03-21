@@ -1,9 +1,9 @@
 package ua.kobzev.theatre.service;
 
-import java.util.List;
-
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
+
+import java.util.List;
 
 /**
  * 
@@ -25,6 +25,8 @@ public interface UserService {
 	User getUserByEmail(String email);
 
 	List<User> getUsersByName(String name);
+
+	List<User> findAll();
 
 	List<Ticket> getBookedTickets(User user);
 

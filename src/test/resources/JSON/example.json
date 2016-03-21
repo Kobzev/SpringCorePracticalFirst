@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "email" : "john1@dou.ua",
+      "name" : "John1 Dou",
+      "birthDay" : "1990-05-14T00:00:00"
+    },
+    {
+      "email" : "john2@dou.ua",
+      "name" : "John2 Dou",
+      "birthDay" : "1990-05-14T00:00:00"
+    }
+  ],
+  "events": [
+    {
+      "name" : "SuperMan",
+      "basePrice" : "55.20",
+      "rate" : "MID"
+    },
+    {
+      "name" : "DeadPool",
+      "basePrice" : "48.20",
+      "rate" : "LOW"
+    }
+  ]
+}

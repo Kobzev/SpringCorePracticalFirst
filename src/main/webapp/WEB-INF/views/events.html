@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div>
+    <table class="box-table-a">
+        <caption >Events table</caption>
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Base price</th>
+            <th scope="col">Rate</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="event : ${events}">
+            <td th:text="${event.name}">1</td>
+            <td th:text="${event.basePrice}">aa@aa.com</td>
+            <td th:text="${event.rate}">Triple Butter</td>
+            <td><a data-th-href="@{/events/delete(id=${event.name})}">delete</a>
+            </td>
+        </tr>
+        <tr data-th-remove="all">
+            <td>2</td>
+            <td>Iron Condor</td>
+            <td>High Prob Hedged</td>
+            <td><a href="#">delete</a> | <a href="#">edit</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<form action="#" data-th-action="@{/events/choosename}" data-th-object="${model}" method="get">
+    <button type="submit">Find by name</button>
+</form>
+<form action="#" data-th-action="@{/events/create}" method="get">
+    <button type="submit">Create new event</button>
+</form>
+</body>
+</html>

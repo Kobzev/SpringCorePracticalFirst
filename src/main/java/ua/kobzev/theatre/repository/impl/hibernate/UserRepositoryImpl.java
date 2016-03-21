@@ -71,4 +71,16 @@ public class UserRepositoryImpl implements UserRepository{
         session.close();
         return userList;
     }
+
+    @Override
+    public List<User> findAll() {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from User");
+        List<User> userList = query.list();
+
+        session.close();
+        return userList;
+    }
+
+
 }

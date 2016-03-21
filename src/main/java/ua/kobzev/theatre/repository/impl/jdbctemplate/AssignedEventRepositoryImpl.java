@@ -10,6 +10,7 @@ import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.AssignedEventRepository;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,24 +44,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
     public List<AssignedEvent> getAll() {
         return jdbcOperations.query(SQLGETALL,
                 (ResultSet resultSet, int rowNum) -> {
-                    AssignedEvent assignedEvent = new AssignedEvent();
-
-                    Auditorium auditorium = new Auditorium();
-                    auditorium.setName(resultSet.getString("aName"));
-                    auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
-                    auditorium.setVipSeats(resultSet.getString("vipSeats"));
-
-                    Event event = (Event) context.getBean("event");
-                    event.setBasePrice(resultSet.getDouble("basePrice"));
-                    event.setName(resultSet.getString("eName"));
-                    event.setRate(EventRate.valueOf(resultSet.getString("rate")));
-
-                    assignedEvent.setAuditorium(auditorium);
-                    assignedEvent.setId(resultSet.getInt("id"));
-                    assignedEvent.setEvent(event);
-                    assignedEvent.setDate(resultSet.getTimestamp("date").toLocalDateTime());
-
-                    return assignedEvent;
+                    return mapAssignedEventFromResulSet(resultSet);
                 });
     }
 
@@ -84,24 +68,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
         return jdbcOperations.query(SQLGETFORDATERANGE,
                 new Object[]{from, to},
                 (ResultSet resultSet, int rowNum) -> {
-                    AssignedEvent assignedEvent = new AssignedEvent();
-
-                    Auditorium auditorium = new Auditorium();
-                    auditorium.setName(resultSet.getString("aName"));
-                    auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
-                    auditorium.setVipSeats(resultSet.getString("vipSeats"));
-
-                    Event event = (Event) context.getBean("event");
-                    event.setBasePrice(resultSet.getDouble("basePrice"));
-                    event.setName(resultSet.getString("eName"));
-                    event.setRate(EventRate.valueOf(resultSet.getString("rate")));
-
-                    assignedEvent.setAuditorium(auditorium);
-                    assignedEvent.setId(resultSet.getInt("id"));
-                    assignedEvent.setEvent(event);
-                    assignedEvent.setDate(resultSet.getTimestamp("date").toLocalDateTime());
-
-                    return assignedEvent;
+                    return mapAssignedEventFromResulSet(resultSet);
                 });
     }
 
@@ -175,27 +142,32 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
         List<AssignedEvent> assignedEvents = jdbcOperations.query(SQLFINDBYEVENTANDDATE,
                 new Object[]{dateTime, event.getName()},
                 (ResultSet resultSet, int rowNum) -> {
-                    AssignedEvent assignedEvent = new AssignedEvent();
-
-                    Auditorium auditorium = new Auditorium();
-                    auditorium.setName(resultSet.getString("aName"));
-                    auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
-                    auditorium.setVipSeats(resultSet.getString("vipSeats"));
-
-                    Event ev = (Event) context.getBean("event");
-                    ev.setBasePrice(resultSet.getDouble("basePrice"));
-                    ev.setName(resultSet.getString("eName"));
-                    ev.setRate(EventRate.valueOf(resultSet.getString("rate")));
-
-                    assignedEvent.setAuditorium(auditorium);
-                    assignedEvent.setId(resultSet.getInt("id"));
-                    assignedEvent.setEvent(ev);
-                    assignedEvent.setDate(resultSet.getTimestamp("date").toLocalDateTime());
-
-                    return assignedEvent;
+                    return mapAssignedEventFromResulSet(resultSet);
                 });
 
         if (assignedEvents.size()== 0) return null;
         return assignedEvents.get(0);
+    }
+
+
+    private AssignedEvent mapAssignedEventFromResulSet(ResultSet resultSet) throws SQLException{
+        AssignedEvent assignedEvent = new AssignedEvent();
+
+        Auditorium auditorium = new Auditorium();
+        auditorium.setName(resultSet.getString("aName"));
+        auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
+        auditorium.setVipSeats(resultSet.getString("vipSeats"));
+
+        Event ev = (Event) context.getBean("event");
+        ev.setBasePrice(resultSet.getDouble("basePrice"));
+        ev.setName(resultSet.getString("eName"));
+        ev.setRate(EventRate.valueOf(resultSet.getString("rate")));
+
+        assignedEvent.setAuditorium(auditorium);
+        assignedEvent.setId(resultSet.getInt("id"));
+        assignedEvent.setEvent(ev);
+        assignedEvent.setDate(resultSet.getTimestamp("date").toLocalDateTime());
+
+        return assignedEvent;
     }
 }

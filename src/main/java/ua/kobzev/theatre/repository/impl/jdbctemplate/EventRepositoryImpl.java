@@ -8,6 +8,7 @@ import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.EventRepository;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -39,15 +40,27 @@ public class EventRepositoryImpl implements EventRepository {
         List<Event> eventList = jdbcOperations.query("select * from events WHERE name =?",
                 new Object[]{name},
                 (ResultSet resultSet, int rowNum) -> {
-                    Event event = (Event) context.getBean("event");//new Event();
-                    event.setBasePrice(resultSet.getDouble("basePrice"));
-                    event.setName(resultSet.getString("name"));
-                    event.setRate(EventRate.valueOf(resultSet.getString("rate")));
-
-                    return event;
+                    return mapEvenFromResultSet(resultSet);
                 });
 
         if (eventList.size()==0) return null;
         return eventList.get(0);
+    }
+
+    private Event mapEvenFromResultSet(ResultSet resultSet) throws SQLException {
+        Event event = (Event) context.getBean("event");//new Event();
+        event.setBasePrice(resultSet.getDouble("basePrice"));
+        event.setName(resultSet.getString("name"));
+        event.setRate(EventRate.valueOf(resultSet.getString("rate")));
+
+        return event;
+    }
+
+    @Override
+    public List<Event> findAll() {
+        return jdbcOperations.query("select * from events",
+                (ResultSet resultSet, int rowNum) -> {
+                    return mapEvenFromResultSet(resultSet);
+                });
     }
 }

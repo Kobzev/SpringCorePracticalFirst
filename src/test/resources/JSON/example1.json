@@ -1,0 +1,15 @@
+{
+  "users": [],
+  "events": [
+    {
+      "name" : "SuperMan1",
+      "basePrice" : "55.20",
+      "rate" : "HIGH"
+    },
+    {
+      "name" : "DeadPool1",
+      "basePrice" : "48.20",
+      "rate" : "MID"
+    }
+  ]
+}

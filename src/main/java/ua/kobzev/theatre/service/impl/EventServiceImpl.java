@@ -1,17 +1,16 @@
 package ua.kobzev.theatre.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.repository.AssignedEventRepository;
 import ua.kobzev.theatre.repository.EventRepository;
 import ua.kobzev.theatre.service.EventService;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 
@@ -47,6 +46,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public Event getByName(String name) {
 		return eventRepository.getByName(name);
+	}
+
+	@Override
+	public List<Event> findAllEvents() {
+		return eventRepository.findAll();
 	}
 
 	@Override

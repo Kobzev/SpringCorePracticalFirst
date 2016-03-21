@@ -1,11 +1,11 @@
 package ua.kobzev.theatre.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 
@@ -33,6 +33,8 @@ public interface EventService {
 	boolean remove(Event event);
 
 	Event getByName(String name);
+
+	List<Event> findAllEvents();
 
 	List<AssignedEvent> getAll();
 

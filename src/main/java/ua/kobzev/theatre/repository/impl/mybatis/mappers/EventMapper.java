@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import ua.kobzev.theatre.domain.Event;
 
+import java.util.List;
+
 /**
  * Created by kkobziev on 2/17/16.
  */
@@ -19,4 +21,7 @@ public interface EventMapper {
 
     @Delete("DELETE FROM events WHERE name = #{name}")
     int removeEvent(@Param("name")String name);
+
+    @Select("SELECT * FROM events")
+    List<Event> findAllEvents();
 }

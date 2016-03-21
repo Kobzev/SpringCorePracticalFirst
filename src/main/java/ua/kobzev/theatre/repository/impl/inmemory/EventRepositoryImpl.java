@@ -30,4 +30,9 @@ public class EventRepositoryImpl implements EventRepository {
 		return eventsList.stream().filter(event -> event.getName().equals(name)).findFirst().orElse(null);
 	}
 
+	@Override
+	public List<Event> findAll() {
+		return eventsList;
+	}
+
 }

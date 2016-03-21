@@ -2,6 +2,8 @@ package ua.kobzev.theatre.repository;
 
 import ua.kobzev.theatre.domain.Event;
 
+import java.util.List;
+
 public interface EventRepository {
 
 	boolean create(Event event);
@@ -9,5 +11,7 @@ public interface EventRepository {
 	boolean remove(Event event);
 
 	Event getByName(String name);
+
+	List<Event> findAll();
 
 }
