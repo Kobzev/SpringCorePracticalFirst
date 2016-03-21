@@ -1,14 +1,22 @@
 package ua.kobzev.theatre.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ua.kobzev.theatre.domain.Event;
+import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.service.EventService;
+import ua.kobzev.theatre.service.UserService;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by kkobziev on 3/20/16.
@@ -16,45 +24,49 @@ import java.io.FileOutputStream;
 @Controller
 public class FileUploadController {
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private EventService eventService;
+
     @RequestMapping(value = "/uploadfile", method = RequestMethod.GET)
     public String uploadFilePage(){
         return "upload";
     }
 
-    @RequestMapping(value = "/uploadFiles", method = RequestMethod.POST)
-    public String uploadMultipleFileHandler(@RequestParam("name") String[] names,
-                                     @RequestParam("file") MultipartFile[] files) {
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String uploadMultipleFileHandler(@RequestParam("file") MultipartFile[] files){
 
-        if (files.length != names.length)
+        List<String> filesList = new LinkedList<>();
+
+        if (files.length != files.length)
             throw new IllegalArgumentException();
 
-        String message = "";
-        for (int i = 0; i < files.length; i++) {
-            MultipartFile file = files[i];
-            String name = names[i];
-            try {
-                byte[] bytes = file.getBytes();
-
-                // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists())
-                    dir.mkdirs();
-
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + name);
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-
-                message = message + "You successfully uploaded file=" + name
-                        + "<br />";
-            } catch (Exception e) {
-                return "You failed to upload " + name + " => " + e.getMessage();
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                parseJSON(file);
             }
         }
+
         return "index";
+    }
+
+    private void parseJSON(MultipartFile multipartFile){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode rootNode = mapper.readTree(multipartFile.getInputStream());
+
+            //Users
+            User[] users = mapper.treeToValue(rootNode.get("users"), User[].class);
+            Arrays.asList(users).stream().forEach(user -> userService.register(user));
+
+            //Events
+            Event[] events = mapper.treeToValue(rootNode.get("events"), Event[].class);
+            Arrays.asList(events).stream().forEach(event -> eventService.create(event));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

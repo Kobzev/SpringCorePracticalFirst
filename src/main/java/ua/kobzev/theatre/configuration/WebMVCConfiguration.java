@@ -2,7 +2,8 @@ package ua.kobzev.theatre.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
@@ -47,15 +48,13 @@ public class WebMvcConfiguration {
     public ViewResolver getViewResolver(){
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(getTemplateEngine());
-        viewResolver.setOrder(1);
+        viewResolver.setOrder(2);
         return viewResolver;
     }
 
     @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver resolver() {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setMaxUploadSizePerFile(2000000);
-        return resolver;
+    public MultipartResolver resolver() {
+        return new StandardServletMultipartResolver();
     }
 
     @Bean(name = "pdfReport")
