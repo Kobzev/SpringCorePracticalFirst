@@ -57,8 +57,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/findbyname", method = RequestMethod.GET)
-    public String findByNameAction(Model model, User user){
-        model.addAttribute("users", userService.getUsersByName(user.getName()));
+    public String findByNameAction(Model model, @RequestParam("name") String name){
+        model.addAttribute("users", userService.getUsersByName(name));
         return "users";
     }
 
@@ -79,9 +79,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/findbyemail", method = RequestMethod.GET)
-    public String findByEmailAction(Model model, User user){
+    public String findByEmailAction(Model model, @RequestParam("email") String email){
         List<User> users = new ArrayList<>();
-        User usr = userService.getUserByEmail(user.getEmail());
+        User usr = userService.getUserByEmail(email);
         if (nonNull(usr)) users.add(usr);
 
         model.addAttribute("users", users);
@@ -89,9 +89,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/findbyid", method = RequestMethod.GET)
-    public String findByIDAction(Model model, User user){
+    public String findByIDAction(Model model, @RequestParam("id") Integer id){
         List<User> users = new ArrayList<>();
-        User usr = userService.getById(user.getId());
+        User usr = userService.getById(id);
         if (nonNull(usr)) users.add(usr);
 
         model.addAttribute("users", users);

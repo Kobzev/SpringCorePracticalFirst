@@ -31,20 +31,22 @@ public class EventController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String createUser(Model model){
+    public String createEvent(Model model){
         model.addAttribute("event", new Event());
         return "event/createEvent";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createUserAction(Model model, Event event){
+    public String createEventAction(Model model, Event event){
         eventService.create(event);
+        model.addAttribute("events", eventService.findAllEvents());
         return "events";
     }
 
     @RequestMapping(value = "/delete")
-    public String deleteUser(@RequestParam("id") String name){
+    public String deleteEvent(Model model, @RequestParam("id") String name){
         eventService.remove(eventService.getByName(name));
+        model.addAttribute("events", eventService.findAllEvents());
         return "events";
     }
 
@@ -58,9 +60,9 @@ public class EventController {
 
 
     @RequestMapping(value = "/findbyname", method = RequestMethod.GET)
-    public String findByName(Model model, Event event){
+    public String findByName(Model model, @RequestParam("name") String name){
         List<Event> events = new ArrayList<>();
-        Event ev = eventService.getByName(event.getName());
+        Event ev = eventService.getByName(name);
         if (nonNull(ev)) events.add(ev);
 
         model.addAttribute("events", events);

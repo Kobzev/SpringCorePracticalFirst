@@ -15,8 +15,6 @@ import ua.kobzev.theatre.service.UserService;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by kkobziev on 3/20/16.
@@ -37,11 +35,6 @@ public class FileUploadController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String uploadMultipleFileHandler(@RequestParam("file") MultipartFile[] files){
-
-        List<String> filesList = new LinkedList<>();
-
-        if (files.length != files.length)
-            throw new IllegalArgumentException();
 
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {

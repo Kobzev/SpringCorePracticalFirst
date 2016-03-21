@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.service.AuditoriumService;
 
@@ -38,9 +39,9 @@ public class AuditoriumController {
     }
 
     @RequestMapping(value = "/findbyname", method = RequestMethod.GET)
-    public String findByName(Model model, Auditorium auditorium){
+    public String findByName(Model model, @RequestParam("name") String name){
         List<Auditorium> auditoriumList = new ArrayList<>();
-        Auditorium aud = auditoriumService.findAuditoriumByName(auditorium.getName());
+        Auditorium aud = auditoriumService.findAuditoriumByName(name);
         if (nonNull(aud)) auditoriumList.add(aud);
 
         model.addAttribute("auditoriums", auditoriumList);

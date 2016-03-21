@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.User;
@@ -49,8 +50,8 @@ public class ReportsController {
         return "report/findbyeventname";
     }
 
-    private List<TicketDto> findTicketsByEvent(Event event){
-        Event ev = eventService.getByName(event.getName());
+    private List<TicketDto> findTicketsByEvent(String name){
+        Event ev = eventService.getByName(name);
 
         final List<TicketDto> tikets = new ArrayList<>();
 
@@ -64,15 +65,19 @@ public class ReportsController {
     }
 
     @RequestMapping(value = "/findbyeventname", method = RequestMethod.GET)
-    public String findByEventName(Model model, Event event){
-        model.addAttribute("tickets", findTicketsByEvent(event));
+    public String findByEventName(Model model, @RequestParam("name") String name){
+        model.addAttribute("tickets", findTicketsByEvent(name));
         return "reports";
     }
 
-    @RequestMapping(value = "/findbyeventname", method = RequestMethod.GET, headers = "application/pdf")
-    public ModelAndView findByEventNamePDF(Model model, Event event){
-        List<TicketDto> ticketDtoList = findTicketsByEvent(event);
+    @RequestMapping(value = "/findbyeventname", method = RequestMethod.GET, produces = "application/pdf")
+    public ModelAndView findByEventNamePDF(@RequestParam("name") String name){
+        List<TicketDto> ticketDtoList = findTicketsByEvent(name);
 
+        return genereteReportAndReturnAnswer(ticketDtoList);
+    }
+
+    private ModelAndView genereteReportAndReturnAnswer(List<TicketDto> ticketDtoList) {
         JRDataSource datasource = new JRBeanCollectionDataSource(ticketDtoList);
 
         // parameterMap is the Model of our application
@@ -92,8 +97,8 @@ public class ReportsController {
         return "report/findbyusername";
     }
 
-    private List<TicketDto> findTicketsByUser(User user){
-        List<User> users = userService.getUsersByName(user.getName());
+    private List<TicketDto> findTicketsByUser(String name){
+        List<User> users = userService.getUsersByName(name);
 
         final List<TicketDto> tikets = new ArrayList<>();
 
@@ -107,23 +112,15 @@ public class ReportsController {
     }
 
     @RequestMapping(value = "/findbyusername", method = RequestMethod.GET)
-    public String findByUserName(Model model, User user){
-        model.addAttribute("tickets", findTicketsByUser(user));
+    public String findByUserName(Model model, @RequestParam("name") String name){
+        model.addAttribute("tickets", findTicketsByUser(name));
         return "reports";
     }
 
-    @RequestMapping(value = "/findbyusername", method = RequestMethod.GET, headers = "application/pdf")
-    public ModelAndView findByUserNamePDF(Model model, User user){
-        List<TicketDto> ticketDtoList = findTicketsByUser(user);
+    @RequestMapping(value = "/findbyusername", method = RequestMethod.GET, produces = "application/pdf")
+    public ModelAndView findByUserNamePDF(@RequestParam("name") String name){
+        List<TicketDto> ticketDtoList = findTicketsByUser(name);
 
-        JRDataSource datasource = new JRBeanCollectionDataSource(ticketDtoList);
-
-        // parameterMap is the Model of our application
-        Map<String,Object> parameterMap = new HashMap<String,Object>();
-
-        parameterMap.put("datasource", datasource);
-
-        ModelAndView modelAndView = new ModelAndView("pdfReport", parameterMap);
-        return modelAndView;
+        return genereteReportAndReturnAnswer(ticketDtoList);
     }
 }
