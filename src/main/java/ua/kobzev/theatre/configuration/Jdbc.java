@@ -5,6 +5,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -21,6 +22,7 @@ import java.util.Properties;
  * Created by kkobziev on 2/11/16.
  */
 
+@Configuration
 @PropertySource("WEB-INF/jdbc.properties")
 public class Jdbc {
 

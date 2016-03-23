@@ -10,7 +10,6 @@ import ua.kobzev.theatre.repository.*;
 @Configuration
 @ComponentScan(basePackages = "ua.kobzev.theatre")
 @PropertySource("WEB-INF/jdbc.properties")
-@Import({DiscountConfiguration.class, Jdbc.class, WebMvcConfiguration.class})
 public class MainConfiguration {
 
 	@Autowired
