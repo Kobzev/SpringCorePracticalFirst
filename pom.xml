@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ua.kobzev.theatre</groupId>
-	<artifactId>managing-a-movie-theater</artifactId>
+	<artifactId>MovieTheater</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -19,7 +19,23 @@
 		<mybatis.version>3.3.1</mybatis.version>
 		<mybatis-spring.version>1.2.0</mybatis-spring.version>
 		<org.thymeleaf.version>3.0.0.ALPHA03</org.thymeleaf.version>
+		<spring.security.version>4.0.4.RELEASE</spring.security.version>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<MovieTheater.jdk>1.8</MovieTheater.jdk>
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				<maven.profile.name>default</maven.profile.name>
+				<buildNumber>${maven.build.timestamp}</buildNumber>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<dependency>
@@ -51,6 +67,24 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
 		</dependency>
 
 		<dependency>
@@ -212,9 +246,9 @@
 
 	</dependencies>
 
-	<!--<build>-->
-		<!--<pluginManagement>-->
-			<!--<plugins>-->
+	<build>
+		<pluginManagement>
+			<plugins>
 				<!--<plugin>-->
 					<!--<groupId>org.apache.maven.plugins</groupId>-->
 					<!--<artifactId>maven-war-plugin</artifactId>-->
@@ -225,9 +259,18 @@
 						<!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
 					<!--</configuration>-->
 				<!--</plugin>-->
-			<!--</plugins>-->
-		<!--</pluginManagement>-->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>${MovieTheater.jdk}</source>
+						<target>${MovieTheater.jdk}</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<!--<finalName>MovieTheatre</finalName>-->
-	<!--</build>-->
+	</build>
 
 </project>
