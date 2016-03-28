@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head lang="en">
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>-->
 </head>
+
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
     <div class="container">
@@ -34,6 +35,7 @@
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Log out" />
     </form>
+    <span sec:authentication="name">Bob</span>
 </div>
 </body>
 </html>

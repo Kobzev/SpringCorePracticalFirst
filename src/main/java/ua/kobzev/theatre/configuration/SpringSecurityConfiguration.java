@@ -64,7 +64,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().csrfTokenRepository(csrfTokenRepository())
                 .and().formLogin().loginPage("/login")
                                     .usernameParameter("username")
-                                    .passwordParameter("password");
+                                    .passwordParameter("password")
+                .failureUrl("/login-error");
 
         http.logout()
                 .logoutUrl("/logout")
