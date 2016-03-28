@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.List;
 
 /**
@@ -26,9 +25,8 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public boolean register(User user) {
         int result = jdbcOperations
-                .update("INSERT into users(name,email,birthDay,password,remMeToken,lastLogin) VALUES (?,?,?,?,?,?)"
-                        ,user.getName(),user.getEmail(),user.getBirthDay()
-                        ,user.getPassword(),user.getRemMeToken(),user.getLastLogin());
+                .update("INSERT into users(name,email,birthDay,password) VALUES (?,?,?,?)"
+                        ,user.getName(),user.getEmail(),user.getBirthDay(),user.getPassword());
         return result!=0;
     }
 
@@ -80,10 +78,10 @@ public class UserRepositoryImpl implements UserRepository{
         user.setEmail(resultSet.getString("email"));
         user.setBirthDay(LocalDateTime.of(resultSet.getDate("birthDay").toLocalDate(), LocalTime.NOON));
         user.setPassword(resultSet.getString("password"));
-        user.setRemMeToken(resultSet.getString("remMeToken"));
-        if (resultSet.getTimestamp("lastLogin") != null) {
-            user.setLastLogin(resultSet.getTimestamp("lastLogin").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-        }
+//        user.setRemMeToken(resultSet.getString("remMeToken"));
+//        if (resultSet.getTimestamp("lastLogin") != null) {
+//            user.setLastLogin(resultSet.getTimestamp("lastLogin").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+//        }
 
         return user;
     }

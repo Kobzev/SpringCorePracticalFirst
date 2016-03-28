@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -69,11 +71,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .clearAuthentication(true);
 
+//        http.rememberMe()
+//                .key("rem-me-key") //It specifies the key to identify tokens.
+//                .rememberMeParameter("remember-me") //It specifies the name attribute which we use to create HTML checkbox.
+//                .rememberMeCookieName("my-remember-me") //It specifies the cookie name stored in the browser.
+//                .tokenValiditySeconds(86400); //Specifies the time in seconds after which is token is expired.
         http.rememberMe()
-                .key("rem-me-key") //It specifies the key to identify tokens.
-                .rememberMeParameter("rememberme") //It specifies the name attribute which we use to create HTML checkbox.
-                .rememberMeCookieName("my-remember-me") //It specifies the cookie name stored in the browser.
-                .tokenValiditySeconds(86400); //Specifies the time in seconds after which is token is expired.
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(1209600);
     }
 
     @Bean
@@ -105,5 +110,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             }
             filterChain.doFilter(request, response);
         }
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(dataSource);
+        return db;
     }
 }

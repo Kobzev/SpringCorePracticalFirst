@@ -3,12 +3,14 @@
     {
       "email" : "john3@dou.ua",
       "name" : "John3 Dou",
-      "birthDay" : "1990-05-14T00:00:00"
+      "birthDay" : "1990-05-14T00:00:00",
+      "password" : "123"
     },
     {
       "email" : "john4@dou.ua",
       "name" : "John4 Dou",
-      "birthDay" : "1990-05-14T00:00:00"
+      "birthDay" : "1990-05-14T00:00:00",
+      "password" : "123"
     }
   ],
   "events": []

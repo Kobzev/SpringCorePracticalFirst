@@ -3,6 +3,7 @@ package ua.kobzev.theatre.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,9 @@ public class FileUploadController {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @RequestMapping(value = "/uploadfile", method = RequestMethod.GET)
     public String uploadFilePage(){
         return "upload";
@@ -52,6 +56,7 @@ public class FileUploadController {
 
             //Users
             User[] users = mapper.treeToValue(rootNode.get("users"), User[].class);
+            Arrays.asList(users).stream().forEach(user -> user.setPassword(passwordEncoder.encode(user.getPassword())));
             Arrays.asList(users).stream().forEach(user -> userService.register(user));
 
             //Events
