@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 
 /**
@@ -24,7 +25,10 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public boolean register(User user) {
-        int result = jdbcOperations.update("INSERT into users(name,email,birthDay) VALUES (?,?,?)",user.getName(),user.getEmail(),user.getBirthDay());
+        int result = jdbcOperations
+                .update("INSERT into users(name,email,birthDay,password,remMeToken,lastLogin) VALUES (?,?,?,?,?,?)"
+                        ,user.getName(),user.getEmail(),user.getBirthDay()
+                        ,user.getPassword(),user.getRemMeToken(),user.getLastLogin());
         return result!=0;
     }
 
@@ -75,6 +79,11 @@ public class UserRepositoryImpl implements UserRepository{
         user.setName(resultSet.getString("name"));
         user.setEmail(resultSet.getString("email"));
         user.setBirthDay(LocalDateTime.of(resultSet.getDate("birthDay").toLocalDate(), LocalTime.NOON));
+        user.setPassword(resultSet.getString("password"));
+        user.setRemMeToken(resultSet.getString("remMeToken"));
+        if (resultSet.getTimestamp("lastLogin") != null) {
+            user.setLastLogin(resultSet.getTimestamp("lastLogin").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+        }
 
         return user;
     }

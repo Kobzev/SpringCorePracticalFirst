@@ -60,4 +60,22 @@ public class UserServiceImpl implements UserService {
 		return ticketRepository.findAllByUser(user);
 	}
 
+//	@Override
+//	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+//		User user = userRepository.getUserByEmail(userEmail);
+//		if (user == null) {
+//			throw new UsernameNotFoundException("Username not found");
+//		}
+//		return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(),
+//				true, true, true, true, getGrantedAuthorities(user));
+//	}
+//
+//	private List<GrantedAuthority> getGrantedAuthorities(User user){
+//		List<GrantedAuthority> authorities = new ArrayList<>();
+//
+//		String[] roles = user.getRoles().split(", ");
+//
+//		Arrays.asList(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_"+role)));
+//		return authorities;
+//	}
 }
