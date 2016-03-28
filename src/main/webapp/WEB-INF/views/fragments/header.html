@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>-->
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="icon-bar"/>
+                <span class="icon-bar"/>
+                <span class="icon-bar"/>
+                <span class="icon-bar"/>
+                <span class="icon-bar"/>
+                <span class="icon-bar"/>
+                <!--<span class="icon-bar"/>-->
             </button>
             <a class="navbar-brand" href="#">Movie Theatre</a>
         </div>
@@ -26,9 +27,13 @@
                 <li><a href="#" th:href="@{/assignedevents}">Assigned events</a></li>
                 <li><a href="#" th:href="@{/reports}">Reports</a></li>
                 <li><a href="#" th:href="@{/uploadfile}">Uploads</a></li>
+                <!--<li><a href="<c:url value="j_spring_security_logout" />" > Logout</a></li>-->
             </ul>
         </div>
     </div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Log out" />
+    </form>
 </div>
 </body>
 </html>

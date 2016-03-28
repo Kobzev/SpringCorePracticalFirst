@@ -60,8 +60,20 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/events/**", "/assignedevents/**", "/auditoriums/**").hasRole(UserRoles.RESGISTERED_USER.name())
                 .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
-                .and().formLogin();
+                .and().formLogin().loginPage("/login")
+                                    .usernameParameter("username")
+                                    .passwordParameter("password");
 
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .clearAuthentication(true);
+
+        http.rememberMe()
+                .key("rem-me-key") //It specifies the key to identify tokens.
+                .rememberMeParameter("rememberme") //It specifies the name attribute which we use to create HTML checkbox.
+                .rememberMeCookieName("my-remember-me") //It specifies the cookie name stored in the browser.
+                .tokenValiditySeconds(86400); //Specifies the time in seconds after which is token is expired.
     }
 
     @Bean
