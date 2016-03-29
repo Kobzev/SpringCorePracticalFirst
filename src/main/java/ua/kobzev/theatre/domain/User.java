@@ -1,14 +1,15 @@
 package ua.kobzev.theatre.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.*;
+import ua.kobzev.theatre.enums.UserRoles;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 
@@ -33,10 +34,16 @@ public class User {
 	private String name;
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime birthDay;
+	//Security
+	private String password;
+	@Transient
+	@JsonIgnore
+	private List<Role> roles;
 
 	public User(String email, String name, LocalDateTime birthDay) {
 		this.email = email;
 		this.name = name;
 		this.birthDay = birthDay;
+		this.roles = Arrays.asList(new Role[] {new Role(name, UserRoles.RESGISTERED_USER)});
 	}
 }

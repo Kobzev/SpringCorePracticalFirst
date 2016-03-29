@@ -111,4 +111,9 @@ public class MainConfiguration {
 				return null;
 		}
 	}
+
+	@Bean
+	public RoleRepository roleRepository(){
+		return new ua.kobzev.theatre.repository.impl.jdbctemplate.RoleRepositoryImpl();
+	}
 }

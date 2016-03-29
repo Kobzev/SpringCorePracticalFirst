@@ -11,4 +11,67 @@
         <sqlFile encoding="utf8" relativeToChangelogFile="true" path="mysql/V1.2_INSERT_AUDITORIUMS.sql"/>
     </changeSet>
 
+    <changeSet id="V3_update_users" author="Kostiantyn Kobziev">
+        <addColumn tableName="users">
+            <column name="password" type="VARCHAR(75)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createTable tableName="roles">
+            <column name="id" type="int(11)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(45)"/>
+            <column name="role" type="VARCHAR(150)">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="V4_insert_test_users" author="Kostiantyn Kobziev">
+        <insert tableName="users">
+            <column name="id" valueNumeric="1"/>
+            <column name="email" value="admin@admin.com"/>
+            <column name="name" value="admin"/>
+            <column name="password" value="$2a$10$f33N8ynYHqH1FW6Ead.ijOMRpDukDLFQRe7dWdST9MY38huX0moxm"/>
+        </insert>
+        <insert tableName="users">
+            <column name="id" valueNumeric="2"/>
+            <column name="email" value="user@user.com"/>
+            <column name="name" value="user"/>
+            <column name="password" value="$2a$10$d6CRjFNNeZmSEAnD0R7ig.dYvmX6YDDkVi22d3MifNkK5lo2WcTcq"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" valueNumeric="1"/>
+            <column name="username" value="admin@admin.com"/>
+            <column name="role" value="RESGISTERED_USER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" valueNumeric="2"/>
+            <column name="username" value="admin@admin.com"/>
+            <column name="role" value="BOOKING_MANAGER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" valueNumeric="3"/>
+            <column name="username" value="user@user.com"/>
+            <column name="role" value="RESGISTERED_USER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="V5_add_persistent_logins" author="Kostiantyn Kobziev">
+        <createTable tableName="persistent_logins">
+            <column name="username" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="series" type="VARCHAR(64)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="token" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_used" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
