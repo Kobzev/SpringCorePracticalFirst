@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Profile;
 import ua.kobzev.theatre.repository.*;
 import ua.kobzev.theatre.repository.impl.hibernate.*;
 import ua.kobzev.theatre.repository.impl.jdbctemplate.RoleRepositoryImpl;
+import ua.kobzev.theatre.repository.impl.jdbctemplate.UserAccountRepositoryImpl;
 
 /**
  * Created by Kostiantyn_Kobziev on 3/29/2016.
@@ -42,5 +43,10 @@ public class BeansHibernate {
     @Bean
     public RoleRepository roleRepository(){
         return new RoleRepositoryImpl();
+    }
+
+    @Bean
+    public UserAccountRepository userAccountRepository() {
+        return new UserAccountRepositoryImpl();
     }
 }

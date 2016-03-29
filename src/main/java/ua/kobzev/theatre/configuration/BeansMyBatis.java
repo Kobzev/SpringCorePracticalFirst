@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import ua.kobzev.theatre.repository.*;
 import ua.kobzev.theatre.repository.impl.jdbctemplate.RoleRepositoryImpl;
+import ua.kobzev.theatre.repository.impl.jdbctemplate.UserAccountRepositoryImpl;
 import ua.kobzev.theatre.repository.impl.mybatis.*;
 
 import javax.sql.DataSource;
@@ -67,5 +68,10 @@ public class BeansMyBatis {
     @Bean
     public RoleRepository roleRepository(){
         return new RoleRepositoryImpl();
+    }
+
+    @Bean
+    public UserAccountRepository userAccountRepository() {
+        return new UserAccountRepositoryImpl();
     }
 }

@@ -74,4 +74,14 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="V6_add_table_accounts" author="Kostiantyn Kobziev">
+        <createTable tableName="accounts">
+            <column name="id" type="int(11)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="userid" type="int(11)"/>
+            <column name="money" type="Double"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

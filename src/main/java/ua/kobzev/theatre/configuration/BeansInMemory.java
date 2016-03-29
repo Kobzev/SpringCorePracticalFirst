@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import ua.kobzev.theatre.domain.Role;
 import ua.kobzev.theatre.repository.*;
 import ua.kobzev.theatre.repository.impl.inmemory.*;
-
-import java.util.List;
 
 /**
  * Created by Kostiantyn_Kobziev on 3/29/2016.
@@ -45,20 +42,5 @@ public class BeansInMemory {
     @Bean
     public UserRepository userRepository(){
         return new UserRepositoryImpl();
-    }
-
-    @Bean
-    public RoleRepository roleRepository(){
-        return new RoleRepository(){
-            @Override
-            public List<Role> findAllByUserEmail(String email) {
-                return null;
-            }
-
-            @Override
-            public void save(Role role) {
-
-            }
-        };
     }
 }

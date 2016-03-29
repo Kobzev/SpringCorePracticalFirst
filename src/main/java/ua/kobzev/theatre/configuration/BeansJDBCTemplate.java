@@ -55,4 +55,9 @@ public class BeansJDBCTemplate {
     public RoleRepository roleRepository(){
         return new RoleRepositoryImpl();
     }
+
+    @Bean
+    public UserAccountRepository userAccountRepository() {
+        return new UserAccountRepositoryImpl();
+    }
 }
