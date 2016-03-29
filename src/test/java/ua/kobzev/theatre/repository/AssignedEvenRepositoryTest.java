@@ -1,30 +1,18 @@
 package ua.kobzev.theatre.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.time.LocalDateTime;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.enums.EventRate;
+import ua.kobzev.theatre.repository.impl.inmemory.AssignedEventRepositoryImpl;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@ContextConfiguration({ "file:src/test/resources/test-context.xml" })
+import java.time.LocalDateTime;
+
+import static org.junit.Assert.*;
+
 public class AssignedEvenRepositoryTest {
 
-	@Autowired
 	private AssignedEventRepository assignedEventRepository;
 
 	private Event event;
@@ -35,6 +23,7 @@ public class AssignedEvenRepositoryTest {
 
 	@Before
 	public void setUp() {
+		assignedEventRepository = new AssignedEventRepositoryImpl();
 		event = new Event(NAME, 80.00, EventRate.HIGH);
 		auditorium = new Auditorium();
 		testDate = LocalDateTime.of(2000, 01, 01, 9, 00);
@@ -91,8 +80,9 @@ public class AssignedEvenRepositoryTest {
 	@Test
 	public void shouldReturnNotEmptyListIfHaveAssignedEventsFromNowToDate() {
 		assignedEventRepository.assignAuditorium(event, auditorium, LocalDateTime.of(2016, 02, 28, 9, 00));
+		LocalDateTime now = LocalDateTime.of(2016, 02, 28, 9, 00);
 
-		assertNotEquals(0, assignedEventRepository.getNextEvents(LocalDateTime.of(2016, 03, 01, 9, 00)).size());
+		assertNotEquals(0, assignedEventRepository.getForDateRange(now, LocalDateTime.of(2016, 03, 01, 9, 00)).size());
 
 	}
 
@@ -103,8 +93,9 @@ public class AssignedEvenRepositoryTest {
 		assignedEventRepository.assignAuditorium(event, auditorium, LocalDateTime.of(2016, 02, 28, 9, 00));
 
 		assignedEventRepository.assignAuditorium(new Event(), auditorium, LocalDateTime.of(2015, 11, 01, 9, 00));
+		LocalDateTime now = LocalDateTime.of(2016, 02, 28, 9, 00);
 
-		assertEquals(1, assignedEventRepository.getNextEvents(LocalDateTime.of(2016, 03, 01, 9, 00)).size());
+		assertEquals(1, assignedEventRepository.getForDateRange(now, LocalDateTime.of(2016, 03, 01, 9, 00)).size());
 
 	}
 

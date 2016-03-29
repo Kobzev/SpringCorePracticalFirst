@@ -1,19 +1,14 @@
 package ua.kobzev.theatre.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import org.junit.Before;
+import org.junit.Test;
+import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.repository.impl.inmemory.UserRepositoryImpl;
 
 import java.time.LocalDateTime;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import ua.kobzev.theatre.domain.User;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * 
@@ -21,12 +16,11 @@ import ua.kobzev.theatre.domain.User;
  *
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@ContextConfiguration({ "file:src/test/resources/test-context.xml" })
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@ContextConfiguration({ "file:src/test/resources/test-context.xml" })
 public class UserRepositoryTest {
 
-	@Autowired
 	private UserRepository userRepository;
 
 	private User user;
@@ -36,6 +30,7 @@ public class UserRepositoryTest {
 
 	@Before
 	public void setUp() {
+		userRepository = new UserRepositoryImpl();
 		user = new User(EMAIL, NAME, LocalDateTime.now());
 	}
 

@@ -1,9 +1,5 @@
 package ua.kobzev.theatre.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import ua.kobzev.theatre.enums.UserRoles;
 
 import javax.persistence.Id;
@@ -11,10 +7,6 @@ import javax.persistence.Id;
 /**
  * Created by kkobziev on 3/28/16.
  */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Role {
     @Id
     private Long id;
@@ -24,6 +16,41 @@ public class Role {
 
     public Role(String userName, UserRoles userRole){
         this.userName = userName;
+        this.userRole = userRole;
+    }
+
+    public Role(Long id, String userName, UserRoles userRole) {
+        this.id = id;
+        this.userName = userName;
+        this.userRole = userRole;
+    }
+
+    public Role() {
+
+    }
+
+    public Long getId() {
+
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public UserRoles getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRoles userRole) {
         this.userRole = userRole;
     }
 }

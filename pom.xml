@@ -33,6 +33,7 @@
 				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 				<maven.profile.name>default</maven.profile.name>
 				<buildNumber>${maven.build.timestamp}</buildNumber>
+				<skiptests>true</skiptests>
 			</properties>
 		</profile>
 	</profiles>
@@ -263,10 +264,11 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>2.3.2</version>
+					<version>3.3</version>
 					<configuration>
 						<source>${MovieTheater.jdk}</source>
 						<target>${MovieTheater.jdk}</target>
+						<skip>${skiptests}</skip>
 					</configuration>
 				</plugin>
 			</plugins>

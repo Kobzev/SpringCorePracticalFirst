@@ -3,12 +3,15 @@ package ua.kobzev.theatre.configuration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 /**
  * Created by kkobziev on 3/19/16.
  */
 public class WebMVCInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] { MainConfiguration.class };
@@ -27,6 +30,13 @@ public class WebMVCInitializer extends AbstractAnnotationConfigDispatcherServlet
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         registration.setMultipartConfig(getMultipartConfigElement());
+    }
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        super.onStartup(servletContext);
+        servletContext.setInitParameter("spring.profiles.active", "JDBCTEMPLATE");
+        //MYBATIS HIBERNATE JDBCTEMPLATE
     }
 
     private MultipartConfigElement getMultipartConfigElement() {

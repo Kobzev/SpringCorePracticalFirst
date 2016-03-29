@@ -1,19 +1,16 @@
 package ua.kobzev.theatre.configuration;
 
 import liquibase.integration.spring.SpringLiquibase;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import ua.kobzev.theatre.domain.*;
-import ua.kobzev.theatre.repository.impl.mybatis.Mapper;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -23,30 +20,44 @@ import java.util.Properties;
  */
 
 @Configuration
-@PropertySource("WEB-INF/jdbc.properties")
+@PropertySource("classpath:jdbc.properties")
+@Profile({"JDBCTEMPLATE", "HIBERNATE", "MYBATIS"})
 public class Jdbc {
 
-    @Autowired
-    private Environment environment;
+    @Value("${jdbc.driverClassName}")
+    private String driverClassName;
+
+    @Value("${jdbc.url}")
+    private String url;
+
+    @Value("${jdbc.username}")
+    private String username;
+
+    @Value("${jdbc.password}")
+    private String password;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(environment.getProperty("jdbc.url"));
-        dataSource.setUsername(environment.getProperty("jdbc.username"));
-        dataSource.setPassword(environment.getProperty("jdbc.password"));
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
 
         return dataSource;
     }
 
-    @Bean
-    @Autowired
-    public JdbcOperations jdbcTemplate(DataSource dataSource){
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        return jdbcTemplate;
-    }
+    @Value("${hibernate.dialect}")
+    private String dialect;
+
+    @Value("${hibernate.show_sql}")
+    private String show_sql;
 
     @Bean
     @Autowired
@@ -56,33 +67,13 @@ public class Jdbc {
         sessionFactoryBean.setAnnotatedClasses(User.class, Event.class, Auditorium.class, AssignedEvent.class, Ticket.class);
 
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty(org.hibernate.cfg.Environment.DIALECT, environment.getProperty("hibernate.dialect"));
-        hibernateProperties.setProperty(org.hibernate.cfg.Environment.SHOW_SQL, environment.getProperty("hibernate.show_sql"));
+        hibernateProperties.setProperty(org.hibernate.cfg.Environment.DIALECT, dialect);
+        hibernateProperties.setProperty(org.hibernate.cfg.Environment.SHOW_SQL, show_sql);
         hibernateProperties.setProperty(org.hibernate.cfg.Environment.USE_NEW_ID_GENERATOR_MAPPINGS, "false");
 
         sessionFactoryBean.setHibernateProperties(hibernateProperties);
 
         return sessionFactoryBean;
-    }
-
-    @Bean
-    @Autowired
-    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setTypeHandlersPackage("ua.kobzev.theatre.repository.impl.mybatis.handlers");
-
-        return sqlSessionFactoryBean;
-    }
-
-    @Bean
-    @Autowired
-    public MapperFactoryBean mapperFactoryBean(SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
-        MapperFactoryBean mapperFactoryBean = new MapperFactoryBean();
-        mapperFactoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
-        mapperFactoryBean.setMapperInterface(Mapper.class);
-
-        return mapperFactoryBean;
     }
 
     @Bean

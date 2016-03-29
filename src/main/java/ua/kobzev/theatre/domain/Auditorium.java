@@ -1,10 +1,5 @@
 package ua.kobzev.theatre.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +10,6 @@ import java.util.List;
  *
  */
 
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "auditoriums")
 public class Auditorium {
@@ -48,4 +39,44 @@ public class Auditorium {
 		return vipSeats;
 	}
 
+	public Auditorium() {
+	}
+
+	@Override
+	public String toString() {
+		return "Auditorium{" +
+				"name='" + name + '\'' +
+				", numberOfSeats=" + numberOfSeats +
+				", strVipSeats='" + strVipSeats + '\'' +
+				", vipSeats=" + vipSeats +
+				'}';
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public void setNumberOfSeats(Integer numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+
+	public String getStrVipSeats() {
+		return strVipSeats;
+	}
+
+	public void setStrVipSeats(String strVipSeats) {
+		this.strVipSeats = strVipSeats;
+	}
+
+	public void setVipSeats(List<Integer> vipSeats) {
+		this.vipSeats = vipSeats;
+	}
 }

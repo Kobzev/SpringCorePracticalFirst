@@ -1,12 +1,5 @@
 package ua.kobzev.theatre.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 
 /**
@@ -15,12 +8,6 @@ import javax.persistence.*;
  *
  */
 
-@Component
-@Scope(value = "prototype")
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "tickets")
 public class Ticket {
@@ -48,5 +35,60 @@ public class Ticket {
 		this.user = user;
 		this.assignedEvent = assignedEvent;
 		this.seat = seat;
+	}
+
+	@Override
+	public String toString() {
+		return "Ticket{" +
+				"id=" + id +
+				", user=" + user +
+				", assignedEvent=" + assignedEvent +
+				", seat=" + seat +
+				", price=" + price +
+				'}';
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public AssignedEvent getAssignedEvent() {
+		return assignedEvent;
+	}
+
+	public void setAssignedEvent(AssignedEvent assignedEvent) {
+		this.assignedEvent = assignedEvent;
+	}
+
+	public Integer getSeat() {
+		return seat;
+	}
+
+	public void setSeat(Integer seat) {
+		this.seat = seat;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Ticket() {
+
 	}
 }

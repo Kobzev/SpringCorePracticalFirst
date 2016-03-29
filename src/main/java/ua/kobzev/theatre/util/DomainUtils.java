@@ -21,7 +21,7 @@ public class DomainUtils {
     }
 
     public Ticket createNewTicket(User user, AssignedEvent assignedEvent, int seat) {
-        Ticket ticket = (Ticket) context.getBean("ticket");
+        Ticket ticket = new Ticket();//(Ticket) context.getBean("ticket");
         ticket.setAssignedEvent(assignedEvent);
         ticket.setSeat(seat);
         ticket.setUser(user);
