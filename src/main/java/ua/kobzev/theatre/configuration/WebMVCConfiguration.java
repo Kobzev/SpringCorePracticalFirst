@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -18,7 +19,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  */
 @Configuration
 @EnableWebMvc
-public class WebMvcConfiguration {
+public class WebMVCConfiguration {
 
 	@Bean(name = "beanNameViewResolver")
 	public ViewResolver viewResolver() {
@@ -42,6 +43,7 @@ public class WebMvcConfiguration {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(getTemplateResolver());
         templateEngine.addDialect(new Java8TimeDialect());
+        templateEngine.addDialect(new SpringSecurityDialect());
         return templateEngine;
     }
     @Bean(name="viewResolver")
