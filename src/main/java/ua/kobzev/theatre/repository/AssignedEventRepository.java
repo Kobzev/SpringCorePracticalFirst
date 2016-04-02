@@ -1,11 +1,11 @@
 package ua.kobzev.theatre.repository;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public interface AssignedEventRepository {
 
@@ -20,5 +20,7 @@ public interface AssignedEventRepository {
 	Auditorium findEventAuditorium(Event event, LocalDateTime dateTime);
 
 	AssignedEvent findByEventAndDate(Event event, LocalDateTime dateTime);
+
+	AssignedEvent findById(Integer id);
 
 }

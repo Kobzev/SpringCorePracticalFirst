@@ -48,4 +48,6 @@ public interface EventService {
 
 	AssignedEvent getAssignedEvent(Event event, LocalDateTime dateTime);
 
+	AssignedEvent getAssignedEventById(Integer id);
+
 }

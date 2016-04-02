@@ -12,6 +12,7 @@ public class TicketDto {
     private Integer id;
     private String user;
     private String event;
+    private Integer eventid;
     private LocalDateTime eventDate;
     private Integer seat;
     private Double price;
@@ -74,5 +75,13 @@ public class TicketDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getEventid() {
+        return eventid;
+    }
+
+    public void setEventid(Integer eventid) {
+        this.eventid = eventid;
     }
 }

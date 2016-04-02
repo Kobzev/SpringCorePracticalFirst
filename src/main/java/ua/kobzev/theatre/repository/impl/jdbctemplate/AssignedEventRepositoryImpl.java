@@ -149,6 +149,31 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
         return assignedEvents.get(0);
     }
 
+    private static final String SQL_FIND_BY_ID = "SELECT \n" +
+            "events.name eName, \n" +
+            "events.basePrice basePrice,\n" +
+            "events.rate rate,\n" +
+            "auditoriums.name aName,\n" +
+            "auditoriums.numberOfSeats numberOfSeats,\n" +
+            "auditoriums.vipSeats vipSeats,\n" +
+            "assignedevent.id id,\n" +
+            "assignedevent.date date\n" +
+            "FROM assignedevent, auditoriums, events\n" +
+            "where assignedevent.auditoriumname = auditoriums.name\n" +
+            "and assignedevent.eventname = events.name\n" +
+            "and assignedevent.id = ?";
+
+    @Override
+    public AssignedEvent findById(Integer id) {
+        List<AssignedEvent> assignedEvents = jdbcOperations.query(SQL_FIND_BY_ID,
+                new Object[]{id},
+                (ResultSet resultSet, int rowNum) -> {
+                    return mapAssignedEventFromResulSet(resultSet);
+                });
+
+        if (assignedEvents.size()!= 0) return assignedEvents.get(0);
+        return null;
+    }
 
     private AssignedEvent mapAssignedEventFromResulSet(ResultSet resultSet) throws SQLException{
         AssignedEvent assignedEvent = new AssignedEvent();
@@ -158,7 +183,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
         auditorium.setNumberOfSeats(resultSet.getInt("numberOfSeats"));
         auditorium.setVipSeats(resultSet.getString("vipSeats"));
 
-        Event ev = (Event) context.getBean("event");
+        Event ev = new Event();
         ev.setBasePrice(resultSet.getDouble("basePrice"));
         ev.setName(resultSet.getString("eName"));
         ev.setRate(EventRate.valueOf(resultSet.getString("rate")));

@@ -48,7 +48,7 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     private Event mapEvenFromResultSet(ResultSet resultSet) throws SQLException {
-        Event event = (Event) context.getBean("event");//new Event();
+        Event event = new Event();//(Event) context.getBean("event");//
         event.setBasePrice(resultSet.getDouble("basePrice"));
         event.setName(resultSet.getString("name"));
         event.setRate(EventRate.valueOf(resultSet.getString("rate")));

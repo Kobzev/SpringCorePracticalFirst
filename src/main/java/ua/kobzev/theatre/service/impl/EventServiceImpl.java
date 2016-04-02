@@ -86,4 +86,8 @@ public class EventServiceImpl implements EventService {
 		return assignedEventRepository.findByEventAndDate(event, dateTime);
 	}
 
+	@Override
+	public AssignedEvent getAssignedEventById(Integer id) {
+		return assignedEventRepository.findById(id);
+	}
 }

@@ -129,7 +129,7 @@ public class TicketRepositoryImpl implements TicketRepository{
                     auditorium.setNumberOfSeats(resultSet.getInt("seats"));
                     auditorium.setVipSeats(resultSet.getString("vipseat"));
 
-                    Event event = (Event) context.getBean("event");
+                    Event event = new Event();
                     event.setBasePrice(resultSet.getDouble("basePrice"));
                     event.setName(resultSet.getString("ename"));
                     event.setRate(EventRate.valueOf(resultSet.getString("rate")));

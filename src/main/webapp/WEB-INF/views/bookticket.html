@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<h1>Book tickets page</h1>
+<form th:action="@{/tickets/book}" th:object="${ticket}" method="post">
+    <input type="hidden" id="username" name="username"/> <br />
+    <label>Event id</label>:
+    <input type="text" id="eventid" name="eventid" th:field="*{eventid}"/> <br />
+    <label>Seat</label>:
+    <input type="text" id="seat" name="seat" th:field="*{seat}"/> <br />
+    <input type="submit" value="Book it" />
+</form>
+<p th:text="${textError}"/>
+<p><a href="../" th:href="@{/}">Back to home page</a></p>
+</body>
+</html>

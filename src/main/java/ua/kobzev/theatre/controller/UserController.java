@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.domain.UserAccount;
+import ua.kobzev.theatre.service.UserAccountService;
 import ua.kobzev.theatre.service.UserService;
 
 import java.util.ArrayList;
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserAccountService userAccountService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String testUser(Model model){
@@ -96,5 +101,27 @@ public class UserController {
 
         model.addAttribute("users", users);
         return "users";
+    }
+
+    @RequestMapping(value = "/account", method = RequestMethod.GET)
+    public String getUserAccount(Model model, @RequestParam("id") Integer id){
+        UserAccount userAccount = userAccountService.findByUserId(id);
+
+        model.addAttribute("account", userAccount);
+        return "user/account";
+
+    }
+
+    @RequestMapping(value = "/account/put", method = RequestMethod.GET)
+    public String putMoneyPage(Model model, @RequestParam("id") Integer id){
+        model.addAttribute("account", new UserAccount(id, new User(), 0.0d));
+        return "user/putmoney";
+    }
+
+    @RequestMapping(value = "/account/put", method = RequestMethod.POST)
+    public String putMoney(Model model, UserAccount userAccount){
+        userAccountService.addMoney(userAccount.getId(), userAccount.getPrepaidMoney());
+        model.addAttribute("account", userAccountService.findById(userAccount.getId()));
+        return "user/account";
     }
 }

@@ -86,4 +86,10 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
 
         return ((List<AssignedEvent>)query.list()).stream().findFirst().orElse(null);
     }
+
+    @Override
+    public AssignedEvent findById(Integer id) {
+        //TODO
+        return null;
+    }
 }

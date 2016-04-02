@@ -15,6 +15,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">Name</th>
                 <th scope="col">birthDay</th>
+                <th scope="col">show account</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -24,7 +25,8 @@
                 <td th:text="${user.email}">aa@aa.com</td>
                 <td th:text="${user.name}">Triple Butter</td>
                 <td th:text="${user.birthDay}">09-01-2003</td>
-                <td><a data-th-href="@{/user/delete(id=${user.id})}">delete</a>
+                <td><a th:href="@{/users/account(id=${user.id})}">account</a></td>
+                <td><a th:href="@{/users/delete(id=${user.id})}">delete</a>
                 </td>
             </tr>
             <tr data-th-remove="all">
@@ -36,16 +38,16 @@
             </tbody>
         </table>
     </div>
-    <form action="#" data-th-action="@{/users/choosename}" data-th-object="${model}" method="get">
+    <form action="#" th:action="@{/users/choosename}" method="get">
         <button type="submit">Find by name</button>
     </form>
-    <form action="#" data-th-action="@{/users/chooseid}" data-th-object="${model}" method="get">
+    <form action="#" th:action="@{/users/chooseid}" method="get">
         <button type="submit">Find by id</button>
     </form>
-    <form action="#" data-th-action="@{/users/chooseemail}" data-th-object="${model}" method="get">
+    <form action="#" th:action="@{/users/chooseemail}" method="get">
         <button type="submit">Find by email</button>
     </form>
-    <form action="#" data-th-action="@{/users/create}" method="get">
+    <form action="#" th:action="@{/users/create}" method="get">
         <button type="submit">Create new user</button>
     </form>
 </body>

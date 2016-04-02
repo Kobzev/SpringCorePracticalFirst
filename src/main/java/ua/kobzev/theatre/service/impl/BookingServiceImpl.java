@@ -8,14 +8,13 @@ import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.TicketRepository;
-import ua.kobzev.theatre.service.BookingService;
-import ua.kobzev.theatre.service.DiscountService;
-import ua.kobzev.theatre.service.EventService;
+import ua.kobzev.theatre.service.*;
 import ua.kobzev.theatre.util.DomainUtils;
 import ua.kobzev.theatre.util.MainUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -29,6 +28,12 @@ public class BookingServiceImpl implements BookingService {
 
 	@Autowired
 	private DiscountService discountService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private UserAccountService userAccountService;
 
 	@Override
 	public double getTotalPrice(final Event event, LocalDateTime date, List<Integer> seats, final User user) {
@@ -78,6 +83,7 @@ public class BookingServiceImpl implements BookingService {
 			return false;
 
 		ticket.setUser(user);
+		userAccountService.withdrawMoney(user, ticket.getPrice());
 		ticketRepository.save(ticket);
 
 		return true;
@@ -93,4 +99,15 @@ public class BookingServiceImpl implements BookingService {
 		return createTicket(null, assignedEvent, seat);
 	}
 
+	@Override
+	public boolean bookTicket(String userEmail, Integer assignedEventId, Integer seat) {
+		User user = userService.getUserByEmail(userEmail);
+		AssignedEvent assignedEvent = eventService.getAssignedEventById(assignedEventId);
+		Ticket ticket = new Ticket();
+		ticket.setAssignedEvent(assignedEvent);
+		ticket.setUser(user);
+		ticket.setSeat(seat);
+		ticket.setPrice(getTotalPrice(assignedEvent.getEvent(), assignedEvent.getDate(), Arrays.asList(new Integer[]{seat}), user));
+		return bookTicket(user, ticket);
+	}
 }

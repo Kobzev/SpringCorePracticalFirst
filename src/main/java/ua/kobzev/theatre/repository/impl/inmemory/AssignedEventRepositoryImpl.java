@@ -65,4 +65,9 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository {
 				.findFirst().orElse(null);
 	}
 
+	@Override
+	public AssignedEvent findById(Integer id) {
+		//TODO
+		return null;
+	}
 }

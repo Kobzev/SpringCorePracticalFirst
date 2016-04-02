@@ -34,10 +34,10 @@
         </tbody>
     </table>
 </div>
-<form action="#" data-th-action="@{/events/choosename}" data-th-object="${model}" method="get">
+<form action="#" th:action="@{/events/choosename}" method="get">
     <button type="submit">Find by name</button>
 </form>
-<form action="#" data-th-action="@{/events/create}" method="get">
+<form action="#" th:action="@{/events/create}" method="get">
     <button type="submit">Create new event</button>
 </form>
 </body>

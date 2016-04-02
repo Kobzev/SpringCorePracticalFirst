@@ -48,4 +48,10 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
     public AssignedEvent findByEventAndDate(Event event, LocalDateTime dateTime) {
         return mapper.findAssignedEventByEventAndDate(event.getName(), dateTime);
     }
+
+    @Override
+    public AssignedEvent findById(Integer id) {
+        //TODO
+        return null;
+    }
 }
