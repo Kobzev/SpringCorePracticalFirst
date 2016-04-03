@@ -3,6 +3,7 @@ package ua.kobzev.theatre.repository.impl.jdbctemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.EventRepository;
@@ -15,6 +16,7 @@ import java.util.List;
  * Created by kkobziev on 2/11/16.
  */
 
+@Transactional
 public class EventRepositoryImpl implements EventRepository {
 
     @Autowired
@@ -36,6 +38,7 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Event getByName(String name) {
         List<Event> eventList = jdbcOperations.query("select * from events WHERE name =?",
                 new Object[]{name},
@@ -57,6 +60,7 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Event> findAll() {
         return jdbcOperations.query("select * from events",
                 (ResultSet resultSet, int rowNum) -> {

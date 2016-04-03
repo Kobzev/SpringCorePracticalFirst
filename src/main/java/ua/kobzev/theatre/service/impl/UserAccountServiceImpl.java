@@ -2,6 +2,7 @@ package ua.kobzev.theatre.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.domain.UserAccount;
 import ua.kobzev.theatre.repository.UserAccountRepository;
@@ -12,6 +13,7 @@ import ua.kobzev.theatre.service.UserAccountService;
  * Created by Kostiantyn_Kobziev on 3/29/2016.
  */
 @Service
+@Transactional
 public class UserAccountServiceImpl implements UserAccountService {
 
     @Autowired
@@ -21,6 +23,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     private UserRepository userRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public UserAccount findByUserId(Integer id) {
         UserAccount userAccount = userAccountRepository.findByUserId(id);
         if (userAccount == null) {
@@ -31,6 +34,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserAccount findById(Integer id) {
         return userAccountRepository.findById(id);
     }

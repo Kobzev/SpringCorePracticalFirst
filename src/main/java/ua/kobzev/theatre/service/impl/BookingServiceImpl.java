@@ -2,6 +2,7 @@ package ua.kobzev.theatre.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Transactional
 public class BookingServiceImpl implements BookingService {
 
 	@Autowired
@@ -90,6 +92,7 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Ticket> getTicketsForEvent(Event event, LocalDateTime date) {
 		return ticketRepository.findAllByEvent(event, date);
 	}

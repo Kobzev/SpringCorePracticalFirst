@@ -1,8 +1,8 @@
 package ua.kobzev.theatre.repository.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
@@ -18,13 +18,11 @@ import java.util.List;
  * Created by kkobziev on 2/11/16.
  */
 
+@Transactional
 public class AssignedEventRepositoryImpl implements AssignedEventRepository{
 
     @Autowired
     private JdbcOperations jdbcOperations;
-
-    @Autowired
-    private ApplicationContext context;
 
     private static final String SQLGETALL = "SELECT \n" +
             "events.name eName, \n" +
@@ -39,8 +37,8 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
             "where assignedevent.auditoriumname = auditoriums.name\n" +
             "and assignedevent.eventname = events.name";
 
-
     @Override
+    @Transactional(readOnly = true)
     public List<AssignedEvent> getAll() {
         return jdbcOperations.query(SQLGETALL,
                 (ResultSet resultSet, int rowNum) -> {
@@ -64,6 +62,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
             "and assignedevent.date BETWEEN ? AND ?";
 
     @Override
+    @Transactional(readOnly = true)
     public List<AssignedEvent> getForDateRange(LocalDateTime from, LocalDateTime to) {
         return jdbcOperations.query(SQLGETFORDATERANGE,
                 new Object[]{from, to},
@@ -73,6 +72,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<AssignedEvent> getNextEvents(LocalDateTime to) {
         return getForDateRange(LocalDateTime.now(), to);
     }
@@ -90,7 +90,8 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
                                                     "AND auditoriumname = ? " +
                                                     "AND date = ?";
 
-    private boolean isEventAssigned(Event event, Auditorium auditorium, LocalDateTime date){
+    @Transactional(readOnly = true)
+    public boolean isEventAssigned(Event event, Auditorium auditorium, LocalDateTime date){
         int result = jdbcOperations.queryForObject(SQLISEVENTASSIGNED,
                 new Object[]{event.getName(),auditorium.getName(), date},
                 Integer.class);
@@ -106,6 +107,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
             "and assignedevent.date = ? and assignedevent.eventname = ?";
 
     @Override
+    @Transactional(readOnly = true)
     public Auditorium findEventAuditorium(Event event, LocalDateTime dateTime) {
         List<Auditorium> auditoriumList =  jdbcOperations.query(SQLFINDEVENTAUDITORIUM,
                 new Object[]{dateTime, event.getName()},
@@ -138,6 +140,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
             "and assignedevent.date = ? and assignedevent.eventname = ?";
 
     @Override
+    @Transactional(readOnly = true)
     public AssignedEvent findByEventAndDate(Event event, LocalDateTime dateTime) {
         List<AssignedEvent> assignedEvents = jdbcOperations.query(SQLFINDBYEVENTANDDATE,
                 new Object[]{dateTime, event.getName()},
@@ -164,6 +167,7 @@ public class AssignedEventRepositoryImpl implements AssignedEventRepository{
             "and assignedevent.id = ?";
 
     @Override
+    @Transactional(readOnly = true)
     public AssignedEvent findById(Integer id) {
         List<AssignedEvent> assignedEvents = jdbcOperations.query(SQL_FIND_BY_ID,
                 new Object[]{id},

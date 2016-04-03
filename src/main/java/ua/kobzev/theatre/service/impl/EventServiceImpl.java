@@ -2,6 +2,7 @@ package ua.kobzev.theatre.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.domain.Event;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class EventServiceImpl implements EventService {
 
 	@Autowired
@@ -44,26 +46,31 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Event getByName(String name) {
 		return eventRepository.getByName(name);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Event> findAllEvents() {
 		return eventRepository.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<AssignedEvent> getAll() {
 		return assignedEventRepository.getAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<AssignedEvent> getForDateRange(LocalDateTime from, LocalDateTime to) {
 		return assignedEventRepository.getForDateRange(from, to);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<AssignedEvent> getNextEvents(LocalDateTime to) {
 		return assignedEventRepository.getNextEvents(to);
 	}
@@ -77,16 +84,19 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Auditorium getAuditorium(Event event, LocalDateTime dateTime) {
 		return assignedEventRepository.findEventAuditorium(event, dateTime);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public AssignedEvent getAssignedEvent(Event event, LocalDateTime dateTime) {
 		return assignedEventRepository.findByEventAndDate(event, dateTime);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public AssignedEvent getAssignedEventById(Integer id) {
 		return assignedEventRepository.findById(id);
 	}

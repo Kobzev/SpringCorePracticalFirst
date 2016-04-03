@@ -2,6 +2,7 @@ package ua.kobzev.theatre.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.TicketRepository;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -39,23 +41,28 @@ public class UserServiceImpl implements UserService {
 		return userRepository.remove(user);
 	}
 
+	@Transactional(readOnly = true)
 	public User getById(Integer id) {
 		return userRepository.getById(id);
 	}
 
+	@Transactional(readOnly = true)
 	public User getUserByEmail(String email) {
 		return userRepository.getUserByEmail(email);
 	}
 
+	@Transactional(readOnly = true)
 	public List<User> getUsersByName(String name) {
 		return userRepository.getUsersByName(name);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 
+	@Transactional(readOnly = true)
 	public List<Ticket> getBookedTickets(User user) {
 		return ticketRepository.findAllByUser(user);
 	}

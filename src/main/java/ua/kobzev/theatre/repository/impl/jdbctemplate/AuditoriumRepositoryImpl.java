@@ -2,6 +2,7 @@ package ua.kobzev.theatre.repository.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.Auditorium;
 import ua.kobzev.theatre.repository.AuditoriumRepository;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Created by kkobziev on 2/11/16.
  */
 
+@Transactional
 public class AuditoriumRepositoryImpl implements AuditoriumRepository{
 
     @Autowired
@@ -21,6 +23,7 @@ public class AuditoriumRepositoryImpl implements AuditoriumRepository{
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Auditorium> getAuditoriums() {
         return jdbcOperations.query("select * from auditoriums",
                 (ResultSet resultSet, int rowNum) -> {
@@ -37,6 +40,7 @@ public class AuditoriumRepositoryImpl implements AuditoriumRepository{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Auditorium findAuditoriumByName(String auditoriumName) {
         List<Auditorium> auditoriumList = jdbcOperations.query("select * from auditoriums WHERE name =?",
                 new Object[]{auditoriumName},
@@ -50,6 +54,7 @@ public class AuditoriumRepositoryImpl implements AuditoriumRepository{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public int getSeatsNumber(String auditoriumName) {
         Auditorium auditorium = findAuditoriumByName(auditoriumName);
         if (auditorium==null) return 0;
@@ -58,6 +63,7 @@ public class AuditoriumRepositoryImpl implements AuditoriumRepository{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Integer> getVipSeats(String auditoriumName) {
         Auditorium auditorium = findAuditoriumByName(auditoriumName);
         if (auditorium==null) return new ArrayList<>();

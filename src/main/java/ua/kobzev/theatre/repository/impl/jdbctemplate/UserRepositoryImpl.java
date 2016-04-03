@@ -2,6 +2,7 @@ package ua.kobzev.theatre.repository.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.repository.UserRepository;
 
@@ -17,6 +18,7 @@ import java.util.List;
  *
  */
 
+@Transactional
 public class UserRepositoryImpl implements UserRepository{
 
     @Autowired
@@ -37,6 +39,7 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getById(Integer id) {
         List<User> userList = getUsersByParameter("id", id);
         if (userList.size()==0) return null;
@@ -44,6 +47,7 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getUserByEmail(String email) {
         List<User> userList = getUsersByParameter("email", email);
         if (userList.size()==0) return null;
@@ -51,11 +55,13 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getUsersByName(String name) {
         return getUsersByParameter("name", name);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findAll() {
         return jdbcOperations.query("select * from users",
                 (ResultSet resultSet, int rowNum) -> {

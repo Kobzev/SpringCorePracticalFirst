@@ -16,11 +16,13 @@ import java.util.List;
 /**
  * Created by Kostiantyn_Kobziev on 3/29/2016.
  */
+@Transactional
 public class UserAccountRepositoryImpl implements UserAccountRepository{
 
     @Autowired
     private JdbcOperations jdbcOperations;
 
+    @Transactional(readOnly = true)
     public UserAccount findByUser(final User user) {
         List<UserAccount> accounts = jdbcOperations.query("SELECT * from accounts where userid = ?",
                 new Object[]{user.getId()},
@@ -46,6 +48,7 @@ public class UserAccountRepositoryImpl implements UserAccountRepository{
                     "WHERE accounts.userid=users.id AND userid = ?";
 
     @Override
+    @Transactional(readOnly = true)
     public UserAccount findByUserId(Integer id) {
         List<UserAccount> accounts = jdbcOperations.query(QUERY_FIND_BY_USER_ID,
                 new Object[]{id},
@@ -65,6 +68,7 @@ public class UserAccountRepositoryImpl implements UserAccountRepository{
                     "WHERE accounts.userid=users.id AND accounts.id = ?";
 
     @Override
+    @Transactional(readOnly = true)
     public UserAccount findById(Integer id) {
         List<UserAccount> accounts = jdbcOperations.query(QUERY_FIND_BY_ID,
                 new Object[]{id},

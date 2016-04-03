@@ -3,6 +3,7 @@ package ua.kobzev.theatre.repository.impl.jdbctemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kobzev.theatre.domain.*;
 import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.TicketRepository;
@@ -16,6 +17,7 @@ import java.util.List;
  * Created by kkobziev on 2/11/16.
  */
 
+@Transactional
 public class TicketRepositoryImpl implements TicketRepository{
 
     @Autowired
@@ -56,6 +58,7 @@ public class TicketRepositoryImpl implements TicketRepository{
             "AND assignedevent.date = ?";
 
     @Override
+    @Transactional(readOnly = true)
     public List<Ticket> findAllByEvent(Event event, LocalDateTime dateTime) {
         return jdbcOperations.query(SQLFINDALLBYEVENT,
                 new Object[]{event.getName(), dateTime},
@@ -93,6 +96,7 @@ public class TicketRepositoryImpl implements TicketRepository{
                                                 "AND seat = ? ";
 
     @Override
+    @Transactional(readOnly = true)
     public boolean isPurchased(AssignedEvent assignedEvent, Integer seat) {
         int result = jdbcOperations.queryForObject(SQLISPURCHASED,
                 new Object[]{assignedEvent.getId(), seat},
@@ -119,6 +123,7 @@ public class TicketRepositoryImpl implements TicketRepository{
             "AND tickets.userid = ? ";
 
     @Override
+    @Transactional(readOnly = true)
     public List<Ticket> findAllByUser(User user) {
         return jdbcOperations.query(SQLFINDALLBYUSER,
                 new Object[]{user.getId()},
