@@ -3,6 +3,8 @@ package ua.kobzev.theatre.domain;
 import ua.kobzev.theatre.enums.EventRate;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * 
@@ -12,6 +14,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "events")
+@XmlRootElement
+@XmlType(namespace = "http://ua.kobziev.movie/event")
 public class Event {
 
 	@Id

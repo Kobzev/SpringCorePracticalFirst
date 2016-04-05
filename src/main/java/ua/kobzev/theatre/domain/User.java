@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import ua.kobzev.theatre.enums.UserRoles;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -18,7 +19,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
-@XmlType(namespace = "http://www.example.org/user")
+@XmlRootElement
+//@XmlJavaTypeAdapter(type = LocalDateTime.class, value = LocalDateTimeAdapter.class)
+@XmlType(namespace = "http://ua.kobziev.movie/user")
 public class User {
 	@Id
 	@GeneratedValue
