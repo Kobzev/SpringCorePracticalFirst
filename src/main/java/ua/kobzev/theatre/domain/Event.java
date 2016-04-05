@@ -3,8 +3,10 @@ package ua.kobzev.theatre.domain;
 import ua.kobzev.theatre.enums.EventRate;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  * 
@@ -15,15 +17,18 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "events")
 @XmlRootElement
-@XmlType(namespace = "http://ua.kobziev.movie/event")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Event {
 
 	@Id
+    @XmlElement(required = true)
 	private String name;
 
+    @XmlElement(required = true)
 	private Double basePrice;
 
 	@Enumerated(EnumType.STRING)
+    @XmlElement(required = true)
 	private EventRate rate;
 
 	public Event() {

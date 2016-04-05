@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="event" type="event"/>
+
+  <xs:element name="user" type="user"/>
+
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="email" type="xs:string"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="birthDay" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="roles" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="role" type="role" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="role">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="userName" type="xs:string" minOccurs="0"/>
+      <xs:element name="userRole" type="userRoles" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="event">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="basePrice" type="xs:double"/>
+      <xs:element name="rate" type="eventRate"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="userRoles">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RESGISTERED_USER"/>
+      <xs:enumeration value="BOOKING_MANAGER"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="eventRate">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LOW"/>
+      <xs:enumeration value="MID"/>
+      <xs:enumeration value="HIGH"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
