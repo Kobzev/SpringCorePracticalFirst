@@ -3,10 +3,10 @@ package ua.kobzev.theatre.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import lombok.*;
 import ua.kobzev.theatre.enums.UserRoles;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlType;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +18,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
+@XmlType(namespace = "http://www.example.org/user")
 public class User {
 	@Id
 	@GeneratedValue
