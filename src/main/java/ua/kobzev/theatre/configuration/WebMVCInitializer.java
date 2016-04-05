@@ -37,6 +37,16 @@ public class WebMVCInitializer extends AbstractAnnotationConfigDispatcherServlet
         super.onStartup(servletContext);
         servletContext.setInitParameter("spring.profiles.active", "JDBCTEMPLATE");
         //MYBATIS HIBERNATE JDBCTEMPLATE
+
+//        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+//        ctx.register(MainConfiguration.class);
+//        ctx.setServletContext(servletContext);
+//        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
+//        servlet.setApplicationContext(ctx);
+//        servlet.setTransformWsdlLocations(true);
+//        Dynamic dynamic = servletContext.addServlet("dispatcher",servlet);
+//        dynamic.addMapping("/soapws/*");
+//        dynamic.setLoadOnStartup(1);
     }
 
     private MultipartConfigElement getMultipartConfigElement() {

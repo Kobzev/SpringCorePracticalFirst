@@ -2,9 +2,12 @@ package ua.kobzev.theatre.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
-import org.springframework.ws.transport.http.MessageDispatcherServlet;
+import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
+import org.springframework.xml.xsd.SimpleXsdSchema;
+import org.springframework.xml.xsd.XsdSchema;
 
 /**
  * Created by kkobziev on 4/4/16.
@@ -20,24 +23,18 @@ public class SOAPWebServicesConfiguration extends WsConfigurerAdapter {
 //        return new ServletRegistrationBean(servlet, "/ws/*");
 //    }
 
-//    @Bean(name = "countries")
-//    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
-//        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-//        wsdl11Definition.setPortTypeName("CountriesPort");
-//        wsdl11Definition.setLocationUri("/ws");
-//        wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
-//        wsdl11Definition.setSchema(countriesSchema);
-//        return wsdl11Definition;
-//    }
-//
-//    @Bean
-//    public XsdSchema countriesSchema() {
-//        return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
-//    }
+    @Bean(name = "users")
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema usersSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("UsersPort");
+        wsdl11Definition.setLocationUri("/soapws");
+        wsdl11Definition.setTargetNamespace("");
+        wsdl11Definition.setSchema(usersSchema);
+        return wsdl11Definition;
+    }
 
     @Bean
-    public MessageDispatcherServlet wsDispatcher(){
-        MessageDispatcherServlet dispatcherServlet = new MessageDispatcherServlet();
-        return dispatcherServlet;
+    public XsdSchema usersSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("./schema/user.xsd"));
     }
 }
