@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="role">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="userName" type="xs:string" minOccurs="0"/>
+      <xs:element name="userRole" type="userRoles" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="userRoles">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RESGISTERED_USER"/>
+      <xs:enumeration value="BOOKING_MANAGER"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
