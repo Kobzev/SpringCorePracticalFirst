@@ -40,7 +40,7 @@ public class EventRepositoryImpl implements EventRepository {
     @Override
     public boolean updateEvent(Event event) {
         int result = jdbcOperations.update("UPDATE events SET basePrice=?, rate=? WHERE name =?",
-                event.getBasePrice(), event.getRate(), event.getName());
+                event.getBasePrice(), event.getRate().name(), event.getName());
         return result!=0;
     }
 

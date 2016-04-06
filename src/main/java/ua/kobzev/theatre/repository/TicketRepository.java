@@ -1,12 +1,12 @@
 package ua.kobzev.theatre.repository;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public interface TicketRepository {
 
@@ -17,5 +17,11 @@ public interface TicketRepository {
 	boolean isPurchased(AssignedEvent assignedEvent, Integer seat);
 
 	List<Ticket> findAllByUser(User user);
+
+	Ticket findTicketByUserIdAssignedEventIdSeat(Ticket ticket);
+
+	List<Ticket> findAll();
+
+	Ticket findTicketById(Integer id);
 
 }

@@ -39,4 +39,19 @@ public class TicketRepositoryImpl implements TicketRepository {
 		return tickets.stream().filter(p -> user.equals(p.getUser())).collect(Collectors.toList());
 	}
 
+	@Override
+	public Ticket findTicketByUserIdAssignedEventIdSeat(Ticket ticket) {
+		return null;
+	}
+
+	@Override
+	public List<Ticket> findAll() {
+		return null;
+	}
+
+	@Override
+	public Ticket findTicketById(Integer id) {
+		return null;
+	}
+
 }

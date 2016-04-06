@@ -40,4 +40,19 @@ public class TicketRepositoryImpl implements TicketRepository {
     public List<Ticket> findAllByUser(User user) {
         return mapper.getAllTicketsForUser(user.getId());
     }
+
+    @Override
+    public Ticket findTicketByUserIdAssignedEventIdSeat(Ticket ticket) {
+        return null;
+    }
+
+    @Override
+    public List<Ticket> findAll() {
+        return null;
+    }
+
+    @Override
+    public Ticket findTicketById(Integer id) {
+        return null;
+    }
 }

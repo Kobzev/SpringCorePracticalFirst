@@ -25,29 +25,31 @@ public class EventController {
     private EventService eventService;
 
     @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
-    public List<Event> getAllEvents(){
+    public @ResponseBody List<Event> getAllEvents(){
         return eventService.findAllEvents();
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public Event getEventByName(@PathVariable String name){
+    public @ResponseBody Event getEventByName(@PathVariable String name){
         return eventService.getByName(name);
     }
 
     @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
-    public void createNewEvent(@RequestBody Event event){
+    public @ResponseBody Event createNewEvent(@RequestBody Event event){
         eventService.create(event);
+        return eventService.getByName(event.getName());
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.PUT, headers = "Accept=application/json")
-    public void updateEvent(@PathVariable String name, @RequestBody Event event){
+    public @ResponseBody Event updateEvent(@PathVariable String name, @RequestBody Event event){
         Event oldEvent = eventService.getByName(name);
-        oldEvent.setBasePrice(event.getBasePrice());
-        oldEvent.setRate(event.getRate());
+        if (event.getBasePrice() != null) oldEvent.setBasePrice(event.getBasePrice());
+        if (event.getRate() != null) oldEvent.setRate(event.getRate());
         eventService.updateEvent(oldEvent);
+        return eventService.getByName(name);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, headers = "Accept=application/json")
+    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public void deleteEvent(@PathVariable String name){
         Event event = eventService.getByName(name);
         eventService.remove(event);

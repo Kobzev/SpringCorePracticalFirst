@@ -4,6 +4,7 @@ import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.domain.dto.BookedDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,5 +40,11 @@ public interface BookingService {
 	List<Ticket> getTicketsForEvent(Event event, LocalDateTime date);
 
 	Ticket createTicket(AssignedEvent assignedEvent, int seat);
+
+	List<Ticket> findAll();
+
+	Ticket findTicketByDTO(BookedDto dto);
+
+	Ticket findTicketById(Integer id);
 
 }

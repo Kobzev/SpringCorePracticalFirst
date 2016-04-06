@@ -1,7 +1,12 @@
 package ua.kobzev.theatre.controller.rest;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import ua.kobzev.theatre.domain.Ticket;
+import ua.kobzev.theatre.domain.dto.BookedDto;
+import ua.kobzev.theatre.service.BookingService;
+
+import java.util.List;
 
 /**
  * Created by kkobziev on 4/5/16.
@@ -9,4 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController(value = "restBooking")
 @RequestMapping("rest/tickets")
 public class BookingController {
+
+    @Autowired
+    private BookingService bookingService;
+
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody Ticket bookTicket(@RequestBody BookedDto dto){
+        bookingService.bookTicket(dto.getUserEmail(), dto.getAssignedEventId(), dto.getSeat());
+        return bookingService.findTicketByDTO(dto);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public @ResponseBody List<Ticket> findAll(){
+        return bookingService.findAll();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody Ticket findById(@PathVariable Integer id){
+        return bookingService.findTicketById(id);
+    }
 }

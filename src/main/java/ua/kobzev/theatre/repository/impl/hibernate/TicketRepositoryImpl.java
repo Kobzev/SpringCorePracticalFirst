@@ -63,4 +63,19 @@ public class TicketRepositoryImpl implements TicketRepository {
 
         return query.list();
     }
+
+    @Override
+    public Ticket findTicketByUserIdAssignedEventIdSeat(Ticket ticket) {
+        return null;
+    }
+
+    @Override
+    public List<Ticket> findAll() {
+        return null;
+    }
+
+    @Override
+    public Ticket findTicketById(Integer id) {
+        return null;
+    }
 }

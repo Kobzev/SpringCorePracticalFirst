@@ -9,6 +9,7 @@ import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.TicketRepository;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -154,5 +155,96 @@ public class TicketRepositoryImpl implements TicketRepository{
 
                     return ticket;
                 });
+    }
+
+
+    private static final String SQLFINDALL =
+            "SELECT users.id uid, " +
+                    "users.name uname, " +
+                    "users.email email, " +
+                    "users.birthDay birthDay, " +
+                    "auditoriums.name aname, " +
+                    "auditoriums.numberOfSeats seats, " +
+                    "auditoriums.vipSeats vipseat, " +
+                    "assignedevent.date adate, " +
+                    "events.name ename, " +
+                    "events.basePrice basePrice, " +
+                    "events.rate rate, " +
+                    "tickets.assignedeventid aid, " +
+                    "tickets.price price, " +
+                    "tickets.seat seat, " +
+                    "tickets.id tid " +
+                    "FROM tickets,users,assignedevent,auditoriums,events " +
+                    "WHERE tickets.userid = users.id " +
+                    "AND tickets.assignedeventid = assignedevent.id " +
+                    "AND assignedevent.eventname = events.name " +
+                    "AND assignedevent.auditoriumname = auditoriums.name ";
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> findAll() {
+        return jdbcOperations.query(SQLFINDALL,
+                (ResultSet resultSet, int rowNum) -> {return mapTicketFromResultSet(resultSet);});
+    }
+
+    private static final String SQLFINDTICKETBYID = SQLFINDALL +
+                    "AND tickets.id = ?";
+
+    @Override
+    @Transactional(readOnly = true)
+    public Ticket findTicketById(Integer id) {
+        List<Ticket> tickets = jdbcOperations.query(SQLFINDTICKETBYID,
+                new Object[]{id},
+                (ResultSet resultSet, int rowNum) -> {return mapTicketFromResultSet(resultSet);});
+        if (tickets.size()>0) return tickets.get(0);
+        return null;
+    }
+
+    private static final String SQLFINDTICKET = SQLFINDALL +
+            "AND user.id =?" +
+            "AND assignedevent.id = ? " +
+            "AND tickets.seat = ?";
+
+    @Override
+    @Transactional(readOnly = true)
+    public Ticket findTicketByUserIdAssignedEventIdSeat(Ticket ticket) {
+        List<Ticket> tickets = jdbcOperations.query(SQLFINDTICKET,
+                new Object[]{ticket.getUser().getId(), ticket.getAssignedEvent().getId(), ticket.getSeat()},
+                (ResultSet resultSet, int rowNum) -> {return mapTicketFromResultSet(resultSet);});
+        if (tickets.size()>0) return tickets.get(0);
+        return null;
+    }
+
+    private Ticket mapTicketFromResultSet(ResultSet resultSet) throws SQLException {
+        Auditorium auditorium = new Auditorium();
+        auditorium.setName(resultSet.getString("aname"));
+        auditorium.setNumberOfSeats(resultSet.getInt("seats"));
+        auditorium.setVipSeats(resultSet.getString("vipseat"));
+
+        Event event = new Event();
+        event.setBasePrice(resultSet.getDouble("basePrice"));
+        event.setName(resultSet.getString("ename"));
+        event.setRate(EventRate.valueOf(resultSet.getString("rate")));
+
+        AssignedEvent assignedEvent = new AssignedEvent();
+        assignedEvent.setAuditorium(auditorium);
+        assignedEvent.setDate(resultSet.getTimestamp("adate").toLocalDateTime());
+        assignedEvent.setEvent(event);
+        assignedEvent.setId(resultSet.getInt("aid"));
+
+        User user = new User();
+        user.setId(resultSet.getInt("uid"));
+        user.setName(resultSet.getString("uname"));
+        user.setEmail(resultSet.getString("email"));
+        user.setBirthDay(LocalDateTime.of(resultSet.getDate("birthDay").toLocalDate(), LocalTime.NOON));
+
+        Ticket ticket = new Ticket();
+        ticket.setAssignedEvent(assignedEvent);
+        ticket.setId(resultSet.getInt("tid"));
+        ticket.setPrice(resultSet.getDouble("price"));
+        ticket.setSeat(resultSet.getInt("seat"));
+        ticket.setUser(user);
+
+        return ticket;
     }
 }

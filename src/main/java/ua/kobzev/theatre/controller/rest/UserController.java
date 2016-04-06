@@ -24,31 +24,33 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
-    public List<User> getAllUsers(){
+    @RequestMapping(method = RequestMethod.GET)
+    public @ResponseBody List<User> getAllUsers(){
         return userService.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public User getUserById(@PathVariable Integer id){
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody User getUserById(@PathVariable Integer id){
         return userService.getById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
-    public void createNewUser(@RequestBody User user){
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody User createNewUser(@RequestBody User user){
         userService.register(user);
+        return userService.getUserByEmail(user.getEmail());
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
-    public void updateUser(@PathVariable Integer id, @RequestBody User user){
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public @ResponseBody User updateUser(@PathVariable Integer id, @RequestBody User user){
         User oldUser = userService.getById(id);
-        oldUser.setEmail(user.getEmail());
-        oldUser.setBirthDay(user.getBirthDay());
-        oldUser.setName(user.getName());
+        if (user.getEmail() != null) oldUser.setEmail(user.getEmail());
+        if (user.getBirthDay() != null) oldUser.setBirthDay(user.getBirthDay());
+        if (user.getName() != null) oldUser.setName(user.getName());
         userService.updateUser(oldUser);
+        return userService.getById(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable Integer id){
         User user = userService.getById(id);
         userService.remove(user);

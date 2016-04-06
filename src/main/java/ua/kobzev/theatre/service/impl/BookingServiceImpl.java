@@ -7,6 +7,7 @@ import ua.kobzev.theatre.domain.AssignedEvent;
 import ua.kobzev.theatre.domain.Event;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
+import ua.kobzev.theatre.domain.dto.BookedDto;
 import ua.kobzev.theatre.enums.EventRate;
 import ua.kobzev.theatre.repository.TicketRepository;
 import ua.kobzev.theatre.service.*;
@@ -100,6 +101,25 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public Ticket createTicket(AssignedEvent assignedEvent, int seat) {
 		return createTicket(null, assignedEvent, seat);
+	}
+
+	@Override
+	public List<Ticket> findAll() {
+		return ticketRepository.findAll();
+	}
+
+	@Override
+	public Ticket findTicketByDTO(BookedDto dto) {
+		Ticket ticket = new Ticket();
+		ticket.setUser(userService.getUserByEmail(dto.getUserEmail()));
+		ticket.setAssignedEvent(eventService.getAssignedEventById(dto.getAssignedEventId()));
+		ticket.setSeat(dto.getSeat());
+		return ticketRepository.findTicketByUserIdAssignedEventIdSeat(ticket);
+	}
+
+	@Override
+	public Ticket findTicketById(Integer id) {
+		return ticketRepository.findTicketById(id);
 	}
 
 	@Override
