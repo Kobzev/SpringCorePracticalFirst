@@ -10,7 +10,9 @@
 				<ref bean="purchasedStrategy"/>
 			</list>
 		</property>
-	</bean>		
+	</bean>
+
+	<bean id="userService" class="ua.kobzev.theatre.service.impl.UserServiceImpl"></bean>
 	
 	<bean id="birthdayStrategy" class="ua.kobzev.theatre.strategy.impl.BirthdayStrategy" p:percent="10.0"/>
 	<bean id="purchasedStrategy" class="ua.kobzev.theatre.strategy.impl.PurchasedStrategy" p:percent="70.0" p:discountForEveryTicket="7"/>	

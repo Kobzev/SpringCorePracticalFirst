@@ -46,6 +46,11 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public boolean updateEvent(Event event) {
+		return eventRepository.updateEvent(event);
+	}
+
+	@Override
 	@Transactional(readOnly = true)
 	public Event getByName(String name) {
 		return eventRepository.getByName(name);

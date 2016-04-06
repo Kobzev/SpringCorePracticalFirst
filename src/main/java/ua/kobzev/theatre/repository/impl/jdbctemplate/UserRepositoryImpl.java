@@ -39,6 +39,13 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
+    public boolean updateUser(User user) {
+        int result = jdbcOperations.update("UPDATE users SET name=?, email=?, birthDay=?, password=? WHERE id=?",
+                user.getName(), user.getEmail(), user.getBirthDay(), user.getPassword(), user.getId());
+        return result!=0;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public User getById(Integer id) {
         List<User> userList = getUsersByParameter("id", id);

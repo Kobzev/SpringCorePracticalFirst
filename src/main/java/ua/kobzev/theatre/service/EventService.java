@@ -32,6 +32,8 @@ public interface EventService {
 
 	boolean remove(Event event);
 
+	boolean updateEvent(Event event);
+
 	Event getByName(String name);
 
 	List<Event> findAllEvents();

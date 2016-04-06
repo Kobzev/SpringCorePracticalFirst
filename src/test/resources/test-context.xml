@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 		
-	
-	<context:annotation-config/>
-	<context:component-scan base-package="ua.kobzev.theatre"/>
 	
 	<bean id="userRepository" name = "userRepository" class="ua.kobzev.theatre.repository.impl.inmemory.UserRepositoryImpl"/>
 	<bean id="eventRepository" class="ua.kobzev.theatre.repository.impl.inmemory.EventRepositoryImpl"/>
 	<bean id="assignedEventRepository" class="ua.kobzev.theatre.repository.impl.inmemory.AssignedEventRepositoryImpl"/>
 	<bean id="ticketRepository" class="ua.kobzev.theatre.repository.impl.inmemory.TicketRepositoryImpl"/>
+	<bean id="userAccountRepository" class="ua.kobzev.theatre.repository.impl.inmemory.UserAccountRepositoryImpl"/>
 
 	<import resource="discountsTest.xml"/>
 	<import resource="auditoriumTest.xml"/>	

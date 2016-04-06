@@ -14,6 +14,8 @@
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="systemPropertiesMode" value="2"/>
 	</bean>
+
+	<bean id="auditoriumService" class="ua.kobzev.theatre.service.impl.AuditoriumServiceImpl"/>
 	
 	<bean name="london" class="ua.kobzev.theatre.domain.Auditorium" 
 			p:name="${london.name}" p:numberOfSeats="${london.numberofseats}" p:strVipSeats="${london.vipseats}">

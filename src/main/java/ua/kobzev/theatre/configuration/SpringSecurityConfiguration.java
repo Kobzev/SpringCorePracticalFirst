@@ -57,11 +57,13 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                .antMatchers("/rest/**").permitAll()
                 .antMatchers("/", "/login", "/logout").permitAll()
                 .antMatchers("/users/**","/upload", "/uploadfile", "/reports/**").hasRole(UserRoles.BOOKING_MANAGER.name())
                 .antMatchers("/events/**", "/assignedevents/**", "/auditoriums/**").hasRole(UserRoles.RESGISTERED_USER.name())
                 .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
+                .ignoringAntMatchers("/rest/**")
                 .and().formLogin().loginPage("/login")
                                     .usernameParameter("username")
                                     .passwordParameter("password")

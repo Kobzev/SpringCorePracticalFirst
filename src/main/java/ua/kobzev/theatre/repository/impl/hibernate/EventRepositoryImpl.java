@@ -46,6 +46,11 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
+    public boolean updateEvent(Event event) {
+        return false;
+    }
+
+    @Override
     public Event getByName(String name) {
         Session session = sessionFactory.openSession();
         Event event = session.get(Event.class, name);

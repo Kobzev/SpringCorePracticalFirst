@@ -16,7 +16,6 @@ import java.util.List;
  * Created by kkobziev on 2/16/16.
  */
 
-@Repository
 public class UserRepositoryImpl implements UserRepository{
 
     @Autowired
@@ -41,6 +40,11 @@ public class UserRepositoryImpl implements UserRepository{
         Serializable ids = session.getIdentifier(userLoad);
         session.close();
         return ((Integer) ids)>0;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        return false;
     }
 
     public User getById(Integer id) {

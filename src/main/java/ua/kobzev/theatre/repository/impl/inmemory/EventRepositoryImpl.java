@@ -26,6 +26,11 @@ public class EventRepositoryImpl implements EventRepository {
 	}
 
 	@Override
+	public boolean updateEvent(Event event) {
+		return false;
+	}
+
+	@Override
 	public Event getByName(String name) {
 		return eventsList.stream().filter(event -> event.getName().equals(name)).findFirst().orElse(null);
 	}

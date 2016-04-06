@@ -38,6 +38,13 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
+    public boolean updateEvent(Event event) {
+        int result = jdbcOperations.update("UPDATE events SET basePrice=?, rate=? WHERE name =?",
+                event.getBasePrice(), event.getRate(), event.getName());
+        return result!=0;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Event getByName(String name) {
         List<Event> eventList = jdbcOperations.query("select * from events WHERE name =?",

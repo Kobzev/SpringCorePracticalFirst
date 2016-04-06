@@ -26,6 +26,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public boolean updateUser(User user) {
+        return false;
+    }
+
+    @Override
     public User getById(Integer id) {
         return mapper.getUserById(id);
     }

@@ -10,6 +10,8 @@ public interface EventRepository {
 
 	boolean remove(Event event);
 
+	boolean updateEvent(Event event);
+
 	Event getByName(String name);
 
 	List<Event> findAll();

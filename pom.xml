@@ -33,7 +33,7 @@
 				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 				<maven.profile.name>default</maven.profile.name>
 				<buildNumber>${maven.build.timestamp}</buildNumber>
-				<skiptests>true</skiptests>
+				<skiptests>false</skiptests>
 			</properties>
 		</profile>
 	</profiles>
@@ -146,6 +146,12 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>2.7.3</version>
 		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>com.fasterxml.jackson.core</groupId>-->
+			<!--<artifactId>jackson-databind</artifactId>-->
+			<!--<version>2.7.2</version>-->
+		<!--</dependency>-->
 
 
 

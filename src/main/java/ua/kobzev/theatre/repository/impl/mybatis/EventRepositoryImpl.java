@@ -26,6 +26,11 @@ public class EventRepositoryImpl implements EventRepository{
     }
 
     @Override
+    public boolean updateEvent(Event event) {
+        return false;
+    }
+
+    @Override
     public Event getByName(String name) {
         return mapper.getEventByName(name);
     }

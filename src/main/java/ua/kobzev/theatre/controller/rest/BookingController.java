@@ -1,4 +1,4 @@
-package ua.kobzev.theatre.controller;
+package ua.kobzev.theatre.controller.rest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by kkobziev on 4/5/16.
  */
-@RestController
+@RestController(value = "restBooking")
 @RequestMapping("rest/tickets")
-public class RestBookingController {
+public class BookingController {
 }

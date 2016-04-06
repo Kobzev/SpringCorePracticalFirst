@@ -39,6 +39,11 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
+	public boolean updateUser(User user) {
+		return false;
+	}
+
+	@Override
 	public User getById(Integer id) {
 		return usersList.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
 	}

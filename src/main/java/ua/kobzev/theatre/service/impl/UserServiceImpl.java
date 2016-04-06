@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.remove(user);
 	}
 
+	@Override
+	public boolean updateUser(User user) {
+		return userRepository.updateUser(user);
+	}
+
 	@Transactional(readOnly = true)
 	public User getById(Integer id) {
 		return userRepository.getById(id);

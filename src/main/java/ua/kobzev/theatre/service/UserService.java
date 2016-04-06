@@ -20,6 +20,8 @@ public interface UserService {
 
 	boolean remove(User user);
 
+	boolean updateUser(User user);
+
 	User getById(Integer id);
 
 	User getUserByEmail(String email);

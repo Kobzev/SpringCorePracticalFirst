@@ -3,7 +3,6 @@ package ua.kobzev.theatre.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import lombok.*;
 import ua.kobzev.theatre.enums.UserRoles;
 
 import javax.persistence.*;
