@@ -3,10 +3,7 @@ package ua.kobzev.theatre.domain;
 import ua.kobzev.theatre.enums.EventRate;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 /**
  * 
@@ -18,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "events")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(namespace = "http://ua.kobzev.theatre/soap")
 public class Event {
 
 	@Id

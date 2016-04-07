@@ -23,6 +23,7 @@ import java.util.List;
 @Table(name = "users")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(namespace = "http://ua.kobzev.theatre/soap")
 public class User {
 	@Id
 	@GeneratedValue
@@ -45,8 +46,7 @@ public class User {
 	private String password;
 	@Transient
 	@JsonIgnore
-    @XmlElementWrapper(name="roles")
-    @XmlElement(required = false, name="role")
+    @XmlTransient
 	private List<Role> roles;
 
 	public User(String email, String name, LocalDateTime birthDay) {
