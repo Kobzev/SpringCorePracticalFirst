@@ -25,23 +25,23 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<User> getAllUsers(){
+    public List<User> getAllUsers(){
         return userService.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public @ResponseBody User getUserById(@PathVariable Integer id){
+    public User getUserById(@PathVariable Integer id){
         return userService.getById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody User createNewUser(@RequestBody User user){
+    public User createNewUser(@RequestBody User user){
         userService.register(user);
         return userService.getUserByEmail(user.getEmail());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public @ResponseBody User updateUser(@PathVariable Integer id, @RequestBody User user){
+    public User updateUser(@PathVariable Integer id, @RequestBody User user){
         User oldUser = userService.getById(id);
         if (user.getEmail() != null) oldUser.setEmail(user.getEmail());
         if (user.getBirthDay() != null) oldUser.setBirthDay(user.getBirthDay());

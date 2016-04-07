@@ -25,23 +25,23 @@ public class EventController {
     private EventService eventService;
 
     @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
-    public @ResponseBody List<Event> getAllEvents(){
+    public List<Event> getAllEvents(){
         return eventService.findAllEvents();
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public @ResponseBody Event getEventByName(@PathVariable String name){
+    public Event getEventByName(@PathVariable String name){
         return eventService.getByName(name);
     }
 
     @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
-    public @ResponseBody Event createNewEvent(@RequestBody Event event){
+    public Event createNewEvent(@RequestBody Event event){
         eventService.create(event);
         return eventService.getByName(event.getName());
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.PUT, headers = "Accept=application/json")
-    public @ResponseBody Event updateEvent(@PathVariable String name, @RequestBody Event event){
+    public Event updateEvent(@PathVariable String name, @RequestBody Event event){
         Event oldEvent = eventService.getByName(name);
         if (event.getBasePrice() != null) oldEvent.setBasePrice(event.getBasePrice());
         if (event.getRate() != null) oldEvent.setRate(event.getRate());

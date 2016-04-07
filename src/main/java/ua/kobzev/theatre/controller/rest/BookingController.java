@@ -19,18 +19,18 @@ public class BookingController {
     private BookingService bookingService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Ticket bookTicket(@RequestBody BookedDto dto){
+    public Ticket bookTicket(@RequestBody BookedDto dto){
         bookingService.bookTicket(dto.getUserEmail(), dto.getAssignedEventId(), dto.getSeat());
         return bookingService.findTicketByDTO(dto);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Ticket> findAll(){
+    public List<Ticket> findAll(){
         return bookingService.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public @ResponseBody Ticket findById(@PathVariable Integer id){
+    public Ticket findById(@PathVariable Integer id){
         return bookingService.findTicketById(id);
     }
 }
