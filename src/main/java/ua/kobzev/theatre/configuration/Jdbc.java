@@ -42,7 +42,7 @@ public class Jdbc {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DriverManagerDataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);
