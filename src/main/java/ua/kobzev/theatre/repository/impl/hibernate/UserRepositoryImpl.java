@@ -16,7 +16,6 @@ import java.util.List;
  * Created by kkobziev on 2/16/16.
  */
 
-@Repository
 public class UserRepositoryImpl implements UserRepository{
 
     @Autowired
