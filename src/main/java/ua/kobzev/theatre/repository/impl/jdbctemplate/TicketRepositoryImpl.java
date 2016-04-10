@@ -201,8 +201,8 @@ public class TicketRepositoryImpl implements TicketRepository{
     }
 
     private static final String SQLFINDTICKET = SQLFINDALL +
-            "AND user.id =?" +
-            "AND assignedevent.id = ? " +
+            "AND tickets.userid =? " +
+            "AND tickets.assignedeventid = ? " +
             "AND tickets.seat = ?";
 
     @Override
