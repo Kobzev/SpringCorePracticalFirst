@@ -1,7 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ua.kobzev.theatre/soap" targetNamespace="http://ua.kobzev.theatre/soap" version="1.0">
 
-  <xs:import schemaLocation="schema2.xsd"/>
+  <xs:element name="createEventRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="event" type="tns:event"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createEventResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="event" type="tns:event"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createUserRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="user" type="tns:user"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="user" type="tns:user"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteEventByNameRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="eventName" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteEventByNameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="answer" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteUserByIDRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="userID" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteUserByIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="answer" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 
   <xs:element name="getEventByNameRequest">
     <xs:complexType>
@@ -14,7 +76,7 @@
   <xs:element name="getEventByNameResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="event"/>
+        <xs:element name="event" type="tns:event"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -30,7 +92,39 @@
   <xs:element name="getUserByIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="user"/>
+        <xs:element name="user" type="tns:user"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateEventRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="event" type="tns:event"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateEventResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="event" type="tns:event"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateUserRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="user" type="tns:user"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="user" type="tns:user"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -60,9 +154,9 @@
 
   <xs:simpleType name="eventRate">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="HIGH"/>
       <xs:enumeration value="MID"/>
       <xs:enumeration value="LOW"/>
+      <xs:enumeration value="HIGH"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

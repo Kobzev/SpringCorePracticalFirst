@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
         "userID"
 })
-@XmlRootElement(name = "getUserByIDRequest")
-public class GetUserByIDRequest {
+@XmlRootElement(name = "deleteUserByIDRequest")
+public class DeleteUserByIdRequest {
     private int userID;
 
     public int getUserID() {

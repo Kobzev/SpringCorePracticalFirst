@@ -1,5 +1,7 @@
 package ua.kobzev.theatre.soap.request;
 
+import ua.kobzev.theatre.domain.User;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,17 +12,17 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "userID"
+        "user"
 })
-@XmlRootElement(name = "getUserByIDRequest")
-public class GetUserByIDRequest {
-    private int userID;
+@XmlRootElement(name = "updateUserRequest")
+public class UpdateUserRequest {
+    private User user;
 
-    public int getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(int value) {
-        this.userID = value;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

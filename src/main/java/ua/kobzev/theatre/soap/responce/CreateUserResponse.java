@@ -11,9 +11,8 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "", propOrder = {
         "user"
 })
-@XmlRootElement(name = "getUserByIDResponse")
-public class GetUserByIDResponse {
-
+@XmlRootElement(name = "createUserResponse")
+public class CreateUserResponse {
     @XmlElement(required = true)
     private User user;
 

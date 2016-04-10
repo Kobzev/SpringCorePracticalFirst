@@ -1,4 +1,4 @@
-package ua.kobzev.theatre.soap.request;
+package ua.kobzev.theatre.soap.responce;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,17 +10,17 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "userID"
+        "answer"
 })
-@XmlRootElement(name = "getUserByIDRequest")
-public class GetUserByIDRequest {
-    private int userID;
+@XmlRootElement(name = "deleteEventByNameResponse")
+public class DeleteEventByNameResponse {
+    private String answer;
 
-    public int getUserID() {
-        return userID;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setUserID(int value) {
-        this.userID = value;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

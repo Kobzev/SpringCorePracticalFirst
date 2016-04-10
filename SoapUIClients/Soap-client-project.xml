@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="64fe3c21-eabe-4927-9b54-03ad0b1ed03e" activeEnvironment="Default" name="Soap client" resourceRoot="" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="7b1b9478-d932-48b7-a627-8ee4c3359c3f" wsaVersion="NONE" name="soapPortSoap11" type="wsdl" bindingName="{http://ua.kobzev.theatre/soap}soapPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/soapws/soap.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/soapws/soap.wsdl"><con:part><con:url>http://localhost:8080/soapws/soap.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://ua.kobzev.theatre/soap" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://ua.kobzev.theatre/soap" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ua.kobzev.theatre/soap">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://ua.kobzev.theatre/soap" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="createEventRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="event" type="tns:event"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createEventResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="event" type="tns:event"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createUserRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="user" type="tns:user"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createUserResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="user" type="tns:user"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteEventByNameRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="eventName" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteEventByNameResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="answer" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteUserByIDRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="userID" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteUserByIDResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="answer" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getEventByNameRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="eventName" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getEventByNameResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="event" type="tns:event"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getUserByIDRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="userID" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getUserByIDResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="user" type="tns:user"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateEventRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="event" type="tns:event"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateEventResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="event" type="tns:event"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateUserRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="user" type="tns:user"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateUserResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="user" type="tns:user"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="event">
+        <xs:annotation>
+          <xs:documentation>(author): kkobziev</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="basePrice" type="xs:double"/>
+          <xs:element name="rate" type="tns:eventRate"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="user">
+        <xs:annotation>
+          <xs:documentation>(author): kkobziev</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element name="id" type="xs:int"/>
+          <xs:element name="email" type="xs:string"/>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element minOccurs="0" name="birthDay" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="eventRate">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="MID"/>
+          <xs:enumeration value="LOW"/>
+          <xs:enumeration value="HIGH"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getUserByIDRequest">
+    <wsdl:part element="tns:getUserByIDRequest" name="getUserByIDRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUserRequest">
+    <wsdl:part element="tns:createUserRequest" name="createUserRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUserResponse">
+    <wsdl:part element="tns:createUserResponse" name="createUserResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteEventByNameResponse">
+    <wsdl:part element="tns:deleteEventByNameResponse" name="deleteEventByNameResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventByNameRequest">
+    <wsdl:part element="tns:getEventByNameRequest" name="getEventByNameRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteUserByIDResponse">
+    <wsdl:part element="tns:deleteUserByIDResponse" name="deleteUserByIDResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteEventByNameRequest">
+    <wsdl:part element="tns:deleteEventByNameRequest" name="deleteEventByNameRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateEventRequest">
+    <wsdl:part element="tns:updateEventRequest" name="updateEventRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUserByIDResponse">
+    <wsdl:part element="tns:getUserByIDResponse" name="getUserByIDResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteUserByIDRequest">
+    <wsdl:part element="tns:deleteUserByIDRequest" name="deleteUserByIDRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUserRequest">
+    <wsdl:part element="tns:updateUserRequest" name="updateUserRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventByNameResponse">
+    <wsdl:part element="tns:getEventByNameResponse" name="getEventByNameResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createEventResponse">
+    <wsdl:part element="tns:createEventResponse" name="createEventResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateEventResponse">
+    <wsdl:part element="tns:updateEventResponse" name="updateEventResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createEventRequest">
+    <wsdl:part element="tns:createEventRequest" name="createEventRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUserResponse">
+    <wsdl:part element="tns:updateUserResponse" name="updateUserResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="soapPort">
+    <wsdl:operation name="getUserByID">
+      <wsdl:input message="tns:getUserByIDRequest" name="getUserByIDRequest"></wsdl:input>
+      <wsdl:output message="tns:getUserByIDResponse" name="getUserByIDResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <wsdl:input message="tns:createUserRequest" name="createUserRequest"></wsdl:input>
+      <wsdl:output message="tns:createUserResponse" name="createUserResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteEventByName">
+      <wsdl:input message="tns:deleteEventByNameRequest" name="deleteEventByNameRequest"></wsdl:input>
+      <wsdl:output message="tns:deleteEventByNameResponse" name="deleteEventByNameResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEventByName">
+      <wsdl:input message="tns:getEventByNameRequest" name="getEventByNameRequest"></wsdl:input>
+      <wsdl:output message="tns:getEventByNameResponse" name="getEventByNameResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUserByID">
+      <wsdl:input message="tns:deleteUserByIDRequest" name="deleteUserByIDRequest"></wsdl:input>
+      <wsdl:output message="tns:deleteUserByIDResponse" name="deleteUserByIDResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateEvent">
+      <wsdl:input message="tns:updateEventRequest" name="updateEventRequest"></wsdl:input>
+      <wsdl:output message="tns:updateEventResponse" name="updateEventResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <wsdl:input message="tns:updateUserRequest" name="updateUserRequest"></wsdl:input>
+      <wsdl:output message="tns:updateUserResponse" name="updateUserResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createEvent">
+      <wsdl:input message="tns:createEventRequest" name="createEventRequest"></wsdl:input>
+      <wsdl:output message="tns:createEventResponse" name="createEventResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="soapPortSoap11" type="tns:soapPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getUserByID">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getUserByIDRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getUserByIDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createUserRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteEventByName">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteEventByNameRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteEventByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEventByName">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getEventByNameRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEventByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUserByID">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteUserByIDRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteUserByIDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateEvent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateEventRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateUserRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createEvent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createEventRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="soapPortService">
+    <wsdl:port binding="tns:soapPortSoap11" name="soapPortSoap11">
+      <soap:address location="http://localhost:8080/soapws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/soapws</con:endpoint></con:endpoints><con:operation id="188bb75d-400e-425e-bea8-1ca7207e6c71" isOneWay="false" action="" name="getEventByName" bindingOperationName="getEventByName" type="Request-Response" outputName="getEventByNameResponse" inputName="getEventByNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0d20df1a-3658-4822-aba0-2f837a8ecb6c" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://ua.kobzev.theatre/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:getEventByNameRequest>
+         <!--Optional:-->
+         <eventName>DeadPool</eventName>
+      </soap:getEventByNameRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ua.kobzev.theatre/soap/soapPort/getEventByNameRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="fe592af3-5ddd-42f2-a988-d0655e3ca773" isOneWay="false" action="" name="getUserByID" bindingOperationName="getUserByID" type="Request-Response" outputName="getUserByIDResponse" inputName="getUserByIDRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8045ec85-2b5c-4a52-a6df-5f47ba36d7f1" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://ua.kobzev.theatre/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:getUserByIDRequest>
+         <userID>2</userID>
+      </soap:getUserByIDRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ua.kobzev.theatre/soap/soapPort/getUserByIDRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="756cacd9-9fe2-49cd-95e8-6b59d4008418" isOneWay="false" action="" name="createUser" bindingOperationName="createUser" type="Request-Response" outputName="createUserResponse" inputName="createUserRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f1699958-39d9-4067-8b12-1f223790e818" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://ua.kobzev.theatre/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:createUserRequest>
+         <!--Optional:-->
+         <user>
+            <id>444</id>
+            <email>test@test.com</email>
+            <name>test</name>
+            <!--Optional:-->
+            <birthDay>?</birthDay>
+         </user>
+      </soap:createUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ua.kobzev.theatre/soap/soapPort/createUserRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="dc2093a5-99b4-4f66-a187-1a9d39fd6e0c" isOneWay="false" action="" name="deleteUserByID" bindingOperationName="deleteUserByID" type="Request-Response" outputName="deleteUserByIDResponse" inputName="deleteUserByIDRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="58ec76fa-c0c9-453b-ad08-d65fe10ab6e6" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://ua.kobzev.theatre/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:deleteUserByIDRequest>
+         <userID>8</userID>
+      </soap:deleteUserByIDRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ua.kobzev.theatre/soap/soapPort/deleteUserByIDRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="395d8c6e-abba-4f8a-a2df-489a46fe6631" isOneWay="false" action="" name="updateUser" bindingOperationName="updateUser" type="Request-Response" outputName="updateUserResponse" inputName="updateUserRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bf08ce73-bae1-4cc4-b236-47bb2c20a9b8" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://ua.kobzev.theatre/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:updateUserRequest>
+         <!--Optional:-->
+         <user>
+            <id>8</id>
+            <email>test@test.com</email>
+            <name>test11</name>
+            <!--Optional:-->
+            <birthDay>2016-04-10T12:00:00+03:00</birthDay>
+         </user>
+      </soap:updateUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ua.kobzev.theatre/soap/soapPort/updateUserRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="971591db-71bb-416a-9295-87fd47e81808" isOneWay="false" action="" name="deleteEventByName" bindingOperationName="deleteEventByName" type="Request-Response" outputName="deleteEventByNameResponse" inputName="deleteEventByNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8e800979-ffb4-4b59-b4c7-71d387170c69" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://ua.kobzev.theatre/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:deleteEventByNameRequest>
+         <!--Optional:-->
+         <eventName>Test</eventName>
+      </soap:deleteEventByNameRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ua.kobzev.theatre/soap/soapPort/deleteEventByNameRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="13c9113d-a0cc-49ad-889f-ff02c5a0319c" isOneWay="false" action="" name="updateEvent" bindingOperationName="updateEvent" type="Request-Response" inputName="updateEventRequest" sendsAttachments="false" anonymous="optional" outputName="updateEventResponse" receivesAttachments="false"><con:settings/><con:call id="442087da-919a-4cd7-bc26-08c1de89e0e7" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://ua.kobzev.theatre/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:updateEventRequest>
+         <!--Optional:-->
+         <event>
+            <name>Test</name>
+            <basePrice>30.0</basePrice>
+            <rate>LOW</rate>
+         </event>
+      </soap:updateEventRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ua.kobzev.theatre/soap/soapPort/updateEventRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="1a26cd50-c56b-4c36-a8ee-6636b3b37b53" isOneWay="false" action="" name="createEvent" bindingOperationName="createEvent" type="Request-Response" outputName="createEventResponse" inputName="createEventRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1211bb28-a4d4-4a07-abbc-d6b8f2ee0778" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://ua.kobzev.theatre/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:createEventRequest>
+         <!--Optional:-->
+         <event>
+            <name>Test</name>
+            <basePrice>22.5</basePrice>
+            <rate>LOW</rate>
+         </event>
+      </soap:createEventRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ua.kobzev.theatre/soap/soapPort/createEventRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

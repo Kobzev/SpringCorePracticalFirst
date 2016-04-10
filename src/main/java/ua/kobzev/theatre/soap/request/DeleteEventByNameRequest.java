@@ -10,17 +10,17 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "userID"
+        "eventName"
 })
-@XmlRootElement(name = "getUserByIDRequest")
-public class GetUserByIDRequest {
-    private int userID;
+@XmlRootElement(name = "deleteEventByNameRequest")
+public class DeleteEventByNameRequest {
+    private String eventName;
 
-    public int getUserID() {
-        return userID;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setUserID(int value) {
-        this.userID = value;
+    public void setEventName(String value) {
+        this.eventName = value;
     }
 }
