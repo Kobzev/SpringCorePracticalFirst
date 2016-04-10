@@ -1,5 +1,6 @@
 package ua.kobzev.theatre.configuration;
 
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +19,11 @@ import org.springframework.xml.xsd.XsdSchema;
 @EnableWs
 public class SOAPWebServicesConfiguration extends WsConfigurerAdapter {
     @Bean
-    public MessageDispatcherServlet messageDispatcherServlet(ApplicationContext applicationContext) {
+    public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
-        return servlet;
+        return new ServletRegistrationBean(servlet, "/soapws/*");
     }
 
     @Bean(name = "soap")

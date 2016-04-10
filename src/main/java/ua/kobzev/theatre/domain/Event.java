@@ -15,7 +15,11 @@ import javax.xml.bind.annotation.*;
 @Table(name = "events")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "http://ua.kobzev.theatre/soap")
+@XmlType(namespace = "http://ua.kobzev.theatre/soap", name = "event", propOrder = {
+		"name",
+		"basePrice",
+		"rate"
+})
 public class Event {
 
 	@Id

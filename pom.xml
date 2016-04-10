@@ -33,7 +33,7 @@
 				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 				<maven.profile.name>default</maven.profile.name>
 				<buildNumber>${maven.build.timestamp}</buildNumber>
-				<skiptests>false</skiptests>
+				<skiptests>true</skiptests>
 			</properties>
 		</profile>
 	</profiles>
@@ -265,16 +265,6 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<!--<plugin>-->
-					<!--<groupId>org.apache.maven.plugins</groupId>-->
-					<!--<artifactId>maven-war-plugin</artifactId>-->
-					<!--<version>2.6</version>-->
-					<!--<configuration>-->
-						<!--<warSourceDirectory>src/main/webapp</warSourceDirectory>-->
-						<!--<warName>MovieTheatre</warName>-->
-						<!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
-					<!--</configuration>-->
-				<!--</plugin>-->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -287,7 +277,34 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<!--<finalName>MovieTheatre</finalName>-->
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<id>schemagen</id>
+						<goals>
+							<goal>schemagen</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<outputDirectory>src/main/resources/schema</outputDirectory>
+					<sources>
+						<source>src/main/java/ua/kobzev/theatre/domain/User.java</source>
+						<source>src/main/java/ua/kobzev/theatre/domain/Event.java</source>
+						<source>src/main/java/ua/kobzev/theatre/enums/EventRate.java</source>
+						<source>src/main/java/ua/kobzev/theatre/soap/</source>
+						<!--<source>src/main/java/ua/kobzev/theatre/soap/request</source>-->
+					</sources>
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 </project>

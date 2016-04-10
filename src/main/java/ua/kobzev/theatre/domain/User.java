@@ -23,7 +23,12 @@ import java.util.List;
 @Table(name = "users")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "http://ua.kobzev.theatre/soap")
+@XmlType(namespace = "http://ua.kobzev.theatre/soap", name = "user", propOrder = {
+		"id",
+		"email",
+		"name",
+		"birthDay"
+})
 public class User {
 	@Id
 	@GeneratedValue

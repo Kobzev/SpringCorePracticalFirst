@@ -64,6 +64,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
                 .ignoringAntMatchers("/rest/**")
+                .ignoringAntMatchers("/soapws/**")
                 .and().formLogin().loginPage("/login")
                                     .usernameParameter("username")
                                     .passwordParameter("password")
