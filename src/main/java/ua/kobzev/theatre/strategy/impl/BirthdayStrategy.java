@@ -1,12 +1,14 @@
 package ua.kobzev.theatre.strategy.impl;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 import ua.kobzev.theatre.domain.Ticket;
 import ua.kobzev.theatre.domain.User;
 import ua.kobzev.theatre.strategy.DiscountStrategy;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class BirthdayStrategy implements DiscountStrategy {
@@ -17,6 +19,16 @@ public class BirthdayStrategy implements DiscountStrategy {
 		LocalDateTime today = LocalDateTime.now();
 
 		if (today.getMonth() == birthDay.getMonth() && today.getDayOfMonth() == birthDay.getDayOfMonth())
+			return true;
+
+		return false;
+	}
+
+	public boolean checkBirthDay(Date birthDay) {
+		LocalDateTime today = LocalDateTime.now();
+		LocalDateTime lBirthDay = LocalDateTime.ofInstant(birthDay.toInstant(), ZoneId.systemDefault());
+
+		if (today.getMonth() == lBirthDay.getMonth() && today.getDayOfMonth() == lBirthDay.getDayOfMonth())
 			return true;
 
 		return false;

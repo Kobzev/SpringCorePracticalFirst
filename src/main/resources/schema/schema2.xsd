@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ua.kobzev.theatre/soap">
+
+  <xs:import namespace="http://ua.kobzev.theatre/soap" schemaLocation="schema1.xsd"/>
+
+  <xs:element name="event" type="ns1:event"/>
+
+  <xs:element name="user" type="ns1:user"/>
+
+  <xs:simpleType name="eventRate">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LOW"/>
+      <xs:enumeration value="MID"/>
+      <xs:enumeration value="HIGH"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

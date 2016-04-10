@@ -3,11 +3,15 @@ package ua.kobzev.theatre.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import ua.kobzev.theatre.adapter.LocalDateTimeAdapter;
 import ua.kobzev.theatre.enums.UserRoles;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,19 +21,32 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(namespace = "http://ua.kobzev.theatre/soap")
 public class User {
 	@Id
 	@GeneratedValue
+    @XmlElement(required = true)
 	private Integer id;
 
+    @XmlElement(required = true)
 	private String email;
+
+    @XmlElement(required = true)
 	private String name;
+
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @XmlElement(required = false, type = Date.class)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime birthDay;
+
 	//Security
+    @XmlTransient
 	private String password;
 	@Transient
 	@JsonIgnore
+    @XmlTransient
 	private List<Role> roles;
 
 	public User(String email, String name, LocalDateTime birthDay) {

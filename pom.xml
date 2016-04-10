@@ -88,6 +88,24 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.ws</groupId>-->
+			<!--<artifactId>spring-ws</artifactId>-->
+			<!--<version>2.1.4.RELEASE</version>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+			<version>2.2.4.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -124,6 +142,11 @@
 			<version>2.1.2.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -237,7 +260,6 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
